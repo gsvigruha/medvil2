@@ -1,0 +1,16 @@
+package com.medville2.view;
+
+public enum ControlPanelState {
+
+	DO_NOTHING,
+	SELECT,
+	BUILD_INFRA,
+	BUILD_ROAD,
+	BUILD_TOWER,
+	BUILD_WALL,
+	BUILD_HOUSE,
+	BUILD_FARM,
+	BUILD_MINE,
+	BUILD_BLACKSMITH,
+	BUILD_TOWNSQUARE,
+}
