@@ -68,12 +68,9 @@ public class Renderer {
 	}
 
 	private boolean outOfBounds(int x, int y) {
-		return (
-				x < projectedViewport.x - Terrain.DX ||
-				x > projectedViewport.x + projectedViewport.width + Terrain.DX ||
-				y < projectedViewport.y - Terrain.DY ||
-				y > projectedViewport.y + projectedViewport.height + Terrain.DY
-		);
+		return (x < projectedViewport.x - Terrain.DX || x > projectedViewport.x + projectedViewport.width + Terrain.DX
+				|| y < projectedViewport.y - Terrain.DY
+				|| y > projectedViewport.y + projectedViewport.height + Terrain.DY);
 	}
 
 	public void render(SpriteBatch batch) {
@@ -102,7 +99,7 @@ public class Renderer {
 					sprite = null;
 				}
 				sprite.setSize(Terrain.DX, Terrain.DY);
-				//sprite.setOrigin(0, Terrain.DX / 20f);
+				// sprite.setOrigin(0, Terrain.DX / 20f);
 				sprite.translate(x, y);
 				sprite.draw(batch);
 
@@ -117,7 +114,7 @@ public class Renderer {
 
 		for (int i = terrain.getSize() - 1; i >= 0; i--) {
 			Field[] fields = terrain.getFields()[i];
-			for (int j = terrain.getSize() - 1; j >=0; j--) {
+			for (int j = terrain.getSize() - 1; j >= 0; j--) {
 				int x = i * Terrain.DX / 2 - j * Terrain.DX / 2;
 				int y = j * Terrain.DY / 2 + i * Terrain.DY / 2;
 				if (outOfBounds(x, y)) {
@@ -138,7 +135,8 @@ public class Renderer {
 					} else {
 						cornerSprite = null;
 					}
-					cornerSprite.translate(x + Terrain.DX / 2 - cornerSprite.getWidth() / 2, y + Terrain.DY - cornerSprite.getHeight() / 2);
+					cornerSprite.translate(x + Terrain.DX / 2 - cornerSprite.getWidth() / 2,
+							y + Terrain.DY - cornerSprite.getHeight() / 2);
 					cornerSprite.draw(batch);
 				}
 
@@ -164,14 +162,14 @@ public class Renderer {
 				oy = y + Terrain.DY * (fo.getSize() - 2);
 			}
 			final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
-			//objectSprite.setSize(objectSprite.getWidth(), objectSprite.getHeight());
-			//objectSprite.setOrigin(0, Terrain.DX / 20f);
+			// objectSprite.setSize(objectSprite.getWidth(), objectSprite.getHeight());
+			// objectSprite.setOrigin(0, Terrain.DX / 20f);
 			objectSprite.translate(ox, oy);
 			objectSprite.draw(batch);
 		}
 
 		if (activeField != null) {
-			FieldCheckStatus fcs = controlPanel.getBuildableObject(activeField, terrain);
+			FieldCheckStatus fcs = controlPanel.getFieldCheckStatus(activeField, terrain);
 			for (FieldWithStatus fws : fcs.getFields()) {
 				int i = fws.getField().getI();
 				int j = fws.getField().getJ();
@@ -184,7 +182,7 @@ public class Renderer {
 					objectSprite = new Sprite(selectionRed);
 				}
 				objectSprite.setSize(Terrain.DX, Terrain.DY);
-				//objectSprite.setOrigin(0, Terrain.DX / 20f);
+				// objectSprite.setOrigin(0, Terrain.DX / 20f);
 				objectSprite.translate(x, y);
 				objectSprite.draw(batch);
 			}

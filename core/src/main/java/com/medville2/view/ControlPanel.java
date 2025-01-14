@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -84,27 +85,53 @@ public class ControlPanel {
 		stage = new Stage(hudViewport);
 		font = new BitmapFont();
 
-			//addBuildingButton(new TextureRegion(new Texture("icons/house.png")), 10,
-			//		(int) hudViewport.getWorldHeight() - 140, ControlPanelState.BUILD_HOUSE, null);
-			for (int i = 0; i < houses.size(); i++) {
-				BuildingObject building = newHouse(houses.get(i), 0, 0);
-				addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
-						(int) hudViewport.getWorldHeight() - i * 140 - 280, ControlPanelState.BUILD_HOUSE,
-						houses.get(i));
-			}
-
-			//addBuildingButton(new TextureRegion(new Texture("icons/infra.png")), 140,
-			//		(int) hudViewport.getWorldHeight() - 140, ControlPanelState.BUILD_INFRA, null);
-			for (int i = 0; i < infra.size(); i++) {
-				InfraObject building = newInfra(infra.get(i), 0, 0);
-				addBuildingButton(textureAtlas.findRegion(building.getName()), 140,
-						(int) hudViewport.getWorldHeight() - i * 140 - 280, ControlPanelState.BUILD_INFRA,
-						infra.get(i));
-			}
+		addMenuButtons();
 
 		label = new Label("Hello, LibGDX!", new LabelStyle(font, Color.WHITE));
 		label.setPosition(10, 30);
 		stage.addActor(label);
+	}
+
+	private void addMenuButtons() {
+		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 90, (int) hudViewport.getWorldHeight() - 80,
+				new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						stage.clear();
+						addMenuButtons();
+						for (int i = 0; i < houses.size(); i++) {
+							BuildingObject building = newHouse(houses.get(i), 0, 0);
+							addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
+									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_HOUSE,
+									houses.get(i));
+						}
+					}
+				});
+
+		addMenuButton(new TextureRegion(new Texture("bridge_icon.png")), 170, (int) hudViewport.getWorldHeight() - 80,
+				new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						stage.clear();
+						addMenuButtons();
+						for (int i = 0; i < infra.size(); i++) {
+							InfraObject building = newInfra(infra.get(i), 0, 0);
+							addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
+									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_INFRA,
+									infra.get(i));
+						}
+					}
+				});
+
+		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 10, (int) hudViewport.getWorldHeight() - 80,
+				new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						stage.clear();
+						addMenuButtons();
+						ControlPanel.this.state = ControlPanelState.SELECT;
+					}
+				});
 	}
 
 	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, Class<?> buildingClass) {
@@ -118,6 +145,14 @@ public class ControlPanel {
 				ControlPanel.this.buildingClass = buildingClass;
 			}
 		});
+		stage.addActor(button);
+	}
+
+	private void addMenuButton(TextureRegion icon, int x, int y, ClickListener listener) {
+		ImageButton button = new ImageButton(new TextureRegionDrawable(icon));
+		button.setSize(64, 64);
+		button.setPosition(x, y);
+		button.addListener(listener);
 		stage.addActor(button);
 	}
 
@@ -143,14 +178,18 @@ public class ControlPanel {
 		for (int i = i0; i < i0 + building.getSize(); i++) {
 			for (int j = j0; j < j0 + building.getSize(); j++) {
 				Field f = terrain.getField(i, j);
-				boolean fieldStatus = !(f == null || !FarmTypes.contains(f.getType()) || f.getObject() != null);
-				fcs.addFieldWithStatus(new FieldWithStatus(f, fieldStatus));
+				if (f == null) {
+					fcs.addFieldWithStatus(new FieldWithStatus(new Field(i, j), false));
+				} else {
+					boolean fieldStatus = !(f == null || !FarmTypes.contains(f.getType()) || f.getObject() != null);
+					fcs.addFieldWithStatus(new FieldWithStatus(f, fieldStatus));
+				}
 			}
 		}
 		return fcs;
 	}
 
-	public FieldCheckStatus getBuildableObject(Field field, Terrain terrain) {
+	public FieldCheckStatus getFieldCheckStatus(Field field, Terrain terrain) {
 		if (field == null) {
 			return FieldCheckStatus.fail(field);
 		}
@@ -169,7 +208,8 @@ public class ControlPanel {
 		}
 
 		if (state == ControlPanelState.BUILD_HOUSE) {
-			BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field.getI(), field.getJ());
+			BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field.getI(),
+					field.getJ());
 			if (building.isMine()) {
 				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().isHill()) {
 					return FieldCheckStatus.success(field, building);
@@ -179,6 +219,12 @@ public class ControlPanel {
 				FieldCheckStatus fcs = checkFields(field, building, terrain);
 				fcs.setBuildableObject(building);
 				return fcs;
+			}
+		}
+
+		if (state == ControlPanelState.SELECT) {
+			if (field.getObject() != null) {
+				return FieldCheckStatus.success(field, field.getObject());
 			}
 		}
 		return FieldCheckStatus.fail(field);
@@ -193,10 +239,14 @@ public class ControlPanel {
 	}
 
 	public void click(Field field, Terrain terrain) {
-		FieldCheckStatus fcs = getBuildableObject(field, terrain);
+		FieldCheckStatus fcs = getFieldCheckStatus(field, terrain);
 		if (fcs.getStatus() && fcs.getBuildableObject() != null) {
-			for (FieldWithStatus fws : fcs.getFields()) {
-				fws.getField().setObject(fcs.getBuildableObject());
+			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
+				for (FieldWithStatus fws : fcs.getFields()) {
+					fws.getField().setObject(fcs.getBuildableObject());
+				}
+			} else if (state == ControlPanelState.SELECT) {
+
 			}
 		}
 	}
