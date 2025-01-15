@@ -41,6 +41,7 @@ public class TextureHelper {
 		
 		images.put("selection_red", "selection_red.png");
 		images.put("selection_green", "selection_green.png");
+		images.put("arrow_small", "arrow_small.png");
 		
 	}
 
