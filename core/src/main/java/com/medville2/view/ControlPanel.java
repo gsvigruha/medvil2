@@ -85,11 +85,10 @@ public class ControlPanel {
 		stage = new Stage(hudViewport);
 		font = new BitmapFont();
 
-		addMenuButtons();
-
 		label = new Label("Hello, LibGDX!", new LabelStyle(font, Color.WHITE));
 		label.setPosition(10, 30);
-		stage.addActor(label);
+		
+		addMenuButtons();
 	}
 
 	private void addMenuButtons() {
@@ -132,6 +131,8 @@ public class ControlPanel {
 						ControlPanel.this.state = ControlPanelState.SELECT;
 					}
 				});
+
+		stage.addActor(label);
 	}
 
 	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, Class<?> buildingClass) {

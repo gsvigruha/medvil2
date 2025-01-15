@@ -2,18 +2,22 @@ package com.medville2.view;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.Shader;
+import com.badlogic.gdx.graphics.g3d.shaders.BaseShader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
+import com.medville2.view.textures.WaterTexture;
 
 public class Renderer {
 
@@ -99,10 +103,10 @@ public class Renderer {
 					sprite = null;
 				}
 				sprite.setSize(Terrain.DX, Terrain.DY);
-				// sprite.setOrigin(0, Terrain.DX / 20f);
 				sprite.translate(x, y);
 				sprite.draw(batch);
-
+				
+				batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 				double d = Math.sqrt((x0 - x - Terrain.DX / 2) * (x0 - x - Terrain.DX / 2)
 						+ (y0 - y - Terrain.DY / 2) * (y0 - y - Terrain.DY / 2));
 				if (d < maxD) {
