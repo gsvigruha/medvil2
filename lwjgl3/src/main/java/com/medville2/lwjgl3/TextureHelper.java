@@ -39,6 +39,15 @@ public class TextureHelper {
 		images.put("mill", "mill.png");
 		images.put("blacksmith", "blacksmith.png");
 		
+		images.put("water_sparkle_0", "water_sparkle_0.png");
+		images.put("water_sparkle_1", "water_sparkle_1.png");
+		images.put("water_sparkle_2", "water_sparkle_2.png");
+		images.put("water_sparkle_3", "water_sparkle_3.png");
+		images.put("water_sparkle_4", "water_sparkle_4.png");
+		images.put("water_sparkle_5", "water_sparkle_5.png");
+		images.put("water_sparkle_6", "water_sparkle_6.png");
+		images.put("water_sparkle_7", "water_sparkle_7.png");
+		
 		images.put("selection_red", "selection_red.png");
 		images.put("selection_green", "selection_green.png");
 		images.put("arrow_small", "arrow_small.png");

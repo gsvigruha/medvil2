@@ -105,8 +105,15 @@ public class Renderer {
 				sprite.setSize(Terrain.DX, Terrain.DY);
 				sprite.translate(x, y);
 				sprite.draw(batch);
-				
-				batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+				if (field.getType() == Field.Type.WATER || field.getType() == Field.Type.RIVER) {
+					long phase = ((System.currentTimeMillis() / 200) + field.getI() * 3 + field.getJ()) % 8;
+					Sprite sparkSprite = new Sprite(textureAtlas.findRegion("water_sparkle_" + phase));
+					sparkSprite.setSize(Terrain.DX, Terrain.DY);
+					sparkSprite.translate(x, y);
+					sparkSprite.draw(batch);
+				}
+
 				double d = Math.sqrt((x0 - x - Terrain.DX / 2) * (x0 - x - Terrain.DX / 2)
 						+ (y0 - y - Terrain.DY / 2) * (y0 - y - Terrain.DY / 2));
 				if (d < maxD) {
