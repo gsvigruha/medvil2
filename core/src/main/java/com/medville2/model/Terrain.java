@@ -146,6 +146,26 @@ public class Terrain {
 		return false;
 	}
 
+	public boolean hasNeighbor(int i, int j, Function<Field, Boolean> fn) {
+		Field f1 = getField(i - 1, j);
+		if (f1 != null && fn.apply(f1)) {
+			return true;
+		}
+		Field f2 = getField(i + 1, j);
+		if (f2 != null && fn.apply(f2)) {
+			return true;
+		}
+		Field f3 = getField(i, j - 1);
+		if (f3 != null && fn.apply(f3)) {
+			return true;
+		}
+		Field f4 = getField(i, j + 1);
+		if (f4 != null && fn.apply(f4)) {
+			return true;
+		}
+		return false;
+	}
+
 	private void makeRiver(Field field) {
 		Set<Field> fields = new HashSet<>();
 		while (true) {

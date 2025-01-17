@@ -3,6 +3,7 @@ package com.medville2.view;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -32,6 +33,7 @@ import com.medville2.model.building.infra.Bridge;
 import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
+import com.medville2.model.terrain.Mountain;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 
 public class ControlPanel {
@@ -87,7 +89,7 @@ public class ControlPanel {
 
 		label = new Label("Hello, LibGDX!", new LabelStyle(font, Color.WHITE));
 		label.setPosition(10, 30);
-		
+
 		addMenuButtons();
 	}
 
@@ -212,11 +214,14 @@ public class ControlPanel {
 			BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field.getI(),
 					field.getJ());
 			if (buildingClass.equals(Mine.class)) {
-				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().isHill()) {
+				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().isHill()
+						&& terrain.hasNeighbor(field.getI(), field.getJ(), f -> f.getObject() == null
+								|| !(f.getObject().isHill() || f.getObject().getClass().equals(Mountain.class)))) {
 					return FieldCheckStatus.success(field, building);
 				}
 			} else if (buildingClass.equals(Mill.class)) {
-				if (FarmTypes.contains(field.getType()) && field.getObject() == null && terrain.hasNeighbor(field.getI(), field.getJ(), Field.Type.RIVER)) {
+				if (FarmTypes.contains(field.getType()) && field.getObject() == null
+						&& terrain.hasNeighbor(field.getI(), field.getJ(), Field.Type.RIVER)) {
 					return FieldCheckStatus.success(field, building);
 				}
 			} else {
