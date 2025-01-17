@@ -36,7 +36,7 @@ public class TextureHelper {
 		images.put("bridge", "bridge.png");
 		images.put("tower", "tower.png");
 		images.put("townsquare", "townsquare.png");
-		images.put("mill", "mill.png");
+		images.put("mill", "mill_2.png");
 		images.put("blacksmith", "blacksmith.png");
 		
 		images.put("water_sparkle_0", "water_sparkle_0.png");

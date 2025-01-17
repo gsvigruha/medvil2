@@ -12,8 +12,4 @@ public abstract class BuildingObject extends FieldObject {
 	public boolean isHill() {
 		return false;
 	}
-
-	public boolean isMine() {
-		return false;
-	}
 }

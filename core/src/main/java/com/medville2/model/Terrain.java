@@ -126,7 +126,7 @@ public class Terrain {
 		return true;
 	}
 
-	private boolean hasNeighbor(int i, int j, Type type) {
+	public boolean hasNeighbor(int i, int j, Type type) {
 		Field f1 = getField(i - 1, j);
 		if (f1 != null && f1.getType() == type) {
 			return true;
