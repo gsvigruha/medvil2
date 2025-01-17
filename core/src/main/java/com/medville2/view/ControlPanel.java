@@ -211,12 +211,15 @@ public class ControlPanel {
 		if (state == ControlPanelState.BUILD_HOUSE) {
 			BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field.getI(),
 					field.getJ());
-			if (building.isMine()) {
+			if (buildingClass.equals(Mine.class)) {
 				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().isHill()) {
 					return FieldCheckStatus.success(field, building);
 				}
-			}
-			if (!building.isMine()) {
+			} else if (buildingClass.equals(Mill.class)) {
+				if (FarmTypes.contains(field.getType()) && field.getObject() == null && terrain.hasNeighbor(field.getI(), field.getJ(), Field.Type.RIVER)) {
+					return FieldCheckStatus.success(field, building);
+				}
+			} else {
 				FieldCheckStatus fcs = checkFields(field, building, terrain);
 				fcs.setBuildableObject(building);
 				return fcs;

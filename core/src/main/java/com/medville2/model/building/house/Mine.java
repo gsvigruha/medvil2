@@ -16,9 +16,4 @@ public class Mine extends BuildingObject {
 	public int getSize() {
 		return 1;
 	}
-
-	@Override
-	public boolean isMine() {
-		return true;
-	}
 }
