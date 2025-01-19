@@ -13,6 +13,7 @@ import com.medville2.model.building.infra.Bridge;
 import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
+import com.medville2.model.building.infra.Wall;
 import com.medville2.model.terrain.Mountain;
 import com.medville2.view.ControlPanelState;
 import com.medville2.view.FieldCheckStatus;
@@ -20,8 +21,8 @@ import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 
 public class BuildingRules {
 
-	private static final Set<Field.Type> RoadTypes = ImmutableSet.of(Field.Type.GRASS, Field.Type.ROCK);
-	private static final Set<Field.Type> FarmTypes = ImmutableSet.of(Field.Type.GRASS);
+	private static final Set<Field.Type> InfraTypes = ImmutableSet.of(Field.Type.GRASS, Field.Type.ROCK);
+	private static final Set<Field.Type> BuildingTypes = ImmutableSet.of(Field.Type.GRASS);
 	private static final Set<Field.Type> MineTypes = ImmutableSet.of(Field.Type.ROCK);
 
 	public static FieldCheckStatus getFieldCheckStatus(Field field, Terrain terrain, ControlPanelState state, Class<?> buildingClass) {
@@ -30,7 +31,7 @@ public class BuildingRules {
 		}
 		if (state == ControlPanelState.BUILD_INFRA) {
 			if (buildingClass.equals(Road.class)) {
-				if (field != null && RoadTypes.contains(field.getType()) && field.getObject() == null) {
+				if (field != null && InfraTypes.contains(field.getType()) && field.getObject() == null) {
 					return FieldCheckStatus.success(field, new Road(field.getI(), field.getJ()));
 				}
 			} else if (buildingClass.equals(Bridge.class)) {
@@ -49,8 +50,13 @@ public class BuildingRules {
 					}
 				}
 			} else if (buildingClass.equals(Tower.class)) {
-				if (field != null && RoadTypes.contains(field.getType()) && field.getObject() == null) {
+				if (field != null && InfraTypes.contains(field.getType()) && field.getObject() == null) {
 					return FieldCheckStatus.success(field, new Tower(field.getI(), field.getJ()));
+				}
+			} else if (buildingClass.equals(Wall.class)) {
+				if (field != null && InfraTypes.contains(field.getType()) && field.getObject() == null) {
+					Wall wall = new Wall(field.getI(), field.getJ());
+					return FieldCheckStatus.success(field, wall);
 				}
 			}
 		}
@@ -65,7 +71,7 @@ public class BuildingRules {
 					return FieldCheckStatus.success(field, building);
 				}
 			} else if (buildingClass.equals(Mill.class)) {
-				if (FarmTypes.contains(field.getType()) && field.getObject() == null
+				if (BuildingTypes.contains(field.getType()) && field.getObject() == null
 						&& terrain.hasNeighbor(field.getI(), field.getJ(), Field.Type.RIVER)) {
 					return FieldCheckStatus.success(field, building);
 				}
@@ -94,7 +100,7 @@ public class BuildingRules {
 				if (f == null) {
 					fcs.addFieldWithStatus(new FieldWithStatus(new Field(i, j), false));
 				} else {
-					boolean fieldStatus = !(f == null || !FarmTypes.contains(f.getType()) || f.getObject() != null);
+					boolean fieldStatus = !(f == null || !BuildingTypes.contains(f.getType()) || f.getObject() != null);
 					fcs.addFieldWithStatus(new FieldWithStatus(f, fieldStatus));
 				}
 			}
@@ -119,6 +125,37 @@ public class BuildingRules {
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	public static boolean connectWall(int i, int j, Terrain terrain) {
+		Field f = terrain.getField(i, j);
+		if (f == null) {
+			return true;
+		}
+		if (f.getObject() == null) {
+			return false;
+		}
+		if (f.getObject().getClass().equals(Tower.class)) {
+			return true;
+		}
+		if (f.getObject().getClass().equals(Wall.class)) {
+			return true;
+		}
+		return false;
+	}
+
+	public static void setupWalls(int i, int j, Terrain terrain) {
+		Field f = terrain.getField(i, j);
+		if (f == null || f.getObject() == null) {
+			return;
+		}
+		if (f.getObject().getClass().equals(Wall.class)) {
+			Wall wall = (Wall) f.getObject();
+			wall.setSegment(0, connectWall(wall.getI() - 1, wall.getJ(), terrain));
+			wall.setSegment(1, connectWall(wall.getI() + 1, wall.getJ(), terrain));
+			wall.setSegment(2, connectWall(wall.getI(), wall.getJ() - 1, terrain));
+			wall.setSegment(3, connectWall(wall.getI(), wall.getJ() + 1, terrain));	
 		}
 	}
 }

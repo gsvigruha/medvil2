@@ -14,6 +14,7 @@ import com.medville2.control.BuildingRules;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
+import com.medville2.model.building.infra.Wall;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 
 public class Renderer {
@@ -153,7 +154,8 @@ public class Renderer {
 				}
 
 				if (controlPanel.getCheckAllFields()) {
-					FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, controlPanel.getState(), controlPanel.getBuildingClass());
+					FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, controlPanel.getState(),
+							controlPanel.getBuildingClass());
 					final Sprite objectSprite;
 					if (fcs.getStatus()) {
 						objectSprite = new Sprite(selectionGreen);
@@ -178,20 +180,47 @@ public class Renderer {
 			int y = fo.getI() * Terrain.DY / 2 + fo.getJ() * Terrain.DY / 2;
 			int ox = x;
 			int oy = y;
-			if (fo.getSize() == 2) {
-				ox = x - Terrain.DX / 2;
-				oy = y + Terrain.DY * (fo.getSize() - 2);
+			if (fo.getClass().equals(Wall.class)) {
+				Wall wall = (Wall) fo; 
+				if (wall.hasSegment(3)) {
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+					objectSprite.translate(ox + Terrain.DX / 4, oy + Terrain.DY / 2);
+					objectSprite.draw(batch);
+				}
+				if (wall.hasSegment(1)) {
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+					objectSprite.flip(true, false);
+					objectSprite.translate(ox + Terrain.DX / 2, oy + Terrain.DY / 2);
+					objectSprite.draw(batch);
+				}
+				if (wall.hasSegment(2)) {
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+					objectSprite.translate(ox + Terrain.DX / 2, oy + Terrain.DY / 4);
+					objectSprite.draw(batch);
+				}
+				if (wall.hasSegment(0)) {
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+					objectSprite.flip(true, false);
+					objectSprite.translate(ox + Terrain.DX / 4, oy + Terrain.DY / 4);
+					objectSprite.draw(batch);
+				}
+			} else {
+				if (fo.getSize() == 2) {
+					ox = x - Terrain.DX / 2;
+					oy = y + Terrain.DY * (fo.getSize() - 2);
+				}
+				final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+				if (fo.isFlip()) {
+					objectSprite.flip(true, false);
+				}
+				objectSprite.translate(ox, oy);
+				objectSprite.draw(batch);
 			}
-			final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
-			if (fo.isFlip()) {
-				objectSprite.flip(true, false);
-			}
-			objectSprite.translate(ox, oy);
-			objectSprite.draw(batch);
 		}
 
 		if (activeField != null) {
-			FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(activeField, terrain, controlPanel.getState(), controlPanel.getBuildingClass());
+			FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(activeField, terrain, controlPanel.getState(),
+					controlPanel.getBuildingClass());
 			for (FieldWithStatus fws : fcs.getFields()) {
 				int i = fws.getField().getI();
 				int j = fws.getField().getJ();

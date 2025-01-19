@@ -30,6 +30,7 @@ import com.medville2.model.building.infra.Bridge;
 import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
+import com.medville2.model.building.infra.Wall;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 
 public class ControlPanel {
@@ -46,7 +47,7 @@ public class ControlPanel {
 
 	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
 			Townsquare.class, Mill.class);
-	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class);
+	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class, Wall.class);
 
 	public ControlPanel(Viewport hudViewport, TextureAtlas textureAtlas) {
 		this.hudViewport = hudViewport;
@@ -170,6 +171,11 @@ public class ControlPanel {
 				for (FieldWithStatus fws : fcs.getFields()) {
 					fws.getField().setObject(fcs.getBuildableObject());
 				}
+				BuildingRules.setupWalls(field.getI(), field.getJ(), terrain);
+				BuildingRules.setupWalls(field.getI() - 1, field.getJ(), terrain);
+				BuildingRules.setupWalls(field.getI() + 1, field.getJ(), terrain);
+				BuildingRules.setupWalls(field.getI(), field.getJ() - 1, terrain);
+				BuildingRules.setupWalls(field.getI(), field.getJ() + 1, terrain);
 			} else if (state == ControlPanelState.SELECT) {
 
 			}
