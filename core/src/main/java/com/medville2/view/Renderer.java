@@ -2,22 +2,18 @@ package com.medville2.view;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.Shader;
-import com.badlogic.gdx.graphics.g3d.shaders.BaseShader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
-import com.medville2.view.textures.WaterTexture;
 
 public class Renderer {
 
@@ -133,7 +129,7 @@ public class Renderer {
 				}
 				Field field = fields[j];
 
-				if (field.getCornerType() != null) {
+				if (!controlPanel.getCheckAllFields() && field.getCornerType() != null) {
 					Sprite cornerSprite;
 					if (field.getCornerType() == Field.Type.GRASS) {
 						cornerSprite = new Sprite(grassCube);
@@ -154,6 +150,19 @@ public class Renderer {
 				if (field.getObject() != null && field.getObject().getI() == i && field.getObject().getJ() == j) {
 					objectsToRender.add(field.getObject());
 				}
+
+				if (controlPanel.getCheckAllFields()) {
+					FieldCheckStatus fcs = controlPanel.getFieldCheckStatus(field, terrain);
+					final Sprite objectSprite;
+					if (fcs.getStatus()) {
+						objectSprite = new Sprite(selectionGreen);
+					} else {
+						objectSprite = new Sprite(selectionRed);
+					}
+					objectSprite.setSize(Terrain.DX, Terrain.DY);
+					objectSprite.translate(x, y);
+					objectSprite.draw(batch);
+				}
 			}
 		}
 
@@ -173,8 +182,6 @@ public class Renderer {
 				oy = y + Terrain.DY * (fo.getSize() - 2);
 			}
 			final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
-			// objectSprite.setSize(objectSprite.getWidth(), objectSprite.getHeight());
-			// objectSprite.setOrigin(0, Terrain.DX / 20f);
 			objectSprite.translate(ox, oy);
 			objectSprite.draw(batch);
 		}
@@ -193,7 +200,6 @@ public class Renderer {
 					objectSprite = new Sprite(selectionRed);
 				}
 				objectSprite.setSize(Terrain.DX, Terrain.DY);
-				// objectSprite.setOrigin(0, Terrain.DX / 20f);
 				objectSprite.translate(x, y);
 				objectSprite.draw(batch);
 			}

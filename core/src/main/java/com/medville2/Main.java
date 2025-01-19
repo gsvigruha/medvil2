@@ -180,6 +180,10 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 		Vector2 worldPos = mousePos.cpy();
 		viewport.unproject(worldPos);
 		renderer.setWorldPos(worldPos); // Convert the units to the world units of the viewport
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
+			controlPanel.setCheckAllFields(!controlPanel.getCheckAllFields());
+		}
 	}
 
 	@Override
