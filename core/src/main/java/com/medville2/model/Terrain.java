@@ -126,21 +126,25 @@ public class Terrain {
 		return true;
 	}
 
+	public boolean isType(int i, int j, Type type) {
+		Field f = getField(i, j);
+		if (f != null && f.getType() == type) {
+			return true;
+		}
+		return false;
+	}
+
 	public boolean hasNeighbor(int i, int j, Type type) {
-		Field f1 = getField(i - 1, j);
-		if (f1 != null && f1.getType() == type) {
+		if (isType(i - 1 , j, type)) {
 			return true;
 		}
-		Field f2 = getField(i + 1, j);
-		if (f2 != null && f2.getType() == type) {
+		if (isType(i + 1 , j, type)) {
 			return true;
 		}
-		Field f3 = getField(i, j - 1);
-		if (f3 != null && f3.getType() == type) {
+		if (isType(i, j - 1, type)) {
 			return true;
 		}
-		Field f4 = getField(i, j + 1);
-		if (f4 != null && f4.getType() == type) {
+		if (isType(i, j + 1, type)) {
 			return true;
 		}
 		return false;

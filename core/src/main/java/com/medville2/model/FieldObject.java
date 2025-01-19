@@ -24,4 +24,7 @@ public abstract class FieldObject {
 
 	public abstract boolean isHill();
 
+	public boolean isFlip() {
+		return false;
+	}
 }

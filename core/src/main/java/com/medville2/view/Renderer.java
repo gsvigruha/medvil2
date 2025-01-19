@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.medville2.control.BuildingRules;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
@@ -152,7 +153,7 @@ public class Renderer {
 				}
 
 				if (controlPanel.getCheckAllFields()) {
-					FieldCheckStatus fcs = controlPanel.getFieldCheckStatus(field, terrain);
+					FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, controlPanel.getState(), controlPanel.getBuildingClass());
 					final Sprite objectSprite;
 					if (fcs.getStatus()) {
 						objectSprite = new Sprite(selectionGreen);
@@ -182,12 +183,15 @@ public class Renderer {
 				oy = y + Terrain.DY * (fo.getSize() - 2);
 			}
 			final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+			if (fo.isFlip()) {
+				objectSprite.flip(true, false);
+			}
 			objectSprite.translate(ox, oy);
 			objectSprite.draw(batch);
 		}
 
 		if (activeField != null) {
-			FieldCheckStatus fcs = controlPanel.getFieldCheckStatus(activeField, terrain);
+			FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(activeField, terrain, controlPanel.getState(), controlPanel.getBuildingClass());
 			for (FieldWithStatus fws : fcs.getFields()) {
 				int i = fws.getField().getI();
 				int j = fws.getField().getJ();
