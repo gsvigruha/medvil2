@@ -3,7 +3,6 @@ package com.medville2.view;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -50,6 +49,7 @@ public class ControlPanel {
 
 	private ControlPanelState state;
 	private Class<?> buildingClass;
+	private boolean checkAllFields;
 
 	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
 			Townsquare.class, Mill.class);
@@ -237,6 +237,14 @@ public class ControlPanel {
 			}
 		}
 		return FieldCheckStatus.fail(field);
+	}
+
+	public boolean getCheckAllFields() {
+		return checkAllFields;
+	}
+
+	public void setCheckAllFields(boolean checkAllFields) {
+		this.checkAllFields = checkAllFields;
 	}
 
 	public int getActiveFieldSize() {
