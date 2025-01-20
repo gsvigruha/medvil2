@@ -5,56 +5,56 @@ filter: Linear,Linear
 repeat: none
 rock
   rotate: false
-  xy: 594, 0
+  xy: 0, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_3
   rotate: false
-  xy: 850, 0
+  xy: 2304, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 blacksmith
   rotate: false
-  xy: 1106, 0
+  xy: 594, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 water_sparkle_4
   rotate: false
-  xy: 1362, 0
+  xy: 0, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_1
   rotate: false
-  xy: 1618, 0
+  xy: 1792, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 mountain
   rotate: false
-  xy: 1024, 571
+  xy: 1024, 603
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water_sparkle_2
   rotate: false
-  xy: 1874, 0
+  xy: 2048, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_7
   rotate: false
-  xy: 2130, 0
+  xy: 768, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
@@ -75,49 +75,49 @@ road
   index: -1
 grass
   rotate: false
-  xy: 0, 256
+  xy: 1362, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_5
   rotate: false
-  xy: 256, 256
+  xy: 256, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 townsquare
   rotate: false
-  xy: 1536, 571
+  xy: 1536, 603
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water_sparkle_6
   rotate: false
-  xy: 512, 256
+  xy: 512, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 farm
   rotate: false
-  xy: 768, 256
+  xy: 1106, 0
   size: 256, 315
   orig: 256, 315
   offset: 0, 0
   index: -1
 tower
   rotate: false
-  xy: 1024, 256
+  xy: 256, 315
   size: 256, 288
   orig: 256, 288
   offset: 0, 0
   index: -1
 mine
   rotate: false
-  xy: 1280, 256
+  xy: 2130, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -131,77 +131,77 @@ selection_red
   index: -1
 tree
   rotate: false
-  xy: 1536, 256
+  xy: 512, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 rock_cube
   rotate: false
-  xy: 0, 0
+  xy: 128, 0
   size: 64, 48
   orig: 64, 48
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 1792, 256
+  xy: 1280, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_0
   rotate: false
-  xy: 2048, 256
+  xy: 1536, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 tree_cherry
   rotate: false
-  xy: 2304, 256
+  xy: 768, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 mill
   rotate: false
-  xy: 0, 571
+  xy: 1874, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 arrow_small
   rotate: false
-  xy: 64, 0
+  xy: 0, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 hill
   rotate: false
-  xy: 256, 571
+  xy: 1618, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 grass_cube
   rotate: false
-  xy: 128, 0
+  xy: 64, 0
   size: 64, 48
   orig: 64, 48
   offset: 0, 0
   index: -1
 tree_small
   rotate: false
-  xy: 512, 571
+  xy: 1024, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 bridge
   rotate: false
-  xy: 768, 571
+  xy: 850, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0

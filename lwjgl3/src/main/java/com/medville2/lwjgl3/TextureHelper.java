@@ -78,7 +78,14 @@ public class TextureHelper {
         int x = 0;
         int y = 0;
         int maxH = 0;
-        for (Entry<String, BufferedImage> entry : images.entrySet().stream().sorted((e1, e2) -> Integer.compare(e1.getValue().getWidth(), e2.getValue().getWidth())).toList()) {
+        for (Entry<String, BufferedImage> entry : images.entrySet().stream().sorted((e1, e2) -> {
+        	int w = Integer.compare(e1.getValue().getWidth(), e2.getValue().getWidth());
+        	if (w == 0) {
+        		return e1.getKey().compareTo(e2.getKey());
+        	} else {
+        		return w;
+        	}
+        }).toList()) {
         	BufferedImage t = entry.getValue();
         	// Render the textures
         	g2d.drawImage(t, x, y, null);
