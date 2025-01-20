@@ -7,12 +7,16 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.medville2.control.BuildingRules;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
+import com.medville2.model.building.infra.Tower;
+import com.medville2.model.building.infra.Wall;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 
 public class Renderer {
@@ -152,7 +156,8 @@ public class Renderer {
 				}
 
 				if (controlPanel.getCheckAllFields()) {
-					FieldCheckStatus fcs = controlPanel.getFieldCheckStatus(field, terrain);
+					FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, controlPanel.getState(),
+							controlPanel.getBuildingClass());
 					final Sprite objectSprite;
 					if (fcs.getStatus()) {
 						objectSprite = new Sprite(selectionGreen);
@@ -177,17 +182,56 @@ public class Renderer {
 			int y = fo.getI() * Terrain.DY / 2 + fo.getJ() * Terrain.DY / 2;
 			int ox = x;
 			int oy = y;
-			if (fo.getSize() == 2) {
-				ox = x - Terrain.DX / 2;
-				oy = y + Terrain.DY * (fo.getSize() - 2);
+			if (Wall.class.isAssignableFrom(fo.getClass())) {
+				Wall wall = (Wall) fo; 
+				if (wall.hasSegment(3)) {
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion("wall"));
+					objectSprite.translate(ox + Terrain.DX / 4 - 9, oy + Terrain.DY / 2 - 10);
+					objectSprite.draw(batch);
+				}
+				if (wall.hasSegment(1)) {
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion("wall"));
+					objectSprite.flip(true, false);
+					objectSprite.translate(ox + Terrain.DX / 2 - 9, oy + Terrain.DY / 2 - 10);
+					objectSprite.draw(batch);
+				}
+				int crop = 0;
+				if (fo.getClass().equals(Tower.class)) {
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+					objectSprite.translate(ox, oy);
+					objectSprite.draw(batch);
+					crop = 24;
+				}
+				if (wall.hasSegment(2)) {
+					AtlasRegion ar = textureAtlas.findRegion("wall");
+					Sprite objectSprite = new Sprite(new TextureRegion(ar, crop, 0, ar.getRegionWidth() - crop, ar.getRegionHeight()));
+					objectSprite.translate(ox + Terrain.DX / 2 + crop - 9, oy + Terrain.DY / 4 - 10);
+					objectSprite.draw(batch);
+				}
+				if (wall.hasSegment(0)) {
+					AtlasRegion ar = textureAtlas.findRegion("wall");
+					Sprite objectSprite = new Sprite(new TextureRegion(ar, crop, 0, ar.getRegionWidth() - crop, ar.getRegionHeight()));
+					objectSprite.flip(true, false);
+					objectSprite.translate(ox + Terrain.DX / 4 - 9, oy + Terrain.DY / 4 - 10);
+					objectSprite.draw(batch);
+				}
+			} else {
+				if (fo.getSize() == 2) {
+					ox = x - Terrain.DX / 2;
+					oy = y + Terrain.DY * (fo.getSize() - 2);
+				}
+				final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+				if (fo.isFlip()) {
+					objectSprite.flip(true, false);
+				}
+				objectSprite.translate(ox, oy);
+				objectSprite.draw(batch);
 			}
-			final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
-			objectSprite.translate(ox, oy);
-			objectSprite.draw(batch);
 		}
 
 		if (activeField != null) {
-			FieldCheckStatus fcs = controlPanel.getFieldCheckStatus(activeField, terrain);
+			FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(activeField, terrain, controlPanel.getState(),
+					controlPanel.getBuildingClass());
 			for (FieldWithStatus fws : fcs.getFields()) {
 				int i = fws.getField().getI();
 				int j = fws.getField().getJ();
