@@ -101,7 +101,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	}
 
 	private void logic() {
-
+		terrain.tick();
 	}
 
 	private void draw() {

@@ -27,4 +27,6 @@ public abstract class FieldObject {
 	public boolean isFlip() {
 		return false;
 	}
+
+	public abstract void tick(Terrain terrain);
 }

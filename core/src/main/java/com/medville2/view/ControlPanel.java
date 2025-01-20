@@ -33,6 +33,7 @@ import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
+import com.medville2.model.terrain.Grain;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 import com.medville2.view.buttons.ButtonHelper;
 

@@ -261,4 +261,16 @@ public class Terrain {
 		}
 		return null;
 	}
+
+	public void tick() {
+		for (int i = 0; i < getSize(); i++) {
+			Field[] fields = getFields()[i];
+			for (int j = 0; j < getSize(); j++) {
+				Field field = fields[j];
+				if (field.getObject() != null) {
+					field.getObject().tick(this);
+				}
+			}
+		}
+	}
 }
