@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +15,7 @@ import com.medville2.control.BuildingRules;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
+import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 
@@ -180,28 +182,37 @@ public class Renderer {
 			int y = fo.getI() * Terrain.DY / 2 + fo.getJ() * Terrain.DY / 2;
 			int ox = x;
 			int oy = y;
-			if (fo.getClass().equals(Wall.class)) {
+			if (Wall.class.isAssignableFrom(fo.getClass())) {
 				Wall wall = (Wall) fo; 
 				if (wall.hasSegment(3)) {
-					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
-					objectSprite.translate(ox + Terrain.DX / 4, oy + Terrain.DY / 2);
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion("wall"));
+					objectSprite.translate(ox + Terrain.DX / 4 - 9, oy + Terrain.DY / 2 - 10);
 					objectSprite.draw(batch);
 				}
 				if (wall.hasSegment(1)) {
-					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+					Sprite objectSprite = new Sprite(textureAtlas.findRegion("wall"));
 					objectSprite.flip(true, false);
-					objectSprite.translate(ox + Terrain.DX / 2, oy + Terrain.DY / 2);
+					objectSprite.translate(ox + Terrain.DX / 2 - 9, oy + Terrain.DY / 2 - 10);
 					objectSprite.draw(batch);
 				}
-				if (wall.hasSegment(2)) {
+				int crop = 0;
+				if (fo.getClass().equals(Tower.class)) {
 					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
-					objectSprite.translate(ox + Terrain.DX / 2, oy + Terrain.DY / 4);
+					objectSprite.translate(ox, oy);
+					objectSprite.draw(batch);
+					crop = 24;
+				}
+				if (wall.hasSegment(2)) {
+					AtlasRegion ar = textureAtlas.findRegion("wall");
+					Sprite objectSprite = new Sprite(new TextureRegion(ar, crop, 0, ar.getRegionWidth() - crop, ar.getRegionHeight()));
+					objectSprite.translate(ox + Terrain.DX / 2 + crop - 9, oy + Terrain.DY / 4 - 10);
 					objectSprite.draw(batch);
 				}
 				if (wall.hasSegment(0)) {
-					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+					AtlasRegion ar = textureAtlas.findRegion("wall");
+					Sprite objectSprite = new Sprite(new TextureRegion(ar, crop, 0, ar.getRegionWidth() - crop, ar.getRegionHeight()));
 					objectSprite.flip(true, false);
-					objectSprite.translate(ox + Terrain.DX / 4, oy + Terrain.DY / 4);
+					objectSprite.translate(ox + Terrain.DX / 4 - 9, oy + Terrain.DY / 4 - 10);
 					objectSprite.draw(batch);
 				}
 			} else {

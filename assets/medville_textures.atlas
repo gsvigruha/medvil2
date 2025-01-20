@@ -5,35 +5,35 @@ filter: Linear,Linear
 repeat: none
 rock
   rotate: false
-  xy: 587, 0
+  xy: 594, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_3
   rotate: false
-  xy: 843, 0
+  xy: 850, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 blacksmith
   rotate: false
-  xy: 1099, 0
+  xy: 1106, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 water_sparkle_4
   rotate: false
-  xy: 1355, 0
+  xy: 1362, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_1
   rotate: false
-  xy: 1611, 0
+  xy: 1618, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
@@ -47,28 +47,28 @@ mountain
   index: -1
 water_sparkle_2
   rotate: false
-  xy: 1867, 0
+  xy: 1874, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_7
   rotate: false
-  xy: 2123, 0
+  xy: 2130, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 selection_green
   rotate: false
-  xy: 331, 0
+  xy: 338, 0
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 road
   rotate: false
-  xy: 2379, 0
+  xy: 2386, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
@@ -124,7 +124,7 @@ mine
   index: -1
 selection_red
   rotate: false
-  xy: 459, 0
+  xy: 466, 0
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
@@ -216,7 +216,7 @@ water_cube
 wall
   rotate: false
   xy: 256, 0
-  size: 75, 160
-  orig: 75, 160
+  size: 82, 160
+  orig: 82, 160
   offset: 0, 0
   index: -1

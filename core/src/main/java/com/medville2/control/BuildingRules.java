@@ -25,7 +25,8 @@ public class BuildingRules {
 	private static final Set<Field.Type> BuildingTypes = ImmutableSet.of(Field.Type.GRASS);
 	private static final Set<Field.Type> MineTypes = ImmutableSet.of(Field.Type.ROCK);
 
-	public static FieldCheckStatus getFieldCheckStatus(Field field, Terrain terrain, ControlPanelState state, Class<?> buildingClass) {
+	public static FieldCheckStatus getFieldCheckStatus(Field field, Terrain terrain, ControlPanelState state,
+			Class<?> buildingClass) {
 		if (field == null) {
 			return FieldCheckStatus.fail(field);
 		}
@@ -131,15 +132,12 @@ public class BuildingRules {
 	public static boolean connectWall(int i, int j, Terrain terrain) {
 		Field f = terrain.getField(i, j);
 		if (f == null) {
-			return true;
+			return false;
 		}
 		if (f.getObject() == null) {
 			return false;
 		}
-		if (f.getObject().getClass().equals(Tower.class)) {
-			return true;
-		}
-		if (f.getObject().getClass().equals(Wall.class)) {
+		if (Wall.class.isAssignableFrom(f.getObject().getClass())) {
 			return true;
 		}
 		return false;
@@ -150,12 +148,27 @@ public class BuildingRules {
 		if (f == null || f.getObject() == null) {
 			return;
 		}
-		if (f.getObject().getClass().equals(Wall.class)) {
+		if (Wall.class.isAssignableFrom(f.getObject().getClass())) {
 			Wall wall = (Wall) f.getObject();
 			wall.setSegment(0, connectWall(wall.getI() - 1, wall.getJ(), terrain));
 			wall.setSegment(1, connectWall(wall.getI() + 1, wall.getJ(), terrain));
 			wall.setSegment(2, connectWall(wall.getI(), wall.getJ() - 1, terrain));
-			wall.setSegment(3, connectWall(wall.getI(), wall.getJ() + 1, terrain));	
+			wall.setSegment(3, connectWall(wall.getI(), wall.getJ() + 1, terrain));
+			if (wall.hasSegment(0) && !wall.hasSegment(1) && !wall.hasSegment(2) && !wall.hasSegment(3)) {
+				wall.setSegment(1, true);
+			} else if (!wall.hasSegment(0) && wall.hasSegment(1) && !wall.hasSegment(2) && !wall.hasSegment(3)) {
+				wall.setSegment(0, true);
+			} else if (!wall.hasSegment(0) && !wall.hasSegment(1) && wall.hasSegment(2) && !wall.hasSegment(3)) {
+				wall.setSegment(3, true);
+			} else if (!wall.hasSegment(0) && !wall.hasSegment(1) && !wall.hasSegment(2) && wall.hasSegment(3)) {
+				wall.setSegment(2, true);
+			}
+			if (f.getObject().getClass().equals(Wall.class) && !wall.hasSegment(0) && !wall.hasSegment(1) && !wall.hasSegment(2) && !wall.hasSegment(3)) {
+				wall.setSegment(0, true);
+				wall.setSegment(1, true);
+				wall.setSegment(2, true);
+				wall.setSegment(3, true);
+			}
 		}
 	}
 }
