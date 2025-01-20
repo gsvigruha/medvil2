@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -32,6 +34,7 @@ import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
+import com.medville2.view.buttons.ButtonHelper;
 
 public class ControlPanel {
 
@@ -40,25 +43,37 @@ public class ControlPanel {
 	private Label label;
 	private Viewport hudViewport;
 	private TextureAtlas textureAtlas;
+	private ButtonHelper helper;
 
 	private ControlPanelState state;
 	private Class<?> buildingClass;
 	private boolean checkAllFields;
 
+	private ButtonGroup<ImageButton> menuButtons;
+	private ButtonGroup<ImageButton> buildingButtons;
+	private Group buildingButtonStack;
+
 	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
 			Townsquare.class, Mill.class);
 	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class, Wall.class);
+
 
 	public ControlPanel(Viewport hudViewport, TextureAtlas textureAtlas) {
 		this.hudViewport = hudViewport;
 		this.textureAtlas = textureAtlas;
 		this.state = ControlPanelState.DO_NOTHING;
+		this.helper = new ButtonHelper();
+
+		this.menuButtons = new ButtonGroup<>();
+		this.buildingButtons = new ButtonGroup<>();
+		this.buildingButtonStack = new Group();
 
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		font.getData().setScale(2);
 
 		stage = new Stage(hudViewport);
+		stage.addActor(buildingButtonStack);
 		font = new BitmapFont();
 
 		label = new Label("Hello, LibGDX!", new LabelStyle(font, Color.WHITE));
@@ -67,19 +82,25 @@ public class ControlPanel {
 		addMenuButtons();
 	}
 
+	private void clearBuildingButtons() {
+		buildingButtons.clear();
+		buildingButtonStack.clear();
+	}
+
 	private void addMenuButtons() {
 		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 90, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						stage.clear();
-						addMenuButtons();
+						clearBuildingButtons();
 						for (int i = 0; i < houses.size(); i++) {
 							BuildingObject building = BuildingRules.newHouse(houses.get(i), 0, 0);
 							addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
 									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_HOUSE,
-									houses.get(i));
+									houses.get(i), i);
 						}
+						buildingButtons.getButtons().get(0).fire(helper.touchDownEvent);
+						buildingButtons.getButtons().get(0).fire(helper.touchUpEvent);
 					}
 				});
 
@@ -87,14 +108,15 @@ public class ControlPanel {
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						stage.clear();
-						addMenuButtons();
+						clearBuildingButtons();
 						for (int i = 0; i < infra.size(); i++) {
 							InfraObject building = BuildingRules.newInfra(infra.get(i), 0, 0);
 							addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
 									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_INFRA,
-									infra.get(i));
+									infra.get(i), i);
 						}
+						buildingButtons.getButtons().get(0).fire(helper.touchDownEvent);
+						buildingButtons.getButtons().get(0).fire(helper.touchUpEvent);
 					}
 				});
 
@@ -102,8 +124,7 @@ public class ControlPanel {
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						stage.clear();
-						addMenuButtons();
+						clearBuildingButtons();
 						ControlPanel.this.state = ControlPanelState.SELECT;
 					}
 				});
@@ -111,9 +132,9 @@ public class ControlPanel {
 		stage.addActor(label);
 	}
 
-	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, Class<?> buildingClass) {
+	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, Class<?> buildingClass, int selectedButtonIdx) {
 		ImageButton button = new ImageButton(new TextureRegionDrawable(icon));
-		button.setSize(128, 128);
+		button.setSize(ButtonHelper.BUTTON_LARGE_SX, ButtonHelper.BUTTON_LARGE_SY);
 		button.setPosition(x, y);
 		button.addListener(new ClickListener() {
 			@Override
@@ -122,15 +143,23 @@ public class ControlPanel {
 				ControlPanel.this.buildingClass = buildingClass;
 			}
 		});
-		stage.addActor(button);
+
+		button.getStyle().checked = helper.buttonBGSelectedLarge;
+
+		buildingButtonStack.addActor(button);
+		buildingButtons.add(button);
 	}
 
 	private void addMenuButton(TextureRegion icon, int x, int y, ClickListener listener) {
 		ImageButton button = new ImageButton(new TextureRegionDrawable(icon));
-		button.setSize(64, 64);
+		button.setSize(ButtonHelper.BUTTON_SMALL_SX, ButtonHelper.BUTTON_SMALL_SY);
 		button.setPosition(x, y);
 		button.addListener(listener);
+
+		button.getStyle().checked = helper.buttonBGSelectedSmall;
+
 		stage.addActor(button);
+		menuButtons.add(button);
 	}
 
 	public void dispose() {
