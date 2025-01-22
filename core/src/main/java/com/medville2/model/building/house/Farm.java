@@ -5,6 +5,7 @@ import java.util.Random;
 import com.medville2.model.Field;
 import com.medville2.model.Terrain;
 import com.medville2.model.terrain.Grain;
+import com.medville2.view.FieldCheckStatus;
 
 public class Farm extends BuildingObject {
 
@@ -31,5 +32,17 @@ public class Farm extends BuildingObject {
 				field.setObject(new Grain(field.getI(), field.getJ()));
 			}
 		}
+	}
+
+	@Override
+	public void handleClick(Field field) {
+	}
+
+	@Override
+	public String getLabel(Field field) {
+		if (field.getObject() == null && field.getCropYield() > 0) {
+			return String.format("%.0f", field.getCropYield() * 100) + "%";
+		}
+		return null;
 	}
 }

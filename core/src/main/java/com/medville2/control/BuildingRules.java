@@ -8,7 +8,6 @@ import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.house.BuildingObject;
-import com.medville2.model.building.house.Farm;
 import com.medville2.model.building.house.Mill;
 import com.medville2.model.building.house.Mine;
 import com.medville2.model.building.infra.Bridge;
@@ -86,17 +85,20 @@ public class BuildingRules {
 		}
 
 		if (state == ControlPanelState.SELECT) {
-			if (selectedObject != null && selectedObject.getClass().equals(Farm.class)) {
-				if (field != null && field.getObject() == null && field.getCropYield() > 0) {
-					return FieldCheckStatus.success(field, String.format("%.0f", field.getCropYield() * 100) + "%");
-				} else {
-					return FieldCheckStatus.fail(field);
-				}
-			}
 			if (field.getObject() != null) {
 				return FieldCheckStatus.success(field, field.getObject());
 			}
 		}
+
+		if (state == ControlPanelState.MODIFY) {
+			String label = selectedObject.getLabel(field);
+			if (label == null) {
+				return FieldCheckStatus.fail(field);
+			} else {
+				return FieldCheckStatus.success(field, label);
+			}
+		}
+
 		return FieldCheckStatus.fail(field);
 	}
 

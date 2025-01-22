@@ -128,6 +128,7 @@ public class ControlPanel {
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						ControlPanel.this.state = ControlPanelState.SELECT;
+						ControlPanel.this.selectedFieldObject = null;
 					}
 				});
 
@@ -215,9 +216,8 @@ public class ControlPanel {
 					state = ControlPanelState.MODIFY;
 				}
 			} else if (state == ControlPanelState.MODIFY) {
-				if (fcs.getStatus()) {
-					
-					
+				if (selectedFieldObject != null) {
+					selectedFieldObject.handleClick(field);
 				}
 			}
 		}
