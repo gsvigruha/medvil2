@@ -1,13 +1,19 @@
 package com.medville2.model.building.house;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.medville2.model.Field;
 import com.medville2.model.Terrain;
 import com.medville2.model.terrain.Grain;
 
 public class Farm extends BuildingObject {
 
+	private Set<Field> fields;
+
 	public Farm(int i, int j) {
 		super(i, j);
+		this.fields = new HashSet<>();
 	}
 
 	@Override
@@ -23,13 +29,6 @@ public class Farm extends BuildingObject {
 	@Override
 	public void tick(Terrain terrain) {
 		
-	}
-
-	@Override
-	public void handleClick(Field field) {
-		if (field.getObject() == null) {
-			field.setObject(new Grain(field.getI(), field.getJ()));
-		}
 	}
 
 	@Override

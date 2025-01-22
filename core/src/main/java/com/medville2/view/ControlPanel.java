@@ -20,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.common.collect.ImmutableList;
 import com.medville2.control.BuildingRules;
+import com.medville2.control.Editor;
+import com.medville2.control.building.FarmEditor;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
@@ -49,7 +51,7 @@ public class ControlPanel {
 	private ControlPanelState state;
 	private Class<?> buildingClass;
 	private boolean checkAllFields;
-	private FieldObject selectedFieldObject;
+	private Editor editor;
 
 	private ButtonGroup<ImageButton> menuButtons;
 	private ButtonGroup<ImageButton> buildingButtons;
@@ -128,7 +130,7 @@ public class ControlPanel {
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						ControlPanel.this.state = ControlPanelState.SELECT;
-						ControlPanel.this.selectedFieldObject = null;
+						ControlPanel.this.editor = null;
 					}
 				});
 
@@ -199,7 +201,7 @@ public class ControlPanel {
 
 	public void click(Field field, Terrain terrain) {
 		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingClass,
-				selectedFieldObject);
+				getSelectedFieldObject());
 		if (fcs.getStatus()) {
 			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
 				if (fcs.getBuildableObject() != null) {
@@ -213,16 +215,24 @@ public class ControlPanel {
 					BuildingRules.setupWalls(field.getI(), field.getJ() + 1, terrain);
 				}
 			} else if (state == ControlPanelState.SELECT) {
-				selectedFieldObject = fcs.getBuildableObject();
+				FieldObject selectedFieldObject = fcs.getBuildableObject();
 				if (selectedFieldObject != null) {
 					state = ControlPanelState.MODIFY;
+					editor = createEditor(selectedFieldObject);
 				}
 			} else if (state == ControlPanelState.MODIFY) {
-				if (selectedFieldObject != null) {
-					selectedFieldObject.handleClick(field);
+				if (editor != null) {
+					editor.handleClick(field);
 				}
 			}
 		}
+	}
+
+	private Editor createEditor(FieldObject selectedFieldObject) {
+		if (selectedFieldObject.getClass().equals(Farm.class)) {
+			return new FarmEditor((Farm) selectedFieldObject);
+		}
+		return null;
 	}
 
 	public Class<?> getBuildingClass() {
@@ -234,6 +244,9 @@ public class ControlPanel {
 	}
 
 	public FieldObject getSelectedFieldObject() {
-		return selectedFieldObject;
+		if (editor == null) {
+			return null;
+		}
+		return editor.getFieldObject();
 	}
 }
