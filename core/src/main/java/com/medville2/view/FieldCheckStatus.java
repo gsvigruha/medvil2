@@ -40,9 +40,17 @@ public class FieldCheckStatus {
 		return fcs;
 	}
 
+	public static FieldCheckStatus success(Field field, String label) {
+		FieldCheckStatus fcs = new FieldCheckStatus();
+		fcs.addFieldWithStatus(new FieldWithStatus(field, true));
+		fcs.setLabel(label);
+		return fcs;
+	}
+
 	private final List<FieldWithStatus> fields;
 	private boolean status;
 	private FieldObject buildableObject;
+	private String label;
 
 	public FieldCheckStatus() {
 		this.fields = new ArrayList<>();
@@ -70,5 +78,13 @@ public class FieldCheckStatus {
 
 	public void setBuildableObject(FieldObject buildableObject) {
 		this.buildableObject = buildableObject;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 }

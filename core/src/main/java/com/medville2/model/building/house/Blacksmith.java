@@ -1,5 +1,7 @@
 package com.medville2.model.building.house;
 
+import com.medville2.model.Terrain;
+
 public class Blacksmith extends BuildingObject {
 
 	public Blacksmith(int i, int j) {
@@ -14,5 +16,10 @@ public class Blacksmith extends BuildingObject {
 	@Override
 	public int getSize() {
 		return 1;
+	}
+
+	@Override
+	public void tick(Terrain terrain) {
+		
 	}
 }
