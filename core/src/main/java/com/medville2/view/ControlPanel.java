@@ -200,16 +200,18 @@ public class ControlPanel {
 	public void click(Field field, Terrain terrain) {
 		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingClass,
 				selectedFieldObject);
-		if (fcs.getStatus() && fcs.getBuildableObject() != null) {
+		if (fcs.getStatus()) {
 			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
-				for (FieldWithStatus fws : fcs.getFields()) {
-					fws.getField().setObject(fcs.getBuildableObject());
+				if (fcs.getBuildableObject() != null) {
+					for (FieldWithStatus fws : fcs.getFields()) {
+						fws.getField().setObject(fcs.getBuildableObject());
+					}
+					BuildingRules.setupWalls(field.getI(), field.getJ(), terrain);
+					BuildingRules.setupWalls(field.getI() - 1, field.getJ(), terrain);
+					BuildingRules.setupWalls(field.getI() + 1, field.getJ(), terrain);
+					BuildingRules.setupWalls(field.getI(), field.getJ() - 1, terrain);
+					BuildingRules.setupWalls(field.getI(), field.getJ() + 1, terrain);
 				}
-				BuildingRules.setupWalls(field.getI(), field.getJ(), terrain);
-				BuildingRules.setupWalls(field.getI() - 1, field.getJ(), terrain);
-				BuildingRules.setupWalls(field.getI() + 1, field.getJ(), terrain);
-				BuildingRules.setupWalls(field.getI(), field.getJ() - 1, terrain);
-				BuildingRules.setupWalls(field.getI(), field.getJ() + 1, terrain);
 			} else if (state == ControlPanelState.SELECT) {
 				selectedFieldObject = fcs.getBuildableObject();
 				if (selectedFieldObject != null) {
