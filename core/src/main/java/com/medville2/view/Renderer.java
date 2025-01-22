@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -15,9 +14,10 @@ import com.medville2.control.BuildingRules;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
-import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
+import com.medville2.view.building.WallRenderer;
+import com.medville2.view.terrain.FieldRenderer;
 
 public class Renderer {
 
@@ -26,9 +26,6 @@ public class Renderer {
 	private Vector2 worldPos;
 	private TextureRegion selectionRed;
 	private TextureRegion selectionGreen;
-	private TextureRegion grass;
-	private TextureRegion water;
-	private TextureRegion rock;
 	private TextureRegion grassCube;
 	private TextureRegion waterCube;
 	private TextureRegion rockCube;
@@ -39,6 +36,8 @@ public class Renderer {
 	private Field activeField;
 	private TextureAtlas textureAtlas;
 	private ArrayList<FieldObject> objectsToRender;
+	private FieldRenderer fieldRenderer;
+	private WallRenderer wallRenderer;
 
 	public Renderer(Terrain terrain, ControlPanel controlPanel, TextureAtlas textureAtlas) {
 		this.terrain = terrain;
@@ -47,12 +46,11 @@ public class Renderer {
 
 		this.selectionRed = textureAtlas.findRegion("selection_red");
 		this.selectionGreen = textureAtlas.findRegion("selection_green");
-		this.grass = textureAtlas.findRegion("grass");
-		this.water = textureAtlas.findRegion("water");
-		this.rock = textureAtlas.findRegion("rock");
 		this.grassCube = textureAtlas.findRegion("grass_cube");
 		this.waterCube = textureAtlas.findRegion("water_cube");
 		this.rockCube = textureAtlas.findRegion("rock_cube");
+		this.fieldRenderer = new FieldRenderer(textureAtlas);
+		this.wallRenderer = new WallRenderer(textureAtlas);
 
 		this.worldPos = new Vector2();
 		this.projectedViewport = new Rectangle();
@@ -92,27 +90,7 @@ public class Renderer {
 					continue;
 				}
 				Field field = fields[j];
-				final Sprite sprite;
-				if (field.getType() == Field.Type.GRASS) {
-					sprite = new Sprite(grass);
-				} else if (field.getType() == Field.Type.WATER || field.getType() == Field.Type.RIVER) {
-					sprite = new Sprite(water);
-				} else if (field.getType() == Field.Type.ROCK) {
-					sprite = new Sprite(rock);
-				} else {
-					sprite = null;
-				}
-				sprite.setSize(Terrain.DX, Terrain.DY);
-				sprite.translate(x, y);
-				sprite.draw(batch);
-
-				if (field.getType() == Field.Type.WATER || field.getType() == Field.Type.RIVER) {
-					long phase = ((System.currentTimeMillis() / 200) + field.getI() * 3 + field.getJ()) % 8;
-					Sprite sparkSprite = new Sprite(textureAtlas.findRegion("water_sparkle_" + phase));
-					sparkSprite.setSize(Terrain.DX, Terrain.DY);
-					sparkSprite.translate(x, y);
-					sparkSprite.draw(batch);
-				}
+				fieldRenderer.renderField(field, x, y, batch);
 
 				double d = Math.sqrt((x0 - x - Terrain.DX / 2) * (x0 - x - Terrain.DX / 2)
 						+ (y0 - y - Terrain.DY / 2) * (y0 - y - Terrain.DY / 2));
@@ -157,7 +135,7 @@ public class Renderer {
 
 				if (controlPanel.getCheckAllFields()) {
 					FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, controlPanel.getState(),
-							controlPanel.getBuildingClass());
+							controlPanel.getBuildingClass(), controlPanel.getSelectedFieldObject());
 					final Sprite objectSprite;
 					if (fcs.getStatus()) {
 						objectSprite = new Sprite(selectionGreen);
@@ -183,38 +161,7 @@ public class Renderer {
 			int ox = x;
 			int oy = y;
 			if (Wall.class.isAssignableFrom(fo.getClass())) {
-				Wall wall = (Wall) fo; 
-				if (wall.hasSegment(3)) {
-					Sprite objectSprite = new Sprite(textureAtlas.findRegion("wall"));
-					objectSprite.translate(ox + Terrain.DX / 4 - 9, oy + Terrain.DY / 2 - 10);
-					objectSprite.draw(batch);
-				}
-				if (wall.hasSegment(1)) {
-					Sprite objectSprite = new Sprite(textureAtlas.findRegion("wall"));
-					objectSprite.flip(true, false);
-					objectSprite.translate(ox + Terrain.DX / 2 - 9, oy + Terrain.DY / 2 - 10);
-					objectSprite.draw(batch);
-				}
-				int crop = 0;
-				if (fo.getClass().equals(Tower.class)) {
-					Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
-					objectSprite.translate(ox, oy);
-					objectSprite.draw(batch);
-					crop = 24;
-				}
-				if (wall.hasSegment(2)) {
-					AtlasRegion ar = textureAtlas.findRegion("wall");
-					Sprite objectSprite = new Sprite(new TextureRegion(ar, crop, 0, ar.getRegionWidth() - crop, ar.getRegionHeight()));
-					objectSprite.translate(ox + Terrain.DX / 2 + crop - 9, oy + Terrain.DY / 4 - 10);
-					objectSprite.draw(batch);
-				}
-				if (wall.hasSegment(0)) {
-					AtlasRegion ar = textureAtlas.findRegion("wall");
-					Sprite objectSprite = new Sprite(new TextureRegion(ar, crop, 0, ar.getRegionWidth() - crop, ar.getRegionHeight()));
-					objectSprite.flip(true, false);
-					objectSprite.translate(ox + Terrain.DX / 4 - 9, oy + Terrain.DY / 4 - 10);
-					objectSprite.draw(batch);
-				}
+				wallRenderer.renderWall(fo, ox, oy, batch); 
 			} else {
 				if (fo.getSize() == 2) {
 					ox = x - Terrain.DX / 2;
@@ -231,7 +178,7 @@ public class Renderer {
 
 		if (activeField != null) {
 			FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(activeField, terrain, controlPanel.getState(),
-					controlPanel.getBuildingClass());
+					controlPanel.getBuildingClass(), controlPanel.getSelectedFieldObject());
 			for (FieldWithStatus fws : fcs.getFields()) {
 				int i = fws.getField().getI();
 				int j = fws.getField().getJ();
@@ -246,6 +193,13 @@ public class Renderer {
 				objectSprite.setSize(Terrain.DX, Terrain.DY);
 				objectSprite.translate(x, y);
 				objectSprite.draw(batch);
+			}
+			if (fcs.getLabel() != null) {
+				int i = activeField.getI();
+				int j = activeField.getJ();
+				int x = i * Terrain.DX / 2 - j * Terrain.DX / 2 + Terrain.DX / 2;
+				int y = j * Terrain.DY / 2 + i * Terrain.DY / 2 + Terrain.DY / 2;
+				font.draw(batch, fcs.getLabel(), x, y);
 			}
 		}
 	}

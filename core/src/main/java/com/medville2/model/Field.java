@@ -65,6 +65,13 @@ public class Field {
 		this.cornerType = cornerType;
 	}
 
+	public float getCropYield() {
+		if (type != Type.GRASS) {
+			return 0;
+		}
+		return (10f - Math.min(Math.max((float) height, 0f), 10f)) / 10f;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(i, j);

@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.common.collect.ImmutableList;
 import com.medville2.control.BuildingRules;
 import com.medville2.model.Field;
+import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.house.Blacksmith;
 import com.medville2.model.building.house.BuildingObject;
@@ -33,7 +34,6 @@ import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
-import com.medville2.model.terrain.Grain;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 import com.medville2.view.buttons.ButtonHelper;
 
@@ -49,6 +49,7 @@ public class ControlPanel {
 	private ControlPanelState state;
 	private Class<?> buildingClass;
 	private boolean checkAllFields;
+	private FieldObject selectedFieldObject;
 
 	private ButtonGroup<ImageButton> menuButtons;
 	private ButtonGroup<ImageButton> buildingButtons;
@@ -56,8 +57,8 @@ public class ControlPanel {
 
 	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
 			Townsquare.class, Mill.class);
-	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class, Wall.class);
-
+	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class,
+			Wall.class);
 
 	public ControlPanel(Viewport hudViewport, TextureAtlas textureAtlas) {
 		this.hudViewport = hudViewport;
@@ -133,7 +134,8 @@ public class ControlPanel {
 		stage.addActor(label);
 	}
 
-	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, Class<?> buildingClass, int selectedButtonIdx) {
+	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, Class<?> buildingClass,
+			int selectedButtonIdx) {
 		ImageButton button = new ImageButton(new TextureRegionDrawable(icon));
 		button.setSize(ButtonHelper.BUTTON_LARGE_SX, ButtonHelper.BUTTON_LARGE_SY);
 		button.setPosition(x, y);
@@ -195,7 +197,8 @@ public class ControlPanel {
 	}
 
 	public void click(Field field, Terrain terrain) {
-		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingClass);
+		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingClass,
+				selectedFieldObject);
 		if (fcs.getStatus() && fcs.getBuildableObject() != null) {
 			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
 				for (FieldWithStatus fws : fcs.getFields()) {
@@ -207,7 +210,15 @@ public class ControlPanel {
 				BuildingRules.setupWalls(field.getI(), field.getJ() - 1, terrain);
 				BuildingRules.setupWalls(field.getI(), field.getJ() + 1, terrain);
 			} else if (state == ControlPanelState.SELECT) {
-
+				selectedFieldObject = fcs.getBuildableObject();
+				if (selectedFieldObject != null) {
+					state = ControlPanelState.MODIFY;
+				}
+			} else if (state == ControlPanelState.MODIFY) {
+				if (fcs.getStatus()) {
+					
+					
+				}
 			}
 		}
 	}
@@ -218,5 +229,9 @@ public class ControlPanel {
 
 	public ControlPanelState getState() {
 		return state;
+	}
+
+	public FieldObject getSelectedFieldObject() {
+		return selectedFieldObject;
 	}
 }
