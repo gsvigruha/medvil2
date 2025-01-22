@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -56,6 +57,7 @@ public class ControlPanel {
 	private ButtonGroup<ImageButton> menuButtons;
 	private ButtonGroup<ImageButton> buildingButtons;
 	private Group buildingButtonStack;
+	private Group editorStack;
 
 	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
 			Townsquare.class, Mill.class);
@@ -71,6 +73,7 @@ public class ControlPanel {
 		this.menuButtons = new ButtonGroup<>();
 		this.buildingButtons = new ButtonGroup<>();
 		this.buildingButtonStack = new Group();
+		this.editorStack = new Group();
 
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
@@ -78,6 +81,7 @@ public class ControlPanel {
 
 		stage = new Stage(hudViewport);
 		stage.addActor(buildingButtonStack);
+		stage.addActor(editorStack);
 		font = new BitmapFont();
 
 		label = new Label("Hello, LibGDX!", new LabelStyle(font, Color.WHITE));
@@ -219,6 +223,12 @@ public class ControlPanel {
 				if (selectedFieldObject != null) {
 					state = ControlPanelState.MODIFY;
 					editor = createEditor(selectedFieldObject);
+					editorStack.clear();
+					if (editor != null) {
+						for (Actor actor : editor.getActors()) {
+							editorStack.addActor(actor);
+						}
+					}
 				}
 			} else if (state == ControlPanelState.MODIFY) {
 				if (editor != null) {

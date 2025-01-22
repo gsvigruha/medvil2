@@ -1,5 +1,9 @@
 package com.medville2.control.building;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.medville2.control.Editor;
 import com.medville2.model.Field;
 import com.medville2.model.building.house.Farm;
@@ -23,5 +27,12 @@ public class FarmEditor extends Editor {
 	@Override
 	public Farm getFieldObject() {
 		return farm;
+	}
+
+	@Override
+	public Actor[] getActors() {
+		Label label = new Label("FARM!", new LabelStyle(font, Color.WHITE));
+		label.setPosition(20, 120);
+		return new Actor[] { label };
 	}
 }

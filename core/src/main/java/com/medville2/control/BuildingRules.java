@@ -90,7 +90,7 @@ public class BuildingRules {
 			}
 		}
 
-		if (state == ControlPanelState.MODIFY) {
+		if (state == ControlPanelState.MODIFY && selectedObject != null) {
 			String label = selectedObject.getLabel(field);
 			if (label == null) {
 				return FieldCheckStatus.fail(field);
