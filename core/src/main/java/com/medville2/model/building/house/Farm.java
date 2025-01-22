@@ -1,6 +1,7 @@
 package com.medville2.model.building.house;
 
-import java.util.Random;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.medville2.model.Field;
 import com.medville2.model.Terrain;
@@ -8,8 +9,11 @@ import com.medville2.model.terrain.Grain;
 
 public class Farm extends BuildingObject {
 
+	private Set<Field> fields;
+
 	public Farm(int i, int j) {
 		super(i, j);
+		this.fields = new HashSet<>();
 	}
 
 	@Override
@@ -24,12 +28,14 @@ public class Farm extends BuildingObject {
 
 	@Override
 	public void tick(Terrain terrain) {
-		Random rand = new Random();
-		if (Math.random() < 0.01) {
-			Field field = terrain.getField(getI() + rand.nextInt(5) - 2, getJ() + rand.nextInt(5) - 2);
-			if (field != null && field.getObject() == null) {
-				field.setObject(new Grain(field.getI(), field.getJ()));
-			}
+		
+	}
+
+	@Override
+	public String getLabel(Field field) {
+		if (field.getObject() == null && field.getCropYield() > 0) {
+			return String.format("%.0f", field.getCropYield() * 100) + "%";
 		}
+		return null;
 	}
 }
