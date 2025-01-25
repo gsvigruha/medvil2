@@ -25,6 +25,7 @@ public abstract class Editor {
 		button.setSize(ButtonHelper.BUTTON_LARGE_SX, ButtonHelper.BUTTON_LARGE_SY);
 		button.setPosition(x, y);
 		button.addListener(listener);
+		button.getStyle().checked = ButtonHelper.getInstance().buttonBGSelectedLarge;
 		return button;
 	}
 }

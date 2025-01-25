@@ -68,7 +68,7 @@ public class ControlPanel {
 		this.hudViewport = hudViewport;
 		this.textureAtlas = textureAtlas;
 		this.state = ControlPanelState.DO_NOTHING;
-		this.helper = new ButtonHelper();
+		this.helper = ButtonHelper.getInstance();
 
 		this.menuButtons = new ButtonGroup<>();
 		this.buildingButtons = new ButtonGroup<>();

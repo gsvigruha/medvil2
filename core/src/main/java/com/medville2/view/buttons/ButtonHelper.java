@@ -19,7 +19,7 @@ public class ButtonHelper {
 	public final InputEvent touchDownEvent;
 	public final InputEvent touchUpEvent;
 
-	public ButtonHelper() {
+	private ButtonHelper() {
 		Pixmap labelColor = new Pixmap(BUTTON_LARGE_SX, BUTTON_LARGE_SY, Pixmap.Format.RGB888);
 		labelColor.setColor(Color.valueOf("40A020"));
 		labelColor.fill();
@@ -34,6 +34,12 @@ public class ButtonHelper {
 		touchDownEvent.setType(InputEvent.Type.touchDown);
 		touchUpEvent = new InputEvent();
 		touchUpEvent.setType(InputEvent.Type.touchUp);
+	}
+
+	private static ButtonHelper instance = new ButtonHelper();
+
+	public static ButtonHelper getInstance() {
+		return instance;
 	}
 	
 }

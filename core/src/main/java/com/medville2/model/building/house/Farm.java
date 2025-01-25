@@ -5,15 +5,39 @@ import java.util.Set;
 
 import com.medville2.model.Field;
 import com.medville2.model.Terrain;
-import com.medville2.model.terrain.Grain;
 
 public class Farm extends BuildingObject {
 
+	private static final int MAX_CAPACITY = 10;
+
 	private Set<Field> fields;
+	private int capacityUsed;
 
 	public Farm(int i, int j) {
 		super(i, j);
 		this.fields = new HashSet<>();
+	}
+
+	private void computeCapacity() {
+		capacityUsed = 0;
+		for (Field field : fields) {
+			int distance = Math.abs(field.getI() - getI()) + Math.abs(field.getJ() - getJ());
+			capacityUsed += distance;
+		}
+	}
+
+	public boolean addField(Field field) {
+		fields.add(field);
+		computeCapacity();
+		if (capacityUsed > MAX_CAPACITY) {
+			fields.remove(field);
+			return false;
+		}
+		return true;
+	}
+
+	public boolean removeField(Field field) {
+		return fields.remove(field);
 	}
 
 	@Override
@@ -28,13 +52,17 @@ public class Farm extends BuildingObject {
 
 	@Override
 	public void tick(Terrain terrain) {
-		
+
 	}
 
 	@Override
 	public String getLabel(Field field) {
-		if (field.getObject() == null && field.getCropYield() > 0) {
-			return String.format("%.0f", field.getCropYield() * 100) + "%";
+		if (fields.contains(field) && field.getObject() != null) {
+			return field.getObject().getName();
+		} else {
+			if (field.getObject() == null && field.getCropYield() > 0) {
+				return String.format("%.0f", field.getCropYield() * 100) + "%";
+			}
 		}
 		return null;
 	}

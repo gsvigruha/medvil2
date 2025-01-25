@@ -3,6 +3,7 @@ package com.medville2.control.building;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.medville2.control.Editor;
@@ -13,11 +14,7 @@ import com.medville2.model.terrain.Grain;
 public class FarmEditor extends Editor {
 
 	private enum State {
-		GRAIN,
-		FISH,
-		CATTLE,
-		WOOD,
-		DESELECT
+		GRAIN, FISH, CATTLE, WOOD, DESELECT
 	}
 
 	private final Farm farm;
@@ -26,36 +23,55 @@ public class FarmEditor extends Editor {
 	private final ImageButton selectFishButton;
 	private final ImageButton deselectButton;
 
+	private final ButtonGroup<ImageButton> selectButtonGroup;
+
 	private State state;
 
 	public FarmEditor(Farm farm, int height, TextureAtlas textureAtlas) {
 		this.farm = farm;
 		this.state = State.GRAIN;
-		
-		selectGrainButton = createButton(textureAtlas.findRegion("grain"), 20, height - 200, new ClickListener() {
+		this.selectButtonGroup = new ButtonGroup<>();
+
+		selectGrainButton = createButton(textureAtlas.findRegion("grain"), 20, height - 250, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.GRAIN;
 			}
 		});
-		selectFishButton = createButton(textureAtlas.findRegion("grain"), 20, height - 300, new ClickListener() {
+		selectButtonGroup.add(selectGrainButton);
+		selectFishButton = createButton(textureAtlas.findRegion("grain"), 20, height - 400, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.FISH;
 			}
 		});
-		deselectButton = createButton(textureAtlas.findRegion("grain"), 20, height - 400, new ClickListener() {
+		selectButtonGroup.add(selectFishButton);
+		deselectButton = createButton(textureAtlas.findRegion("grain"), 20, height - 550, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.DESELECT;
 			}
 		});
+		selectButtonGroup.add(deselectButton);
 	}
 
 	@Override
 	public void handleClick(Field field) {
-		if (field.getObject() == null) {
-			field.setObject(new Grain(field.getI(), field.getJ()));
+		if (state == State.DESELECT) {
+			if (farm.removeField(field)) {
+				field.setObject(null);
+			}
+		} else if (field.getObject() == null) {
+			if (farm.addField(field)) {
+				switch (state) {
+				case GRAIN:
+					field.setObject(new Grain(field.getI(), field.getJ()));
+				case FISH:
+				case CATTLE:
+				case WOOD:
+				default:
+				}
+			}
 		}
 	}
 
