@@ -29,8 +29,4 @@ public abstract class FieldObject {
 	}
 
 	public abstract void tick(Terrain terrain);
-
-	public String getLabel(Field field) {
-		return null;
-	}
 }

@@ -68,7 +68,7 @@ public class ControlPanel {
 		this.hudViewport = hudViewport;
 		this.textureAtlas = textureAtlas;
 		this.state = ControlPanelState.DO_NOTHING;
-		this.helper = new ButtonHelper();
+		this.helper = ButtonHelper.getInstance();
 
 		this.menuButtons = new ButtonGroup<>();
 		this.buildingButtons = new ButtonGroup<>();
@@ -93,6 +93,7 @@ public class ControlPanel {
 	private void clearBuildingButtons() {
 		buildingButtons.clear();
 		buildingButtonStack.clear();
+		editorStack.clear();
 	}
 
 	private void addMenuButtons() {
@@ -205,7 +206,7 @@ public class ControlPanel {
 
 	public void click(Field field, Terrain terrain) {
 		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingClass,
-				getSelectedFieldObject());
+				editor);
 		if (fcs.getStatus()) {
 			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
 				if (fcs.getBuildableObject() != null) {
@@ -240,7 +241,7 @@ public class ControlPanel {
 
 	private Editor createEditor(FieldObject selectedFieldObject) {
 		if (selectedFieldObject.getClass().equals(Farm.class)) {
-			return new FarmEditor((Farm) selectedFieldObject);
+			return new FarmEditor((Farm) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
 		}
 		return null;
 	}
@@ -253,10 +254,7 @@ public class ControlPanel {
 		return state;
 	}
 
-	public FieldObject getSelectedFieldObject() {
-		if (editor == null) {
-			return null;
-		}
-		return editor.getFieldObject();
+	public Editor getEditor() {
+		return editor;
 	}
 }

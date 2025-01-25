@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 import com.medville2.model.Field;
-import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.house.BuildingObject;
 import com.medville2.model.building.house.Mill;
@@ -27,7 +26,7 @@ public class BuildingRules {
 	private static final Set<Field.Type> MineTypes = ImmutableSet.of(Field.Type.ROCK);
 
 	public static FieldCheckStatus getFieldCheckStatus(Field field, Terrain terrain, ControlPanelState state,
-			Class<?> buildingClass, FieldObject selectedObject) {
+			Class<?> buildingClass, Editor editor) {
 		if (field == null) {
 			return FieldCheckStatus.fail(field);
 		}
@@ -90,8 +89,8 @@ public class BuildingRules {
 			}
 		}
 
-		if (state == ControlPanelState.MODIFY && selectedObject != null) {
-			String label = selectedObject.getLabel(field);
+		if (state == ControlPanelState.MODIFY && editor != null) {
+			String label = editor.getLabel(field);
 			if (label == null) {
 				return FieldCheckStatus.fail(field);
 			} else {
