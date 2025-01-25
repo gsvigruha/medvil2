@@ -40,6 +40,10 @@ public class Farm extends BuildingObject {
 		return fields.remove(field);
 	}
 
+	public boolean hasField(Field field) {
+		return fields.contains(field);
+	}
+
 	@Override
 	public String getName() {
 		return "farm";
@@ -53,17 +57,5 @@ public class Farm extends BuildingObject {
 	@Override
 	public void tick(Terrain terrain) {
 
-	}
-
-	@Override
-	public String getLabel(Field field) {
-		if (fields.contains(field) && field.getObject() != null) {
-			return field.getObject().getName();
-		} else {
-			if (field.getObject() == null && field.getCropYield() > 0) {
-				return String.format("%.0f", field.getCropYield() * 100) + "%";
-			}
-		}
-		return null;
 	}
 }

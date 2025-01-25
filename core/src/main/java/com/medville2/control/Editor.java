@@ -28,4 +28,8 @@ public abstract class Editor {
 		button.getStyle().checked = ButtonHelper.getInstance().buttonBGSelectedLarge;
 		return button;
 	}
+
+	public String getLabel(Field field) {
+		return null;
+	}
 }

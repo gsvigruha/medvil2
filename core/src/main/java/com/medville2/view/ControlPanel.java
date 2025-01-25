@@ -206,7 +206,7 @@ public class ControlPanel {
 
 	public void click(Field field, Terrain terrain) {
 		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingClass,
-				getSelectedFieldObject());
+				editor);
 		if (fcs.getStatus()) {
 			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
 				if (fcs.getBuildableObject() != null) {
@@ -254,10 +254,7 @@ public class ControlPanel {
 		return state;
 	}
 
-	public FieldObject getSelectedFieldObject() {
-		if (editor == null) {
-			return null;
-		}
-		return editor.getFieldObject();
+	public Editor getEditor() {
+		return editor;
 	}
 }

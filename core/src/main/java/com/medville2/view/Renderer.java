@@ -15,6 +15,7 @@ import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.infra.Wall;
+import com.medville2.model.terrain.Fishnet;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 import com.medville2.view.building.WallRenderer;
 import com.medville2.view.terrain.FieldRenderer;
@@ -135,7 +136,7 @@ public class Renderer {
 
 				if (controlPanel.getCheckAllFields()) {
 					FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, controlPanel.getState(),
-							controlPanel.getBuildingClass(), controlPanel.getSelectedFieldObject());
+							controlPanel.getBuildingClass(), controlPanel.getEditor());
 					final Sprite objectSprite;
 					if (fcs.getStatus()) {
 						objectSprite = new Sprite(selectionGreen);
@@ -161,11 +162,14 @@ public class Renderer {
 			int ox = x;
 			int oy = y;
 			if (Wall.class.isAssignableFrom(fo.getClass())) {
-				wallRenderer.renderWall(fo, ox, oy, batch); 
+				wallRenderer.renderWall(fo, ox, oy, batch);
 			} else {
 				if (fo.getSize() == 2) {
 					ox = x - Terrain.DX / 2;
 					oy = y + Terrain.DY * (fo.getSize() - 2);
+				}
+				if (fo.getClass().equals(Fishnet.class)) {
+					oy += (Math.sin(((double) System.currentTimeMillis()) / 250.0 + fo.getI())) * 2.0;
 				}
 				final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
 				if (fo.isFlip()) {
@@ -178,7 +182,7 @@ public class Renderer {
 
 		if (activeField != null) {
 			FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(activeField, terrain, controlPanel.getState(),
-					controlPanel.getBuildingClass(), controlPanel.getSelectedFieldObject());
+					controlPanel.getBuildingClass(), controlPanel.getEditor());
 			for (FieldWithStatus fws : fcs.getFields()) {
 				int i = fws.getField().getI();
 				int j = fws.getField().getJ();
