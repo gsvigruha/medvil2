@@ -95,6 +95,9 @@ public class FarmEditor extends Editor {
 			return field.getObject().getName();
 		} else {
 			if (field.getObject() == null) {
+				if (!farm.hasCapacity(field)) {
+					return null;
+				}
 				switch (state) {
 				case GRAIN:
 					if (field.getCropYield() > 0) {
