@@ -93,6 +93,7 @@ public class ControlPanel {
 	private void clearBuildingButtons() {
 		buildingButtons.clear();
 		buildingButtonStack.clear();
+		editorStack.clear();
 	}
 
 	private void addMenuButtons() {
@@ -240,7 +241,7 @@ public class ControlPanel {
 
 	private Editor createEditor(FieldObject selectedFieldObject) {
 		if (selectedFieldObject.getClass().equals(Farm.class)) {
-			return new FarmEditor((Farm) selectedFieldObject);
+			return new FarmEditor((Farm) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
 		}
 		return null;
 	}
