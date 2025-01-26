@@ -41,6 +41,7 @@ public class TextureHelper {
 		images.put("wall", "wall_4.png");
 		images.put("grain", "grain.png");
 		images.put("fishnet", "fishnet.png");
+		images.put("sheep", "sheep.png");
 
 		images.put("water_sparkle_0", "water_sparkle_0.png");
 		images.put("water_sparkle_1", "water_sparkle_1.png");
@@ -54,6 +55,7 @@ public class TextureHelper {
 		images.put("selection_red", "selection_red.png");
 		images.put("selection_green", "selection_green.png");
 		images.put("arrow_small", "arrow_small.png");
+		images.put("cancel", "cancel.png");
 		
 	}
 

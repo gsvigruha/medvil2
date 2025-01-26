@@ -55,6 +55,10 @@ public class Farm extends BuildingObject {
 		return fields.contains(field);
 	}
 
+	public Iterable<Field> getFields() {
+		return fields;
+	}
+
 	@Override
 	public String getName() {
 		return "farm";

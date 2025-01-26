@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.view.buttons.ButtonHelper;
@@ -31,5 +32,9 @@ public abstract class Editor {
 
 	public String getLabel(Field field) {
 		return null;
+	}
+
+	public Iterable<Field> getActiveFields() {
+		return ImmutableList.of();
 	}
 }
