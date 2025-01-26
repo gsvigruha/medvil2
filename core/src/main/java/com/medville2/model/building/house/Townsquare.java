@@ -1,11 +1,13 @@
 package com.medville2.model.building.house;
 
+import com.medville2.model.Field;
 import com.medville2.model.Terrain;
+import com.medville2.model.time.Calendar;
 
 public class Townsquare extends BuildingObject {
 
-	public Townsquare(int i, int j) {
-		super(i, j);
+	public Townsquare(Field field) {
+		super(field);
 	}
 
 	@Override
@@ -19,7 +21,7 @@ public class Townsquare extends BuildingObject {
 	}
 
 	@Override
-	public void tick(Terrain terrain) {
+	public void tick(Terrain terrain, Calendar calendar) {
 		
 	}
 }

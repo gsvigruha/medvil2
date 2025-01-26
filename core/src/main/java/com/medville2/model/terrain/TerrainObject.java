@@ -1,12 +1,14 @@
 package com.medville2.model.terrain;
 
+import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
+import com.medville2.model.time.Calendar;
 
 public abstract class TerrainObject extends FieldObject {
 
-	public TerrainObject(int i, int j) {
-		super(i, j);
+	public TerrainObject(Field field) {
+		super(field);
 	}
 
 	@Override
@@ -15,7 +17,7 @@ public abstract class TerrainObject extends FieldObject {
 	}
 
 	@Override
-	public void tick(Terrain terrain) {
+	public void tick(Terrain terrain, Calendar calendar) {
 		
 	}
 }

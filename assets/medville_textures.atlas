@@ -5,196 +5,196 @@ filter: Linear,Linear
 repeat: none
 cancel
   rotate: false
-  xy: 1106, 0
+  xy: 1115, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 rock
   rotate: false
-  xy: 512, 315
+  xy: 771, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_3
   rotate: false
-  xy: 256, 603
+  xy: 514, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 blacksmith
   rotate: false
-  xy: 594, 0
+  xy: 601, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 water_sparkle_4
   rotate: false
-  xy: 512, 603
+  xy: 771, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_1
   rotate: false
-  xy: 2560, 315
+  xy: 0, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 mountain
   rotate: false
-  xy: 1536, 603
+  xy: 1799, 603
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water_sparkle_2
   rotate: false
-  xy: 0, 603
+  xy: 257, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_7
   rotate: false
-  xy: 1280, 603
+  xy: 1542, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 selection_green
   rotate: false
-  xy: 338, 0
+  xy: 343, 0
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 road
   rotate: false
-  xy: 256, 315
+  xy: 514, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 2130, 0
+  xy: 2143, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_5
   rotate: false
-  xy: 768, 603
+  xy: 1028, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 townsquare
   rotate: false
-  xy: 2048, 603
+  xy: 2312, 603
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water_sparkle_6
   rotate: false
-  xy: 1024, 603
+  xy: 1285, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 farm
   rotate: false
-  xy: 1362, 0
+  xy: 1372, 0
   size: 256, 315
   orig: 256, 315
   offset: 0, 0
   index: -1
 grain
   rotate: false
-  xy: 1874, 0
+  xy: 1886, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 sheep
   rotate: false
-  xy: 768, 315
+  xy: 1028, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tower
   rotate: false
-  xy: 1024, 315
+  xy: 1285, 315
   size: 256, 288
   orig: 256, 288
   offset: 0, 0
   index: -1
 mine
   rotate: false
-  xy: 0, 315
+  xy: 257, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 selection_red
   rotate: false
-  xy: 466, 0
+  xy: 472, 0
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 fishnet
   rotate: false
-  xy: 1618, 0
+  xy: 1629, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tree
   rotate: false
-  xy: 1280, 315
+  xy: 1542, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 rock_cube
   rotate: false
-  xy: 128, 0
+  xy: 130, 0
   size: 64, 48
   orig: 64, 48
   offset: 0, 0
   index: -1
 water
   rotate: false
-  xy: 2048, 315
+  xy: 2313, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_0
   rotate: false
-  xy: 2304, 315
+  xy: 2570, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 tree_cherry
   rotate: false
-  xy: 1536, 315
+  xy: 1799, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 mill
   rotate: false
-  xy: 2642, 0
+  xy: 0, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -208,42 +208,42 @@ arrow_small
   index: -1
 hill
   rotate: false
-  xy: 2386, 0
+  xy: 2400, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 grass_cube
   rotate: false
-  xy: 64, 0
+  xy: 65, 0
   size: 64, 48
   orig: 64, 48
   offset: 0, 0
   index: -1
 tree_small
   rotate: false
-  xy: 1792, 315
+  xy: 2056, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 bridge
   rotate: false
-  xy: 850, 0
+  xy: 858, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 water_cube
   rotate: false
-  xy: 192, 0
+  xy: 195, 0
   size: 64, 48
   orig: 64, 48
   offset: 0, 0
   index: -1
 wall
   rotate: false
-  xy: 256, 0
+  xy: 260, 0
   size: 82, 160
   orig: 82, 160
   offset: 0, 0

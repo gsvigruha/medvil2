@@ -33,7 +33,7 @@ public class BuildingRules {
 		if (state == ControlPanelState.BUILD_INFRA) {
 			if (buildingClass.equals(Road.class)) {
 				if (field != null && InfraTypes.contains(field.getType()) && field.getObject() == null) {
-					return FieldCheckStatus.success(field, new Road(field.getI(), field.getJ()));
+					return FieldCheckStatus.success(field, new Road(field));
 				}
 			} else if (buildingClass.equals(Bridge.class)) {
 				if (field != null && field.getType() == Field.Type.RIVER && field.getObject() == null) {
@@ -41,30 +41,29 @@ public class BuildingRules {
 							&& terrain.isType(field.getI() + 1, field.getJ(), Field.Type.GRASS)
 							&& terrain.isType(field.getI(), field.getJ() - 1, Field.Type.RIVER)
 							&& terrain.isType(field.getI(), field.getJ() + 1, Field.Type.RIVER)) {
-						return FieldCheckStatus.success(field, new Bridge(field.getI(), field.getJ(), false));
+						return FieldCheckStatus.success(field, new Bridge(field, false));
 					}
 					if (terrain.isType(field.getI() - 1, field.getJ(), Field.Type.RIVER)
 							&& terrain.isType(field.getI() + 1, field.getJ(), Field.Type.RIVER)
 							&& terrain.isType(field.getI(), field.getJ() - 1, Field.Type.GRASS)
 							&& terrain.isType(field.getI(), field.getJ() + 1, Field.Type.GRASS)) {
-						return FieldCheckStatus.success(field, new Bridge(field.getI(), field.getJ(), true));
+						return FieldCheckStatus.success(field, new Bridge(field, true));
 					}
 				}
 			} else if (buildingClass.equals(Tower.class)) {
 				if (field != null && InfraTypes.contains(field.getType()) && field.getObject() == null) {
-					return FieldCheckStatus.success(field, new Tower(field.getI(), field.getJ()));
+					return FieldCheckStatus.success(field, new Tower(field));
 				}
 			} else if (buildingClass.equals(Wall.class)) {
 				if (field != null && InfraTypes.contains(field.getType()) && field.getObject() == null) {
-					Wall wall = new Wall(field.getI(), field.getJ());
+					Wall wall = new Wall(field);
 					return FieldCheckStatus.success(field, wall);
 				}
 			}
 		}
 
 		if (state == ControlPanelState.BUILD_HOUSE) {
-			BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field.getI(),
-					field.getJ());
+			BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field);
 			if (buildingClass.equals(Mine.class)) {
 				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().isHill()
 						&& terrain.hasNeighbor(field.getI(), field.getJ(), f -> f.getObject() == null
@@ -119,9 +118,9 @@ public class BuildingRules {
 		return fcs;
 	}
 
-	public static BuildingObject newHouse(Class<? extends BuildingObject> clss, int i, int j) {
+	public static BuildingObject newHouse(Class<? extends BuildingObject> clss, Field field) {
 		try {
-			return clss.getConstructor(int.class, int.class).newInstance(i, j);
+			return clss.getConstructor(Field.class).newInstance(field);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
@@ -129,9 +128,9 @@ public class BuildingRules {
 		}
 	}
 
-	public static InfraObject newInfra(Class<? extends InfraObject> clss, int i, int j) {
+	public static InfraObject newInfra(Class<? extends InfraObject> clss, Field field) {
 		try {
-			return clss.getConstructor(int.class, int.class).newInstance(i, j);
+			return clss.getConstructor(Field.class).newInstance(field);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();

@@ -1,11 +1,13 @@
 package com.medville2.model.building.house;
 
+import com.medville2.model.Field;
 import com.medville2.model.Terrain;
+import com.medville2.model.time.Calendar;
 
 public class Mine extends BuildingObject {
 
-	public Mine(int i, int j) {
-		super(i, j);
+	public Mine(Field field) {
+		super(field);
 	}
 
 	@Override
@@ -19,7 +21,7 @@ public class Mine extends BuildingObject {
 	}
 
 	@Override
-	public void tick(Terrain terrain) {
+	public void tick(Terrain terrain, Calendar calendar) {
 		
 	}
 }

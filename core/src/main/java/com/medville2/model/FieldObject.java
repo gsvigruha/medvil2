@@ -1,21 +1,24 @@
 package com.medville2.model;
 
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
+import com.medville2.model.time.Calendar;
+
 public abstract class FieldObject {
 
-	private final int i;
-	private final int j;
+	protected final Field field;
 
-	public FieldObject(int i, int j) {
-		this.i = i;
-		this.j = j;
+	public FieldObject(Field field) {
+		this.field = field;
 	}
 
 	public int getI() {
-		return i;
+		return field.getI();
 	}
 
 	public int getJ() {
-		return j;
+		return field.getJ();
 	}
 
 	public abstract String getName();
@@ -28,5 +31,9 @@ public abstract class FieldObject {
 		return false;
 	}
 
-	public abstract void tick(Terrain terrain);
+	public abstract void tick(Terrain terrain, Calendar calendar);
+
+	public Map<String, Integer> getYield(Calendar calendar) {
+		return ImmutableMap.of();
+	}
 }

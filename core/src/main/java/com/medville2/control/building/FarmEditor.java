@@ -10,16 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.medville2.control.Editor;
 import com.medville2.model.Field;
 import com.medville2.model.building.house.Farm;
+import com.medville2.model.building.house.Farm.State;
 import com.medville2.model.terrain.Fishnet;
 import com.medville2.model.terrain.Grain;
 import com.medville2.model.terrain.Sheep;
 import com.medville2.model.terrain.Tree;
 
 public class FarmEditor extends Editor {
-
-	private enum State {
-		GRAIN, FISH, CATTLE, WOOD, DESELECT
-	}
 
 	private final Farm farm;
 
@@ -32,7 +29,7 @@ public class FarmEditor extends Editor {
 
 	private final ButtonGroup<ImageButton> selectButtonGroup;
 
-	private State state;
+	private Farm.State state;
 
 	public FarmEditor(Farm farm, int height, TextureAtlas textureAtlas) {
 		this.farm = farm;
@@ -89,19 +86,19 @@ public class FarmEditor extends Editor {
 				field.setObject(null);
 			}
 		} else if (field.getObject() == null || field.getObject().getClass().equals(Tree.class)) {
-			if (farm.addField(field)) {
+			if (farm.addField(field, state)) {
 				switch (state) {
 				case GRAIN:
-					field.setObject(new Grain(field.getI(), field.getJ()));
+					field.setObject(new Grain(field));
 					break;
 				case FISH:
-					field.setObject(new Fishnet(field.getI(), field.getJ()));
+					field.setObject(new Fishnet(field));
 					break;
 				case CATTLE:
-					field.setObject(new Sheep(field.getI(), field.getJ()));
+					field.setObject(new Sheep(field));
 					break;
 				case WOOD:
-					field.setObject(new Tree(Tree.Type.GREEN, field.getI(), field.getJ()));
+					field.setObject(new Tree(Tree.Type.GREEN, field));
 					break;
 				default:
 				}
@@ -137,7 +134,7 @@ public class FarmEditor extends Editor {
 					}
 					return null;
 				case FISH:
-					if (field.getType() == Field.Type.RIVER || field.getType() == Field.Type.WATER) {
+					if (field.getType() == Field.Type.WATER) {
 						return "fish";
 					}
 					return null;

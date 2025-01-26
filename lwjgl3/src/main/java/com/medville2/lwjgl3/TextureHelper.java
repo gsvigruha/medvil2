@@ -95,7 +95,7 @@ public class TextureHelper {
         	g2d.drawImage(t, x, y, null);
         	regions.put(entry.getKey(), new Rectangle(x, y, t.getWidth(), t.getHeight()));
 
-        	x = x + t.getWidth();
+        	x = x + t.getWidth() + 1;
         	maxH = Math.max(maxH, t.getHeight());
         	if (x + t.getWidth() >= width) {
         		x = 0;

@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.medville2.model.Terrain;
+import com.medville2.model.time.Calendar;
 import com.medville2.view.ControlPanel;
 import com.medville2.view.Renderer;
 
@@ -37,6 +38,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private Viewport hudViewport;
 
     private Terrain terrain;
+    private Calendar calendar;
 
     private static final int maxV = 25;
     private int scrollVX;
@@ -58,6 +60,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	    TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("medville_textures.atlas"));
 		controlPanel = new ControlPanel(hudViewport, textureAtlas);
         terrain = new Terrain(256, 32);
+        calendar = new Calendar();
         renderer = new Renderer(terrain, controlPanel, textureAtlas);
 
 		InputMultiplexer im = new InputMultiplexer();
@@ -101,7 +104,8 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	}
 
 	private void logic() {
-		terrain.tick();
+		calendar.tick();
+		terrain.tick(calendar);
 	}
 
 	private void draw() {
@@ -118,7 +122,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 		hudViewport.apply();
         hudCamera.update();
 
-        controlPanel.render();
+        controlPanel.render(calendar);
 	}
 
 	private void input() {
