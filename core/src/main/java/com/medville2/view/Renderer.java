@@ -147,6 +147,8 @@ public class Renderer {
 					objectSprite.translate(x, y);
 					objectSprite.draw(batch);
 				}
+				
+				// font.draw(batch, String.valueOf(field.getDistanceFromWater()), x + 60, y + 60);
 			}
 		}
 

@@ -88,7 +88,7 @@ public class FarmEditor extends Editor {
 			if (farm.removeField(field)) {
 				field.setObject(null);
 			}
-		} else if (field.getObject() == null) {
+		} else if (field.getObject() == null || field.getObject().getClass().equals(Tree.class)) {
 			if (farm.addField(field)) {
 				switch (state) {
 				case GRAIN:
@@ -126,7 +126,7 @@ public class FarmEditor extends Editor {
 		if (state == State.DESELECT && farm.hasField(field) && field.getObject() != null) {
 			return field.getObject().getName();
 		} else {
-			if (field.getObject() == null) {
+			if (field.getObject() == null || field.getObject().getClass().equals(Tree.class)) {
 				if (!farm.hasCapacity(field)) {
 					return null;
 				}
