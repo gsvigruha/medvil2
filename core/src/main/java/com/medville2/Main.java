@@ -22,8 +22,8 @@ import com.medville2.view.Renderer;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter implements InputProcessor {
-	private static final int HUD_WIDTH = 256;
-	
+	private static final int HUD_WIDTH = 300;
+
 	private SpriteBatch batch;
 
 	private FitViewport viewport;
