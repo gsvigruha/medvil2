@@ -150,6 +150,20 @@ public class Renderer {
 			}
 		}
 
+		if (controlPanel.getEditor() != null) {
+			for (Field field : controlPanel.getEditor().getActiveFields()) {
+				int i = field.getI();
+				int j = field.getJ();
+				int x = i * Terrain.DX / 2 - j * Terrain.DX / 2;
+				int y = j * Terrain.DY / 2 + i * Terrain.DY / 2;
+				final Sprite objectSprite;
+				objectSprite = new Sprite(selectionGreen);
+				objectSprite.setSize(Terrain.DX, Terrain.DY);
+				objectSprite.translate(x, y);
+				objectSprite.draw(batch);
+			}
+		}
+
 		objectsToRender.sort((fo1, fo2) -> {
 			int y1 = fo1.getI() * 2 + fo1.getJ() * 2 + fo1.getSize();
 			int y2 = fo2.getI() * 2 + fo2.getJ() * 2 + fo2.getSize();

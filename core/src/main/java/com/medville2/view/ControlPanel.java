@@ -94,6 +94,7 @@ public class ControlPanel {
 		buildingButtons.clear();
 		buildingButtonStack.clear();
 		editorStack.clear();
+		editor = null;
 	}
 
 	private void addMenuButtons() {

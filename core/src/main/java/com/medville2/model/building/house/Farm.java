@@ -8,7 +8,7 @@ import com.medville2.model.Terrain;
 
 public class Farm extends BuildingObject {
 
-	private static final int MAX_CAPACITY = 10;
+	private static final int MAX_CAPACITY = 20;
 
 	private Set<Field> fields;
 	private int capacityUsed;
@@ -18,12 +18,20 @@ public class Farm extends BuildingObject {
 		this.fields = new HashSet<>();
 	}
 
+	public boolean hasCapacity(Field field) {
+		return getDistance(field) + capacityUsed <= MAX_CAPACITY;
+	}
+
 	private void computeCapacity() {
 		capacityUsed = 0;
 		for (Field field : fields) {
-			int distance = Math.abs(field.getI() - getI()) + Math.abs(field.getJ() - getJ());
+			int distance = getDistance(field);
 			capacityUsed += distance;
 		}
+	}
+
+	private int getDistance(Field field) {
+		return Math.abs(field.getI() - getI()) + Math.abs(field.getJ() - getJ());
 	}
 
 	public boolean addField(Field field) {
@@ -31,17 +39,24 @@ public class Farm extends BuildingObject {
 		computeCapacity();
 		if (capacityUsed > MAX_CAPACITY) {
 			fields.remove(field);
+			computeCapacity();
 			return false;
 		}
 		return true;
 	}
 
 	public boolean removeField(Field field) {
-		return fields.remove(field);
+		boolean removed = fields.remove(field);
+		computeCapacity();
+		return removed;
 	}
 
 	public boolean hasField(Field field) {
 		return fields.contains(field);
+	}
+
+	public Iterable<Field> getFields() {
+		return fields;
 	}
 
 	@Override
@@ -57,5 +72,9 @@ public class Farm extends BuildingObject {
 	@Override
 	public void tick(Terrain terrain) {
 
+	}
+
+	public float getUsedCapacity() {
+		return (float) capacityUsed / (float) MAX_CAPACITY;
 	}
 }
