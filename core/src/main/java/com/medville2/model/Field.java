@@ -18,6 +18,7 @@ public class Field {
 	private Type cornerType;
 	private double height;
 	private FieldObject object;
+	private int distanceFromWater;
 
 	public Field(int i, int j) {
 		this.type = Type.GRASS;
@@ -69,7 +70,15 @@ public class Field {
 		if (type != Type.GRASS) {
 			return 0;
 		}
-		return (10f - Math.min(Math.max((float) height, 0f), 10f)) / 10f;
+		return (10f - Math.min(Math.max((float) distanceFromWater - 1, 0f), 10f)) / 10f;
+	}
+
+	public int getDistanceFromWater() {
+		return distanceFromWater;
+	}
+
+	public void setDistanceFromWater(int distanceFromWater) {
+		this.distanceFromWater = distanceFromWater;
 	}
 
 	@Override
