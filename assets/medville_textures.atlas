@@ -1,8 +1,15 @@
 medville_textures.png
-size: 2810, 2810
+size: 2902, 2902
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+cancel
+  rotate: false
+  xy: 1106, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 rock
   rotate: false
   xy: 512, 315
@@ -33,7 +40,7 @@ water_sparkle_4
   index: -1
 water_sparkle_1
   rotate: false
-  xy: 2304, 315
+  xy: 2560, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
@@ -75,7 +82,7 @@ road
   index: -1
 grass
   rotate: false
-  xy: 1874, 0
+  xy: 2130, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
@@ -103,21 +110,28 @@ water_sparkle_6
   index: -1
 farm
   rotate: false
-  xy: 1106, 0
+  xy: 1362, 0
   size: 256, 315
   orig: 256, 315
   offset: 0, 0
   index: -1
 grain
   rotate: false
-  xy: 1618, 0
+  xy: 1874, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+sheep
+  rotate: false
+  xy: 768, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tower
   rotate: false
-  xy: 768, 315
+  xy: 1024, 315
   size: 256, 288
   orig: 256, 288
   offset: 0, 0
@@ -138,14 +152,14 @@ selection_red
   index: -1
 fishnet
   rotate: false
-  xy: 1362, 0
+  xy: 1618, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tree
   rotate: false
-  xy: 1024, 315
+  xy: 1280, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -159,28 +173,28 @@ rock_cube
   index: -1
 water
   rotate: false
-  xy: 1792, 315
+  xy: 2048, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_0
   rotate: false
-  xy: 2048, 315
+  xy: 2304, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 tree_cherry
   rotate: false
-  xy: 1280, 315
+  xy: 1536, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 mill
   rotate: false
-  xy: 2386, 0
+  xy: 2642, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -194,7 +208,7 @@ arrow_small
   index: -1
 hill
   rotate: false
-  xy: 2130, 0
+  xy: 2386, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -208,7 +222,7 @@ grass_cube
   index: -1
 tree_small
   rotate: false
-  xy: 1536, 315
+  xy: 1792, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
