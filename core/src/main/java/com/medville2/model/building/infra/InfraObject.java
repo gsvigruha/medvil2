@@ -1,12 +1,14 @@
 package com.medville2.model.building.infra;
 
+import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
+import com.medville2.model.time.Calendar;
 
 public abstract class InfraObject extends FieldObject {
 
-	public InfraObject(int i, int j) {
-		super(i, j);
+	public InfraObject(Field field) {
+		super(field);
 	}
 
 	@Override
@@ -20,7 +22,7 @@ public abstract class InfraObject extends FieldObject {
 	}
 
 	@Override
-	public void tick(Terrain terrain) {
+	public void tick(Terrain terrain, Calendar calendar) {
 		
 	}
 }

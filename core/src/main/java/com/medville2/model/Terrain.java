@@ -14,6 +14,7 @@ import com.medville2.model.terrain.DistanceFromWater;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.terrain.Mountain;
 import com.medville2.model.terrain.Tree;
+import com.medville2.model.time.Calendar;
 
 public class Terrain {
 
@@ -88,18 +89,18 @@ public class Terrain {
 						} else if (Math.random() < 0.2) {
 							type = Tree.Type.SMALL;
 						}
-						field.setObject(new Tree(type, i, j));
+						field.setObject(new Tree(type, field));
 					}
 				} else if (field.getType() == Field.Type.ROCK) {
 					if (!isFlat(i, j)) {
 						if (isLargeMountain(i, j) && isLargeMountain(i + 1, j) && isLargeMountain(i, j + 1) && isLargeMountain(i + 1, j + 1)) {
-							Mountain hill = new Mountain(i, j);
+							Mountain hill = new Mountain(field);
 							getField(i, j).setObject(hill);
 							getField(i + 1, j).setObject(hill);
 							getField(i, j + 1).setObject(hill);
 							getField(i + 1, j + 1).setObject(hill);
 						} else if (field.getObject() == null) {
-							field.setObject(new Hill(i, j));
+							field.setObject(new Hill(field));
 						}
 					}
 				}
@@ -271,13 +272,13 @@ public class Terrain {
 		return null;
 	}
 
-	public void tick() {
+	public void tick(Calendar calendar) {
 		for (int i = 0; i < getSize(); i++) {
 			Field[] fields = getFields()[i];
 			for (int j = 0; j < getSize(); j++) {
 				Field field = fields[j];
 				if (field.getObject() != null) {
-					field.getObject().tick(this);
+					field.getObject().tick(this, calendar);
 				}
 			}
 		}

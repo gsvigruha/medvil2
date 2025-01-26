@@ -37,6 +37,7 @@ import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
+import com.medville2.model.time.Calendar;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 import com.medville2.view.buttons.ButtonHelper;
 
@@ -104,7 +105,7 @@ public class ControlPanel {
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						for (int i = 0; i < houses.size(); i++) {
-							BuildingObject building = BuildingRules.newHouse(houses.get(i), 0, 0);
+							BuildingObject building = BuildingRules.newHouse(houses.get(i), null);
 							addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
 									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_HOUSE,
 									houses.get(i), i);
@@ -120,7 +121,7 @@ public class ControlPanel {
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						for (int i = 0; i < infra.size(); i++) {
-							InfraObject building = BuildingRules.newInfra(infra.get(i), 0, 0);
+							InfraObject building = BuildingRules.newInfra(infra.get(i), null);
 							addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
 									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_INFRA,
 									infra.get(i), i);
@@ -178,9 +179,9 @@ public class ControlPanel {
 		stage.dispose();
 	}
 
-	public void render() {
+	public void render(Calendar calendar) {
 		int fps = Gdx.graphics.getFramesPerSecond();
-		label.setText("FPS: " + fps);
+		label.setText("FPS: " + fps + ", " + calendar.render());
 		stage.act();
 		stage.draw();
 	}
@@ -199,7 +200,7 @@ public class ControlPanel {
 
 	public int getActiveFieldSize() {
 		if (state == ControlPanelState.BUILD_HOUSE) {
-			BuildingObject building = BuildingRules.newHouse((Class<? extends BuildingObject>) buildingClass, 0, 0);
+			BuildingObject building = BuildingRules.newHouse((Class<? extends BuildingObject>) buildingClass, null);
 			return building.getSize();
 		}
 		return 1;

@@ -1,11 +1,16 @@
 package com.medville2.model.building.house;
 
+import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
+import com.medville2.model.artifacts.Artifacts;
 
 public abstract class BuildingObject extends FieldObject {
 
-	public BuildingObject(int i, int j) {
-		super(i, j);
+	protected final Artifacts artifacts;
+
+	public BuildingObject(Field field) {
+		super(field);
+		this.artifacts = new Artifacts();
 	}
 
 	@Override

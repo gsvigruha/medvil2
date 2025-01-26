@@ -1,9 +1,11 @@
 package com.medville2.model.terrain;
 
+import com.medville2.model.Field;
+
 public class Mountain extends TerrainObject {
 
-	public Mountain(int i, int j) {
-		super(i, j);
+	public Mountain(Field field) {
+		super(field);
 	}
 
 	@Override

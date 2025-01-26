@@ -1,9 +1,11 @@
 package com.medville2.model.building.infra;
 
+import com.medville2.model.Field;
+
 public class Road extends InfraObject {
 
-	public Road(int i, int j) {
-		super(i, j);
+	public Road(Field field) {
+		super(field);
 	}
 
 	@Override
