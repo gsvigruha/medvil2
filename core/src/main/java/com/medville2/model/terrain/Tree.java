@@ -41,7 +41,7 @@ public class Tree extends TerrainObject {
 	@Override
 	public Map<String, Integer> getYield(Calendar calendar) {
 		if (calendar.getDay() == 1 && calendar.getYear() % 5 == 1) {
-			return ImmutableMap.of(Artifacts.LOG, 10);
+			return ImmutableMap.of(Artifacts.LOGS, 10);
 		} else {
 			return ImmutableMap.of();
 		}

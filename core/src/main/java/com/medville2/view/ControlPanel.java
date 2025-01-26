@@ -231,6 +231,9 @@ public class ControlPanel {
 						for (Actor actor : editor.getActors()) {
 							editorStack.addActor(actor);
 						}
+						for (Actor actor : editor.getArtifactActors((int) hudViewport.getWorldHeight(), textureAtlas)) {
+							editorStack.addActor(actor);
+						}
 					}
 				}
 			} else if (state == ControlPanelState.MODIFY) {

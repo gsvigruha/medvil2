@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.medville2.control.Editor;
 import com.medville2.model.Field;
+import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.building.house.Farm;
 import com.medville2.model.building.house.Farm.State;
 import com.medville2.model.terrain.Fishnet;
@@ -158,5 +159,10 @@ public class FarmEditor extends Editor {
 	@Override
 	public Iterable<Field> getActiveFields() {
 		return farm.getFields();
+	}
+
+	@Override
+	protected Artifacts getArtifacts() {
+		return farm.getArtifacts();
 	}
 }

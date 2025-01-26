@@ -2,11 +2,12 @@ package com.medville2.model.artifacts;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Artifacts {
 
-	public static final String CATTLE = "CATTLE";
-	public static final String LOG = "LOG";
+	public static final String SHEEP = "SHEEP";
+	public static final String LOGS = "LOGS";
 	public static final String GRAIN = "GRAIN";
 	public static final String FISH = "FISH";
 
@@ -22,5 +23,9 @@ public class Artifacts {
 		} else {
 			artifacts.put(artifact, quantity);
 		}
+	}
+
+	public Iterable<Entry<String, Integer>> iterable() {
+		return artifacts.entrySet();
 	}
 }

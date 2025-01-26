@@ -89,4 +89,8 @@ public class Farm extends BuildingObject {
 	public float getUsedCapacity() {
 		return (float) capacityUsed / (float) MAX_CAPACITY;
 	}
+
+	public Artifacts getArtifacts() {
+		return artifacts;
+	}
 }

@@ -26,7 +26,7 @@ public class Fishnet extends TerrainObject {
 	@Override
 	public Map<String, Integer> getYield(Calendar calendar) {
 		if (calendar.getDay() % 30 == 1) {
-			return ImmutableMap.of(Artifacts.FISH, (int) (field.getCropYield() * 10));
+			return ImmutableMap.of(Artifacts.FISH, 2);
 		} else {
 			return ImmutableMap.of();
 		}
