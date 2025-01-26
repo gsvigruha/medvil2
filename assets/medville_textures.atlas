@@ -1,165 +1,186 @@
 medville_textures.png
-size: 2902, 2902
+size: 2946, 2946
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 cancel
   rotate: false
-  xy: 1115, 0
+  xy: 1631, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+artifact_sheep
+  rotate: false
+  xy: 730, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+artifact_grain
+  rotate: false
+  xy: 472, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 rock
   rotate: false
-  xy: 771, 315
+  xy: 1028, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_3
   rotate: false
-  xy: 514, 603
+  xy: 771, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 blacksmith
   rotate: false
-  xy: 601, 0
+  xy: 1117, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 water_sparkle_4
   rotate: false
-  xy: 771, 603
+  xy: 1028, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_1
   rotate: false
-  xy: 0, 603
+  xy: 257, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 mountain
   rotate: false
-  xy: 1799, 603
+  xy: 2056, 603
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water_sparkle_2
   rotate: false
-  xy: 257, 603
+  xy: 514, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_7
   rotate: false
-  xy: 1542, 603
+  xy: 1799, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 selection_green
   rotate: false
-  xy: 343, 0
+  xy: 859, 0
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 road
   rotate: false
-  xy: 514, 315
+  xy: 771, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 2143, 0
+  xy: 2659, 0
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_5
   rotate: false
-  xy: 1028, 603
+  xy: 1285, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 townsquare
   rotate: false
-  xy: 2312, 603
+  xy: 0, 1115
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water_sparkle_6
   rotate: false
-  xy: 1285, 603
+  xy: 1542, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
+artifact_fish
+  rotate: false
+  xy: 343, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 farm
   rotate: false
-  xy: 1372, 0
+  xy: 1888, 0
   size: 256, 315
   orig: 256, 315
   offset: 0, 0
   index: -1
 grain
   rotate: false
-  xy: 1886, 0
+  xy: 2402, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 sheep
   rotate: false
-  xy: 1028, 315
+  xy: 1285, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tower
   rotate: false
-  xy: 1285, 315
+  xy: 1542, 315
   size: 256, 288
   orig: 256, 288
   offset: 0, 0
   index: -1
 mine
   rotate: false
-  xy: 257, 315
+  xy: 514, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 selection_red
   rotate: false
-  xy: 472, 0
+  xy: 988, 0
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 fishnet
   rotate: false
-  xy: 1629, 0
+  xy: 2145, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tree
   rotate: false
-  xy: 1542, 315
+  xy: 1799, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -173,28 +194,28 @@ rock_cube
   index: -1
 water
   rotate: false
-  xy: 2313, 315
+  xy: 2570, 315
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_0
   rotate: false
-  xy: 2570, 315
+  xy: 0, 603
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 tree_cherry
   rotate: false
-  xy: 1799, 315
+  xy: 2056, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 mill
   rotate: false
-  xy: 0, 315
+  xy: 257, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -208,7 +229,7 @@ arrow_small
   index: -1
 hill
   rotate: false
-  xy: 2400, 0
+  xy: 0, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -222,14 +243,14 @@ grass_cube
   index: -1
 tree_small
   rotate: false
-  xy: 2056, 315
+  xy: 2313, 315
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 bridge
   rotate: false
-  xy: 858, 0
+  xy: 1374, 0
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -239,6 +260,13 @@ water_cube
   xy: 195, 0
   size: 64, 48
   orig: 64, 48
+  offset: 0, 0
+  index: -1
+artifact_logs
+  rotate: false
+  xy: 601, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 wall

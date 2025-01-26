@@ -51,12 +51,16 @@ public class TextureHelper {
 		images.put("water_sparkle_5", "water_sparkle_5.png");
 		images.put("water_sparkle_6", "water_sparkle_6.png");
 		images.put("water_sparkle_7", "water_sparkle_7.png");
-		
+
 		images.put("selection_red", "selection_red.png");
 		images.put("selection_green", "selection_green.png");
 		images.put("arrow_small", "arrow_small.png");
 		images.put("cancel", "cancel.png");
-		
+
+		images.put("artifact_sheep", "artifact_sheep.png");
+		images.put("artifact_logs", "artifact_logs.png");
+		images.put("artifact_fish", "artifact_fish.png");
+		images.put("artifact_grain", "artifact_grain.png");
 	}
 
 	private static Map<String, Rectangle> regions = new HashMap<>();

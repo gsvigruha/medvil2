@@ -26,7 +26,7 @@ public class Sheep extends TerrainObject {
 	@Override
 	public Map<String, Integer> getYield(Calendar calendar) {
 		if (calendar.getDay() == 1 && calendar.getYear() % 3 == 1) {
-			return ImmutableMap.of(Artifacts.CATTLE, 1);
+			return ImmutableMap.of(Artifacts.SHEEP, 1);
 		} else {
 			return ImmutableMap.of();
 		}

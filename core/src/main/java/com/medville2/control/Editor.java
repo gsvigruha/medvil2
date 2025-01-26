@@ -1,10 +1,16 @@
 package com.medville2.control;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -12,10 +18,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
+import com.medville2.model.artifacts.Artifacts;
 import com.medville2.view.buttons.ButtonHelper;
 
 public abstract class Editor {
 
+	public static final int ARTIFACT_SX = 64;
+	public static final int ARTIFACT_SY = 64;
+	
 	protected BitmapFont font = new BitmapFont();
 
 	public abstract void handleClick(Field field);
@@ -45,5 +55,23 @@ public abstract class Editor {
 
 	public Iterable<Field> getActiveFields() {
 		return ImmutableList.of();
+	}
+
+	protected abstract Artifacts getArtifacts();
+
+	public Iterable<Actor> getArtifactActors(int height, TextureAtlas textureAtlas) {
+		List<Actor> elements = new ArrayList<>();
+		int i = 0;
+		for (Map.Entry<String, Integer> artifact : getArtifacts().iterable()) {
+			Image artifactImage = new Image(textureAtlas.findRegion("artifact_" + artifact.getKey().toLowerCase()));
+			artifactImage.setPosition(160, height - 300 - 80 * i);
+			artifactImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
+			elements.add(artifactImage);
+			Label label = new Label(String.valueOf(artifact.getValue()), new LabelStyle(font, Color.WHITE));
+			label.setPosition(225, height - 280 - 80 * i);
+			elements.add(label);
+			i++;
+		}
+		return elements;
 	}
 }
