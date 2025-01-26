@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.google.common.collect.ImmutableList;
 import com.medville2.control.Editor;
 import com.medville2.model.Field;
 import com.medville2.model.building.house.Farm;
@@ -28,6 +28,7 @@ public class FarmEditor extends Editor {
 	private final ImageButton selectCattleButton;
 	private final ImageButton selectTreeButton;
 	private final ImageButton deselectButton;
+	private final Label capacityLabel;
 
 	private final ButtonGroup<ImageButton> selectButtonGroup;
 
@@ -77,6 +78,8 @@ public class FarmEditor extends Editor {
 			}
 		});
 		selectButtonGroup.add(deselectButton);
+
+		capacityLabel = createLabel(20, height - 900);
 	}
 
 	@Override
@@ -104,6 +107,7 @@ public class FarmEditor extends Editor {
 				}
 			}
 		}
+		capacityLabel.setText(String.format("Used capacity: %.0f", farm.getUsedCapacity() * 100) + "%");
 	}
 
 	@Override
@@ -114,12 +118,12 @@ public class FarmEditor extends Editor {
 	@Override
 	public Actor[] getActors() {
 		return new Actor[] { selectGrainButton, selectFishButton, selectCattleButton, selectTreeButton,
-				deselectButton };
+				deselectButton, capacityLabel };
 	}
 
 	@Override
 	public String getLabel(Field field) {
-		if (farm.hasField(field) && field.getObject() != null) {
+		if (state == State.DESELECT && farm.hasField(field) && field.getObject() != null) {
 			return field.getObject().getName();
 		} else {
 			if (field.getObject() == null) {

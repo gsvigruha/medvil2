@@ -1,10 +1,13 @@
 package com.medville2.control;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
@@ -28,6 +31,12 @@ public abstract class Editor {
 		button.addListener(listener);
 		button.getStyle().checked = ButtonHelper.getInstance().buttonBGSelectedLarge;
 		return button;
+	}
+
+	protected Label createLabel(int x, int y) {
+		Label label = new Label("", new LabelStyle(font, Color.WHITE));
+		label.setPosition(x, y);
+		return label;
 	}
 
 	public String getLabel(Field field) {

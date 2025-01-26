@@ -8,7 +8,7 @@ import com.medville2.model.Terrain;
 
 public class Farm extends BuildingObject {
 
-	private static final int MAX_CAPACITY = 10;
+	private static final int MAX_CAPACITY = 20;
 
 	private Set<Field> fields;
 	private int capacityUsed;
@@ -72,5 +72,9 @@ public class Farm extends BuildingObject {
 	@Override
 	public void tick(Terrain terrain) {
 
+	}
+
+	public float getUsedCapacity() {
+		return (float) capacityUsed / (float) MAX_CAPACITY;
 	}
 }
