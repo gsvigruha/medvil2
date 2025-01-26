@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import com.badlogic.gdx.utils.Logger;
 import com.medville2.model.Field.Type;
+import com.medville2.model.terrain.DistanceFromWater;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.terrain.Mountain;
 import com.medville2.model.terrain.Tree;
@@ -103,6 +104,14 @@ public class Terrain {
 					}
 				}
         	}
+        }
+
+        int[][] distanceFromWater = DistanceFromWater.computeDistanceFromWater(this);
+        for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				Field field = getField(i, j);
+				field.setDistanceFromWater(distanceFromWater[i][j]);
+			}
         }
 
 		LOGGER.info("Map of size " + size + " created");
