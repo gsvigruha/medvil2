@@ -37,7 +37,7 @@ public class FarmEditor extends Editor {
 		this.state = State.GRAIN;
 		this.selectButtonGroup = new ButtonGroup<>();
 
-		selectGrainButton = createButton(textureAtlas.findRegion("grain"), 20, height - 256, new ClickListener() {
+		selectGrainButton = createButton(textureAtlas.findRegion("grain"), 0, height - 256, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.GRAIN;
@@ -45,7 +45,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(selectGrainButton);
 
-		selectFishButton = createButton(textureAtlas.findRegion("fishnet"), 160, height - 256, new ClickListener() {
+		selectFishButton = createButton(textureAtlas.findRegion("fishnet"), 140, height - 256, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.FISH;
@@ -53,7 +53,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(selectFishButton);
 
-		selectTreeButton = createButton(textureAtlas.findRegion("tree"), 20, height - 384, new ClickListener() {
+		selectTreeButton = createButton(textureAtlas.findRegion("tree"), 0, height - 384, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.WOOD;
@@ -61,7 +61,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(selectTreeButton);
 
-		selectCattleButton = createButton(textureAtlas.findRegion("sheep"), 160, height - 384, new ClickListener() {
+		selectCattleButton = createButton(textureAtlas.findRegion("sheep"), 140, height - 384, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.CATTLE;
@@ -69,7 +69,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(selectCattleButton);
 
-		deselectButton = createButton(textureAtlas.findRegion("cancel"), 20, height - 512, new ClickListener() {
+		deselectButton = createButton(textureAtlas.findRegion("cancel"), 0, height - 512, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.DESELECT;

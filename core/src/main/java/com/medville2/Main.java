@@ -101,6 +101,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 		viewport.update(width - HUD_WIDTH, height, true); // true centers the camera
 		viewport.setScreenPosition(HUD_WIDTH, viewport.getScreenY());
         hudViewport.update(HUD_WIDTH, height, true); // Update HUD viewport as well
+        hudViewport.setScreenPosition(10, 0);
 	}
 
 	private void logic() {
