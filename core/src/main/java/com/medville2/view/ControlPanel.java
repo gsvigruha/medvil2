@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableList;
 import com.medville2.control.BuildingRules;
 import com.medville2.control.Editor;
 import com.medville2.control.building.FarmEditor;
+import com.medville2.control.building.MineEditor;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
@@ -247,6 +248,8 @@ public class ControlPanel {
 	private Editor createEditor(FieldObject selectedFieldObject) {
 		if (selectedFieldObject.getClass().equals(Farm.class)) {
 			return new FarmEditor((Farm) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
+		} else if (selectedFieldObject.getClass().equals(Mine.class)) {
+			return new MineEditor((Mine) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
 		}
 		return null;
 	}

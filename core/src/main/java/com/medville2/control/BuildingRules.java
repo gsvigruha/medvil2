@@ -64,24 +64,25 @@ public class BuildingRules {
 		}
 
 		if (state == ControlPanelState.BUILD_HOUSE) {
-			BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field);
 			if (buildingClass.equals(Mine.class)) {
 				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().isHill()
 						&& terrain.hasNeighbor(field.getI(), field.getJ(), f -> f.getObject() == null
 								|| !(f.getObject().isHill() || f.getObject().getClass().equals(Mountain.class)))) {
-					FieldCheckStatus fcs = FieldCheckStatus.success(field, building);
 					Hill hill = ((Hill) field.getObject());
+					FieldCheckStatus fcs = FieldCheckStatus.success(field, new Mine(field, hill));
 					if (!hill.isEmpty()) {
 						fcs.setLabel(hill.getMineral() + ": " + hill.getQuantity());
 					}
 					return fcs;
 				}
 			} else if (buildingClass.equals(Mill.class)) {
+				BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field);
 				if (BuildingTypes.contains(field.getType()) && field.getObject() == null
 						&& terrain.hasNeighbor(field.getI(), field.getJ(), Field.Type.RIVER)) {
 					return FieldCheckStatus.success(field, building);
 				}
 			} else {
+				BuildingObject building = newHouse((Class<? extends BuildingObject>) buildingClass, field);
 				FieldCheckStatus fcs = checkFields(field, building, terrain);
 				fcs.setBuildableObject(building);
 				return fcs;
