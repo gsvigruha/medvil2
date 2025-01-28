@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.medville2.model.Field;
 import com.medville2.model.Terrain;
-import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.time.Calendar;
 
 public class Farm extends BuildingObject {
@@ -88,9 +87,5 @@ public class Farm extends BuildingObject {
 
 	public float getUsedCapacity() {
 		return (float) capacityUsed / (float) MAX_CAPACITY;
-	}
-
-	public Artifacts getArtifacts() {
-		return artifacts;
 	}
 }

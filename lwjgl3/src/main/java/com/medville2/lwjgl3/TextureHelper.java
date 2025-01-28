@@ -61,7 +61,7 @@ public class TextureHelper {
 		images.put("artifact_logs", "artifact_logs.png");
 		images.put("artifact_fish", "artifact_fish.png");
 		images.put("artifact_grain", "artifact_grain.png");
-		images.put("artifact_stone", "artifact_grain.png");
+		images.put("artifact_stone", "artifact_stone.png");
 		images.put("artifact_iron", "artifact_iron.png");
 		images.put("artifact_gold", "artifact_gold.png");
 	}
