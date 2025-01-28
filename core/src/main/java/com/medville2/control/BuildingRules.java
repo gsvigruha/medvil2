@@ -14,6 +14,7 @@ import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
+import com.medville2.model.terrain.Hill;
 import com.medville2.model.terrain.Mountain;
 import com.medville2.view.ControlPanelState;
 import com.medville2.view.FieldCheckStatus;
@@ -68,7 +69,12 @@ public class BuildingRules {
 				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().isHill()
 						&& terrain.hasNeighbor(field.getI(), field.getJ(), f -> f.getObject() == null
 								|| !(f.getObject().isHill() || f.getObject().getClass().equals(Mountain.class)))) {
-					return FieldCheckStatus.success(field, building);
+					FieldCheckStatus fcs = FieldCheckStatus.success(field, building);
+					Hill hill = ((Hill) field.getObject());
+					if (!hill.isEmpty()) {
+						fcs.setLabel(hill.getMineral() + ": " + hill.getQuantity());
+					}
+					return fcs;
 				}
 			} else if (buildingClass.equals(Mill.class)) {
 				if (BuildingTypes.contains(field.getType()) && field.getObject() == null

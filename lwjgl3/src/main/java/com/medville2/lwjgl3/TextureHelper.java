@@ -61,6 +61,9 @@ public class TextureHelper {
 		images.put("artifact_logs", "artifact_logs.png");
 		images.put("artifact_fish", "artifact_fish.png");
 		images.put("artifact_grain", "artifact_grain.png");
+		images.put("artifact_stone", "artifact_grain.png");
+		images.put("artifact_iron", "artifact_iron.png");
+		images.put("artifact_gold", "artifact_gold.png");
 	}
 
 	private static Map<String, Rectangle> regions = new HashMap<>();
@@ -96,16 +99,16 @@ public class TextureHelper {
         }).toList()) {
         	BufferedImage t = entry.getValue();
         	// Render the textures
-        	g2d.drawImage(t, x, y, null);
-        	regions.put(entry.getKey(), new Rectangle(x, y, t.getWidth(), t.getHeight()));
-
-        	x = x + t.getWidth() + 1;
-        	maxH = Math.max(maxH, t.getHeight());
         	if (x + t.getWidth() >= width) {
         		x = 0;
         		y = y + maxH;
         		maxH = 0;
         	}
+        	g2d.drawImage(t, x, y, null);
+        	regions.put(entry.getKey(), new Rectangle(x, y, t.getWidth(), t.getHeight()));
+
+        	x = x + t.getWidth() + 1;
+        	maxH = Math.max(maxH, t.getHeight());
         }
 
         File pngOutput = new File("../assets/medville_textures.png");

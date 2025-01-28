@@ -99,14 +99,14 @@ public class ControlPanel {
 	}
 
 	private void addMenuButtons() {
-		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 90, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 80, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						for (int i = 0; i < houses.size(); i++) {
 							BuildingObject building = BuildingRules.newHouse(houses.get(i), null);
-							addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
+							addBuildingButton(textureAtlas.findRegion(building.getName()), 0,
 									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_HOUSE,
 									houses.get(i), i);
 						}
@@ -115,14 +115,14 @@ public class ControlPanel {
 					}
 				});
 
-		addMenuButton(new TextureRegion(new Texture("bridge_icon.png")), 170, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("bridge_icon.png")), 160, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						for (int i = 0; i < infra.size(); i++) {
 							InfraObject building = BuildingRules.newInfra(infra.get(i), null);
-							addBuildingButton(textureAtlas.findRegion(building.getName()), 10,
+							addBuildingButton(textureAtlas.findRegion(building.getName()), 0,
 									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_INFRA,
 									infra.get(i), i);
 						}
@@ -131,7 +131,7 @@ public class ControlPanel {
 					}
 				});
 
-		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 10, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 0, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {

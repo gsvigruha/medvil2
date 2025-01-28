@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import com.badlogic.gdx.utils.Logger;
 import com.medville2.model.Field.Type;
+import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.terrain.DistanceFromWater;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.terrain.Mountain;
@@ -100,7 +101,7 @@ public class Terrain {
 							getField(i, j + 1).setObject(hill);
 							getField(i + 1, j + 1).setObject(hill);
 						} else if (field.getObject() == null) {
-							field.setObject(new Hill(field));
+							field.setObject(new Hill(field, getMiningArtifact(i, j), getMiningQuantity(i, j)));
 						}
 					}
 				}
@@ -117,6 +118,29 @@ public class Terrain {
 
 		LOGGER.info("Map of size " + size + " created");
 		LOGGER.info("Grass: " + nGrass + ", water: " + nWater + ", rock: " + nRock);
+	}
+
+	private String getMiningArtifact(int i, int j) {
+		float pi = (float) (i % 8) / (float) 8;
+		float pj = (float) (j % 8) / (float) 8;
+		double v = Math.sin(pi) * Math.sin(pj);
+
+		if (v > 0.5) {
+			return Artifacts.GOLD;
+		} else if (v > 0.3) {
+			return Artifacts.IRON;
+		} else if (v > 0) {
+			return Artifacts.STONE;
+		}
+		return null;
+	}
+
+	private int getMiningQuantity(int i, int j) {
+		String artifact = getMiningArtifact(i, j);
+		if (artifact == null) {
+			return 0;
+		}
+		return 100;
 	}
 
 	private boolean isLargeMountain(int i, int j) {

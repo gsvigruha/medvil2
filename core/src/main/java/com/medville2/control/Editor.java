@@ -25,7 +25,9 @@ public abstract class Editor {
 
 	public static final int ARTIFACT_SX = 64;
 	public static final int ARTIFACT_SY = 64;
-	
+	public static final int ARTIFACT_PX = 72;
+	public static final int ARTIFACT_PY = 80;
+
 	protected BitmapFont font = new BitmapFont();
 
 	public abstract void handleClick(Field field);
@@ -58,17 +60,19 @@ public abstract class Editor {
 	}
 
 	protected abstract Artifacts getArtifacts();
-
+	
 	public Iterable<Actor> getArtifactActors(int height, TextureAtlas textureAtlas) {
 		List<Actor> elements = new ArrayList<>();
 		int i = 0;
 		for (Map.Entry<String, Integer> artifact : getArtifacts().iterable()) {
+			int x = (i % 4) * ARTIFACT_PX;
+			int y = (i / 4) * ARTIFACT_PY;
 			Image artifactImage = new Image(textureAtlas.findRegion("artifact_" + artifact.getKey().toLowerCase()));
-			artifactImage.setPosition(160, height - 300 - 80 * i);
+			artifactImage.setPosition(x, height - 600 - y);
 			artifactImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
 			elements.add(artifactImage);
 			Label quantityLabel = new Label(String.valueOf(artifact.getValue()), new LabelStyle(font, Color.WHITE));
-			quantityLabel.setPosition(225, height - 280 - 80 * i);
+			quantityLabel.setPosition(8 + x, height - 615 - y);
 			elements.add(quantityLabel);
 			i++;
 		}

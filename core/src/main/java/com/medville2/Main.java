@@ -22,8 +22,8 @@ import com.medville2.view.Renderer;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter implements InputProcessor {
-	private static final int HUD_WIDTH = 256;
-	
+	private static final int HUD_WIDTH = 300;
+
 	private SpriteBatch batch;
 
 	private FitViewport viewport;
@@ -101,6 +101,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 		viewport.update(width - HUD_WIDTH, height, true); // true centers the camera
 		viewport.setScreenPosition(HUD_WIDTH, viewport.getScreenY());
         hudViewport.update(HUD_WIDTH, height, true); // Update HUD viewport as well
+        hudViewport.setScreenPosition(10, 0);
 	}
 
 	private void logic() {

@@ -11,6 +11,10 @@ public class Artifacts {
 	public static final String GRAIN = "GRAIN";
 	public static final String FISH = "FISH";
 
+	public static final String STONE = "STONE";
+	public static final String IRON = "IRON";
+	public static final String GOLD = "GOLD";
+
 	private final Map<String, Integer> artifacts;
 
 	public Artifacts() {
