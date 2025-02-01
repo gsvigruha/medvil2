@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
@@ -28,7 +29,7 @@ public abstract class Editor {
 	public static final int ARTIFACT_PX = 72;
 	public static final int ARTIFACT_PY = 80;
 
-	protected BitmapFont font = new BitmapFont();
+	protected BitmapFont font;
 
 	public abstract void handleClick(Field field);
 
@@ -36,9 +37,13 @@ public abstract class Editor {
 
 	public abstract Actor[] getActors();
 
+	public Editor() {
+		this.font = FontHelper.getInstance().getFont();
+	}
+
 	protected ImageButton createButton(TextureRegion icon, int x, int y, EventListener listener) {
 		ImageButton button = new ImageButton(new TextureRegionDrawable(icon));
-		button.setSize(ButtonHelper.BUTTON_LARGE_SX, ButtonHelper.BUTTON_LARGE_SY);
+		button.setSize(ButtonHelper.BUTTON_SMALL_SX, ButtonHelper.BUTTON_SMALL_SY);
 		button.setPosition(x, y);
 		button.addListener(listener);
 		button.getStyle().checked = ButtonHelper.getInstance().buttonBGSelectedLarge;
@@ -48,6 +53,7 @@ public abstract class Editor {
 	protected Label createLabel(int x, int y) {
 		Label label = new Label("", new LabelStyle(font, Color.WHITE));
 		label.setPosition(x, y);
+		label.setAlignment(Align.left | Align.top);
 		return label;
 	}
 

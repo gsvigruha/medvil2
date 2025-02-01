@@ -27,6 +27,7 @@ public class FarmEditor extends Editor {
 	private final ImageButton selectTreeButton;
 	private final ImageButton deselectButton;
 	private final Label capacityLabel;
+	private final Label explanationLabel;
 
 	private final ButtonGroup<ImageButton> selectButtonGroup;
 
@@ -37,47 +38,59 @@ public class FarmEditor extends Editor {
 		this.state = State.GRAIN;
 		this.selectButtonGroup = new ButtonGroup<>();
 
-		selectGrainButton = createButton(textureAtlas.findRegion("grain"), 0, height - 256, new ClickListener() {
+		selectGrainButton = createButton(textureAtlas.findRegion("grain"), 0, height - 200, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.GRAIN;
+				explanationLabel.setText(
+						"Grain can be used to mill\n" +
+						"flower.\n\n" +
+						"Grain needs to grow\n" +
+						"near water. The closer\n" +
+						"it is to water the higher\n"+
+						"the yield.");
 			}
 		});
 		selectButtonGroup.add(selectGrainButton);
 
-		selectFishButton = createButton(textureAtlas.findRegion("fishnet"), 140, height - 256, new ClickListener() {
+		selectFishButton = createButton(textureAtlas.findRegion("fishnet"), 0, height - 280, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.FISH;
+				explanationLabel.setText("");
 			}
 		});
 		selectButtonGroup.add(selectFishButton);
 
-		selectTreeButton = createButton(textureAtlas.findRegion("tree"), 0, height - 384, new ClickListener() {
+		selectTreeButton = createButton(textureAtlas.findRegion("tree"), 0, height - 360, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.WOOD;
+				explanationLabel.setText("");
 			}
 		});
 		selectButtonGroup.add(selectTreeButton);
 
-		selectCattleButton = createButton(textureAtlas.findRegion("sheep"), 140, height - 384, new ClickListener() {
+		selectCattleButton = createButton(textureAtlas.findRegion("sheep"), 0, height - 440, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.CATTLE;
+				explanationLabel.setText("");
 			}
 		});
 		selectButtonGroup.add(selectCattleButton);
 
-		deselectButton = createButton(textureAtlas.findRegion("cancel"), 0, height - 512, new ClickListener() {
+		deselectButton = createButton(textureAtlas.findRegion("cancel"), 0, height - 520, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.DESELECT;
+				explanationLabel.setText("");
 			}
 		});
 		selectButtonGroup.add(deselectButton);
 
 		capacityLabel = createLabel(20, height - 900);
+		explanationLabel = createLabel(90, height - 136);
 	}
 
 	@Override
@@ -115,8 +128,8 @@ public class FarmEditor extends Editor {
 
 	@Override
 	public Actor[] getActors() {
-		return new Actor[] { selectGrainButton, selectFishButton, selectCattleButton, selectTreeButton,
-				deselectButton, capacityLabel };
+		return new Actor[] { selectGrainButton, selectFishButton, selectCattleButton, selectTreeButton, deselectButton,
+				capacityLabel, explanationLabel };
 	}
 
 	@Override

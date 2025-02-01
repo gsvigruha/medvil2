@@ -5,7 +5,6 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -22,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.google.common.collect.ImmutableList;
 import com.medville2.control.BuildingRules;
 import com.medville2.control.Editor;
+import com.medville2.control.FontHelper;
 import com.medville2.control.building.FarmEditor;
 import com.medville2.control.building.MineEditor;
 import com.medville2.model.Field;
@@ -44,7 +44,6 @@ import com.medville2.view.buttons.ButtonHelper;
 
 public class ControlPanel {
 
-	private BitmapFont font;
 	private Stage stage;
 	private Label label;
 	private Viewport hudViewport;
@@ -77,16 +76,11 @@ public class ControlPanel {
 		this.buildingButtonStack = new Group();
 		this.editorStack = new Group();
 
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
-		font.getData().setScale(2);
-
 		stage = new Stage(hudViewport);
 		stage.addActor(buildingButtonStack);
 		stage.addActor(editorStack);
-		font = new BitmapFont();
 
-		label = new Label("Hello, LibGDX!", new LabelStyle(font, Color.WHITE));
+		label = new Label("Hello, LibGDX!", new LabelStyle(FontHelper.getInstance().getFont(), Color.WHITE));
 		label.setPosition(10, 30);
 
 		addMenuButtons();
