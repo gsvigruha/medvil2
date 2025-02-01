@@ -43,10 +43,12 @@ public class FarmEditor extends Editor {
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.GRAIN;
 				explanationLabel.setText(
+						"Grain can be used to mill\n" +
+						"flower.\n\n" +
 						"Grain needs to grow\n" +
 						"near water. The closer\n" +
-						"to water the more it\n"+
-						"yields.");
+						"it is to water the higher\n"+
+						"the yield.");
 			}
 		});
 		selectButtonGroup.add(selectGrainButton);
@@ -55,6 +57,7 @@ public class FarmEditor extends Editor {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.FISH;
+				explanationLabel.setText("");
 			}
 		});
 		selectButtonGroup.add(selectFishButton);
@@ -63,6 +66,7 @@ public class FarmEditor extends Editor {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.WOOD;
+				explanationLabel.setText("");
 			}
 		});
 		selectButtonGroup.add(selectTreeButton);
@@ -71,6 +75,7 @@ public class FarmEditor extends Editor {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.CATTLE;
+				explanationLabel.setText("");
 			}
 		});
 		selectButtonGroup.add(selectCattleButton);
@@ -79,12 +84,13 @@ public class FarmEditor extends Editor {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.DESELECT;
+				explanationLabel.setText("");
 			}
 		});
 		selectButtonGroup.add(deselectButton);
 
 		capacityLabel = createLabel(20, height - 900);
-		explanationLabel = createLabel(90, height - 160);
+		explanationLabel = createLabel(90, height - 136);
 	}
 
 	@Override

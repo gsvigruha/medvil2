@@ -30,4 +30,8 @@ public class FontHelper {
 	public BitmapFont getFont() {
 		return font;
 	}
+
+	public int estimateHeight(String text) {
+		return (int) ((text.split("\n").length + 1) * font.getLineHeight());
+	}
 }

@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
@@ -52,6 +53,7 @@ public abstract class Editor {
 	protected Label createLabel(int x, int y) {
 		Label label = new Label("", new LabelStyle(font, Color.WHITE));
 		label.setPosition(x, y);
+		label.setAlignment(Align.left | Align.top);
 		return label;
 	}
 
