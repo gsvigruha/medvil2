@@ -72,6 +72,7 @@ public class BuildingRules {
 					FieldCheckStatus fcs = FieldCheckStatus.success(field, new Mine(field, hill));
 					if (!hill.isEmpty()) {
 						fcs.setLabel(hill.getMineral() + ": " + hill.getQuantity());
+						fcs.setIcon("artifact_" + hill.getMineral().toLowerCase());
 					}
 					return fcs;
 				}
@@ -97,10 +98,11 @@ public class BuildingRules {
 
 		if (state == ControlPanelState.MODIFY && editor != null) {
 			String label = editor.getLabel(field);
+			String icon = editor.getIcon(field);
 			if (label == null) {
 				return FieldCheckStatus.fail(field);
 			} else {
-				return FieldCheckStatus.success(field, label);
+				return FieldCheckStatus.success(field, label, icon);
 			}
 		}
 

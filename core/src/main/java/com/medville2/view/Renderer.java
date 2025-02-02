@@ -16,6 +16,7 @@ import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.infra.Wall;
 import com.medville2.model.terrain.Fishnet;
+import com.medville2.model.terrain.Hill;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 import com.medville2.view.building.WallRenderer;
 import com.medville2.view.terrain.FieldRenderer;
@@ -147,8 +148,9 @@ public class Renderer {
 					objectSprite.translate(x, y);
 					objectSprite.draw(batch);
 				}
-				
-				// font.draw(batch, String.valueOf(field.getDistanceFromWater()), x + 60, y + 60);
+
+				// font.draw(batch, String.valueOf(field.getDistanceFromWater()), x + 60, y +
+				// 60);
 			}
 		}
 
@@ -194,6 +196,19 @@ public class Renderer {
 				objectSprite.translate(ox, oy);
 				objectSprite.draw(batch);
 			}
+
+			if (controlPanel.getShowAllMinerals()) {
+				if (fo.getClass().equals(Hill.class)) {
+					Hill hill = (Hill) fo;
+					if (hill.getMineral() != null) {
+						Sprite mineralSprite = new Sprite(
+								textureAtlas.findRegion("artifact_" + hill.getMineral().toLowerCase()));
+						mineralSprite.translate(ox + Terrain.DX / 2 - mineralSprite.getWidth() / 2,
+								oy + Terrain.DY / 2 - mineralSprite.getHeight() / 2);
+						mineralSprite.draw(batch);
+					}
+				}
+			}
 		}
 
 		if (activeField != null) {
@@ -220,6 +235,15 @@ public class Renderer {
 				int x = i * Terrain.DX / 2 - j * Terrain.DX / 2 + Terrain.DX / 2;
 				int y = j * Terrain.DY / 2 + i * Terrain.DY / 2 + Terrain.DY / 2;
 				font.draw(batch, fcs.getLabel(), x, y);
+			}
+			if (fcs.getIcon() != null) {
+				int i = activeField.getI();
+				int j = activeField.getJ();
+				int x = i * Terrain.DX / 2 - j * Terrain.DX / 2 + Terrain.DX / 2;
+				int y = j * Terrain.DY / 2 + i * Terrain.DY / 2 + Terrain.DY / 2;
+				Sprite iconSprite = new Sprite(textureAtlas.findRegion(fcs.getIcon()));
+				iconSprite.translate(x, y);
+				iconSprite.draw(batch);
 			}
 		}
 	}

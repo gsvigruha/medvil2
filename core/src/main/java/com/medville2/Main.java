@@ -194,6 +194,10 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
 			controlPanel.setCheckAllFields(!controlPanel.getCheckAllFields());
 		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+			controlPanel.setShowAllMinerals(!controlPanel.getShowAllMinerals());
+		}
 	}
 
 	@Override

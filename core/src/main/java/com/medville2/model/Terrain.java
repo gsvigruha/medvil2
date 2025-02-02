@@ -14,6 +14,7 @@ import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.terrain.DistanceFromWater;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.terrain.Mountain;
+import com.medville2.model.terrain.OpenSimplex2;
 import com.medville2.model.terrain.Tree;
 import com.medville2.model.time.Calendar;
 
@@ -83,7 +84,12 @@ public class Terrain {
 				Field field = getField(i, j);
 				field.setCornerType(getCornerType(i, j));
 				if (field.getType() == Field.Type.GRASS) {
-					if (Math.random() < 0.2) {
+					if (hasNeighbor(i, j, Type.RIVER)) {
+						if (OpenSimplex2.noise2(0l, i, j, size, 32) > 0.8) {
+							field.setType(Type.ROCK);
+							field.setObject(new Hill(field, Artifacts.CLAY, 100));
+						}
+					} else if (Math.random() < 0.2) {
 						Tree.Type type = Tree.Type.GREEN;
 						if (Math.random() < 0.2) {
 							type = Tree.Type.BLOOMING;
@@ -121,17 +127,17 @@ public class Terrain {
 	}
 
 	private String getMiningArtifact(int i, int j) {
-		float pi = (float) (i % 8) / (float) 8;
-		float pj = (float) (j % 8) / (float) 8;
-		double v = Math.sin(pi) * Math.sin(pj);
+		double gold = OpenSimplex2.noise2(0l, i, j, size, 32);
+		double iron = OpenSimplex2.noise2(1l, i, j, size, 32);
+		double stone = OpenSimplex2.noise2(2l, i, j, size, 32);
 
-		if (v > 0.5) {
-			return Artifacts.GOLD;
-		} else if (v > 0.3) {
-			return Artifacts.IRON;
-		} else if (v > 0) {
+		if (stone > 0.6) {
 			return Artifacts.STONE;
-		}
+		} else if (iron > 0.7) {
+			return Artifacts.IRON;
+		} else if (gold > 0.8) {
+			return Artifacts.GOLD;
+		}  
 		return null;
 	}
 
