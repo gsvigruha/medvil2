@@ -41,7 +41,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private Terrain terrain;
     private Calendar calendar;
 
-    private static final int maxV = 25;
+    private static final int maxV = 20;
     private int scrollVX;
     private int scrollVY;
 
@@ -193,6 +193,10 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
 			controlPanel.setCheckAllFields(!controlPanel.getCheckAllFields());
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+			controlPanel.setShowAllMinerals(!controlPanel.getShowAllMinerals());
 		}
 	}
 

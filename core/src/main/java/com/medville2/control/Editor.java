@@ -60,6 +60,10 @@ public abstract class Editor {
 		return null;
 	}
 
+	public String getIcon(Field field) {
+		return null;
+	}
+
 	public Iterable<Field> getActiveFields() {
 		return ImmutableList.of();
 	}

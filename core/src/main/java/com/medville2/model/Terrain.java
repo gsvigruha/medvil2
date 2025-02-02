@@ -14,6 +14,7 @@ import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.terrain.DistanceFromWater;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.terrain.Mountain;
+import com.medville2.model.terrain.OpenSimplex2;
 import com.medville2.model.terrain.Tree;
 import com.medville2.model.time.Calendar;
 
@@ -26,6 +27,16 @@ public class Terrain {
 	private final Field[][] fields;
 
     static final Logger LOGGER = new Logger(Terrain.class.getName(), Logger.INFO);
+
+    private static final long GOLD_RANDOM_SEED = 1l;
+    private static final double GOLD_THRESHOLD = 0.8;
+    private static final long IRON_RANDOM_SEED = 2l;
+    private static final double IRON_THRESHOLD = 0.7;
+    private static final long STONE_RANDOM_SEED = 3l;
+    private static final double STONE_THRESHOLD = 0.6;
+    private static final long CLAY_RANDOM_SEED = 4l;
+    private static final double CLAY_THRESHOLD = 0.8;
+    private static final int MINERAL_FREQ = 32;
 
 	public Terrain(int size, int res) {
 		this.size = size;
@@ -83,7 +94,12 @@ public class Terrain {
 				Field field = getField(i, j);
 				field.setCornerType(getCornerType(i, j));
 				if (field.getType() == Field.Type.GRASS) {
-					if (Math.random() < 0.2) {
+					if (hasNeighbor(i, j, Type.RIVER)) {
+						if (OpenSimplex2.noise2(CLAY_RANDOM_SEED, i, j, size, MINERAL_FREQ) > CLAY_THRESHOLD) {
+							field.setType(Type.ROCK);
+							field.setObject(new Hill(field, Artifacts.CLAY, 100));
+						}
+					} else if (Math.random() < 0.2) {
 						Tree.Type type = Tree.Type.GREEN;
 						if (Math.random() < 0.2) {
 							type = Tree.Type.BLOOMING;
@@ -121,17 +137,17 @@ public class Terrain {
 	}
 
 	private String getMiningArtifact(int i, int j) {
-		float pi = (float) (i % 8) / (float) 8;
-		float pj = (float) (j % 8) / (float) 8;
-		double v = Math.sin(pi) * Math.sin(pj);
+		double gold = OpenSimplex2.noise2(GOLD_RANDOM_SEED, i, j, size, MINERAL_FREQ);
+		double iron = OpenSimplex2.noise2(IRON_RANDOM_SEED, i, j, size, MINERAL_FREQ);
+		double stone = OpenSimplex2.noise2(STONE_RANDOM_SEED, i, j, size, MINERAL_FREQ);
 
-		if (v > 0.5) {
-			return Artifacts.GOLD;
-		} else if (v > 0.3) {
-			return Artifacts.IRON;
-		} else if (v > 0) {
+		if (stone > STONE_THRESHOLD) {
 			return Artifacts.STONE;
-		}
+		} else if (iron > IRON_THRESHOLD) {
+			return Artifacts.IRON;
+		} else if (gold > GOLD_THRESHOLD) {
+			return Artifacts.GOLD;
+		}  
 		return null;
 	}
 

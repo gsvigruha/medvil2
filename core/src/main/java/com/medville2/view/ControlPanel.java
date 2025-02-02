@@ -54,6 +54,7 @@ public class ControlPanel {
 	private ControlPanelState state;
 	private Class<?> buildingClass;
 	private boolean checkAllFields;
+	private boolean showAllMinerals;
 	private Editor editor;
 
 	private ButtonGroup<ImageButton> menuButtons;
@@ -196,6 +197,14 @@ public class ControlPanel {
 
 	public void setCheckAllFields(boolean checkAllFields) {
 		this.checkAllFields = checkAllFields;
+	}
+
+	public boolean getShowAllMinerals() {
+		return showAllMinerals;
+	}
+
+	public void setShowAllMinerals(boolean showAllMinerals) {
+		this.showAllMinerals = showAllMinerals;
 	}
 
 	public int getActiveFieldSize() {
