@@ -41,7 +41,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private Terrain terrain;
     private Calendar calendar;
 
-    private static final int maxV = 25;
+    private static final int maxV = 20;
     private int scrollVX;
     private int scrollVY;
 
