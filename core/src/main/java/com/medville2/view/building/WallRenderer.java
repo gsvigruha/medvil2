@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.infra.Tower;

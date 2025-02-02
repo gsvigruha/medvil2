@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.medville2.model.Game;
 import com.medville2.model.Terrain;
 import com.medville2.model.time.Calendar;
 import com.medville2.view.ControlPanel;
@@ -38,8 +39,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private OrthographicCamera hudCamera;
     private Viewport hudViewport;
 
-    private Terrain terrain;
-    private Calendar calendar;
+    private Game game;
 
     private static final int maxV = 20;
     private int scrollVX;
@@ -64,8 +64,9 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	    hudViewport = new FitViewport(HUD_WIDTH, 1080, hudCamera); // HUD viewport size
 	    TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("medville_textures.atlas"));
 		controlPanel = new ControlPanel(hudViewport, textureAtlas);
-        terrain = new Terrain(256, 32);
-        calendar = new Calendar();
+        Terrain terrain = new Terrain(256, 32);
+        Calendar calendar = new Calendar();
+        this.game = new Game(calendar, terrain);
         renderer = new Renderer(terrain, controlPanel, textureAtlas);
 
 		InputMultiplexer im = new InputMultiplexer();
@@ -110,8 +111,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	}
 
 	private void logic() {
-		calendar.tick();
-		terrain.tick(calendar);
+		game.tick();
 	}
 
 	private void draw() {
@@ -128,7 +128,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 		hudViewport.apply();
         hudCamera.update();
 
-        controlPanel.render(calendar);
+        controlPanel.render(game.getCalendar());
 	}
 
 	private void input() {
@@ -229,7 +229,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 		if (screenX < HUD_WIDTH) {
 			return false;
 		}
-		controlPanel.click(renderer.getActiveField(), terrain);
+		controlPanel.click(renderer.getActiveField(), game);
 		return true;
 	}
 

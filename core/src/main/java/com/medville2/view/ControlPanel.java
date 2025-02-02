@@ -24,8 +24,10 @@ import com.medville2.control.Editor;
 import com.medville2.control.FontHelper;
 import com.medville2.control.building.FarmEditor;
 import com.medville2.control.building.MineEditor;
+import com.medville2.control.building.TownsquareEditor;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
+import com.medville2.model.Game;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.house.Blacksmith;
 import com.medville2.model.building.house.BuildingObject;
@@ -39,6 +41,7 @@ import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
+import com.medville2.model.society.Town;
 import com.medville2.model.time.Calendar;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 import com.medville2.view.buttons.ButtonHelper;
@@ -56,6 +59,7 @@ public class ControlPanel {
 	private boolean checkAllFields;
 	private boolean showAllMinerals;
 	private Editor editor;
+	private Town activeTown;
 
 	private ButtonGroup<ImageButton> menuButtons;
 	private ButtonGroup<ImageButton> buildingButtons;
@@ -215,7 +219,8 @@ public class ControlPanel {
 		return 1;
 	}
 
-	public void click(Field field, Terrain terrain) {
+	public void click(Field field, Game game) {
+		Terrain terrain = game.getTerrain();
 		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingClass,
 				editor);
 		if (fcs.getStatus()) {
@@ -229,10 +234,16 @@ public class ControlPanel {
 					BuildingRules.setupWalls(field.getI() + 1, field.getJ(), terrain);
 					BuildingRules.setupWalls(field.getI(), field.getJ() - 1, terrain);
 					BuildingRules.setupWalls(field.getI(), field.getJ() + 1, terrain);
+					if (fcs.getBuildableObject() instanceof BuildingObject) {
+						((BuildingObject) fcs.getBuildableObject()).setTown(activeTown);
+					}
 				}
 			} else if (state == ControlPanelState.SELECT) {
 				FieldObject selectedFieldObject = fcs.getBuildableObject();
 				if (selectedFieldObject != null) {
+					if (selectedFieldObject instanceof BuildingObject) {
+						activeTown = ((BuildingObject) selectedFieldObject).getTown();
+					}
 					state = ControlPanelState.MODIFY;
 					editor = createEditor(selectedFieldObject);
 					editorStack.clear();
@@ -258,6 +269,8 @@ public class ControlPanel {
 			return new FarmEditor((Farm) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
 		} else if (selectedFieldObject.getClass().equals(Mine.class)) {
 			return new MineEditor((Mine) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
+		} else if (selectedFieldObject.getClass().equals(Townsquare.class)) {
+			return new TownsquareEditor((Townsquare) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
 		}
 		return null;
 	}
