@@ -37,6 +37,7 @@ public class TextureHelper {
 		images.put("tower", "tower.png");
 		images.put("townsquare", "townsquare.png");
 		images.put("mill", "mill_2.png");
+		images.put("workshop", "workshop_3.png");
 		images.put("blacksmith", "blacksmith.png");
 		images.put("wall", "wall_4.png");
 		images.put("grain", "grain.png");
@@ -57,6 +58,8 @@ public class TextureHelper {
 		images.put("arrow_small", "arrow_small.png");
 		images.put("cancel", "cancel.png");
 
+		images.put("storage", "storage.png");
+
 		images.put("artifact_sheep", "artifact_sheep.png");
 		images.put("artifact_logs", "artifact_logs.png");
 		images.put("artifact_fish", "artifact_fish.png");
@@ -64,6 +67,15 @@ public class TextureHelper {
 		images.put("artifact_stone", "artifact_stone.png");
 		images.put("artifact_iron", "artifact_iron.png");
 		images.put("artifact_gold", "artifact_gold.png");
+		images.put("artifact_food", "artifact_food.png");
+		images.put("artifact_planks", "artifact_planks.png");
+		images.put("artifact_bricks", "artifact_bricks.png");
+		images.put("artifact_wool", "artifact_wool.png");
+		images.put("artifact_textile", "artifact_textile.png");
+		images.put("artifact_pottery", "artifact_pottery.png");
+		images.put("artifact_flour", "artifact_flour.png");
+		images.put("artifact_leather", "artifact_leather.png");
+		images.put("artifact_clay", "artifact_clay.png");
 	}
 
 	private static Map<String, Rectangle> regions = new HashMap<>();

@@ -33,6 +33,7 @@ import com.medville2.model.building.house.Farm;
 import com.medville2.model.building.house.Mill;
 import com.medville2.model.building.house.Mine;
 import com.medville2.model.building.house.Townsquare;
+import com.medville2.model.building.house.Workshop;
 import com.medville2.model.building.infra.Bridge;
 import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
@@ -61,7 +62,7 @@ public class ControlPanel {
 	private Group editorStack;
 
 	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
-			Townsquare.class, Mill.class);
+			Townsquare.class, Mill.class, Workshop.class);
 	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class,
 			Wall.class);
 
@@ -94,15 +95,17 @@ public class ControlPanel {
 	}
 
 	private void addMenuButtons() {
-		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 80, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 90, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						for (int i = 0; i < houses.size(); i++) {
+							int bi = i % 3;
+							int bj = i / 3;
 							BuildingObject building = BuildingRules.newHouse(houses.get(i), null);
-							addBuildingButton(textureAtlas.findRegion(building.getName()), 0,
-									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_HOUSE,
+							addBuildingButton(textureAtlas.findRegion(building.getName()), bj * 140 + 10,
+									(int) hudViewport.getWorldHeight() - bi * 140 - 240, ControlPanelState.BUILD_HOUSE,
 									houses.get(i), i);
 						}
 						buildingButtons.getButtons().get(0).fire(helper.touchDownEvent);
@@ -110,15 +113,17 @@ public class ControlPanel {
 					}
 				});
 
-		addMenuButton(new TextureRegion(new Texture("bridge_icon.png")), 160, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("bridge_icon.png")), 170, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						for (int i = 0; i < infra.size(); i++) {
+							int bi = i % 3;
+							int bj = i / 3;
 							InfraObject building = BuildingRules.newInfra(infra.get(i), null);
-							addBuildingButton(textureAtlas.findRegion(building.getName()), 0,
-									(int) hudViewport.getWorldHeight() - i * 140 - 240, ControlPanelState.BUILD_INFRA,
+							addBuildingButton(textureAtlas.findRegion(building.getName()), bj * 140 + 10,
+									(int) hudViewport.getWorldHeight() - bi * 140 - 240, ControlPanelState.BUILD_INFRA,
 									infra.get(i), i);
 						}
 						buildingButtons.getButtons().get(0).fire(helper.touchDownEvent);
@@ -126,7 +131,7 @@ public class ControlPanel {
 					}
 				});
 
-		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 0, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 10, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {

@@ -38,7 +38,7 @@ public class FarmEditor extends Editor {
 		this.state = State.GRAIN;
 		this.selectButtonGroup = new ButtonGroup<>();
 
-		selectGrainButton = createButton(textureAtlas.findRegion("grain"), 0, height - 200, new ClickListener() {
+		selectGrainButton = createButton(textureAtlas.findRegion("grain"), 10, height - 200, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.GRAIN;
@@ -53,7 +53,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(selectGrainButton);
 
-		selectFishButton = createButton(textureAtlas.findRegion("fishnet"), 0, height - 280, new ClickListener() {
+		selectFishButton = createButton(textureAtlas.findRegion("fishnet"), 10, height - 280, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.FISH;
@@ -62,7 +62,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(selectFishButton);
 
-		selectTreeButton = createButton(textureAtlas.findRegion("tree"), 0, height - 360, new ClickListener() {
+		selectTreeButton = createButton(textureAtlas.findRegion("tree"), 10, height - 360, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.WOOD;
@@ -71,7 +71,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(selectTreeButton);
 
-		selectCattleButton = createButton(textureAtlas.findRegion("sheep"), 0, height - 440, new ClickListener() {
+		selectCattleButton = createButton(textureAtlas.findRegion("sheep"), 10, height - 440, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.CATTLE;
@@ -80,7 +80,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(selectCattleButton);
 
-		deselectButton = createButton(textureAtlas.findRegion("cancel"), 0, height - 520, new ClickListener() {
+		deselectButton = createButton(textureAtlas.findRegion("cancel"), 10, height - 520, new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				state = State.DESELECT;
@@ -89,7 +89,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(deselectButton);
 
-		capacityLabel = createLabel(20, height - 900);
+		capacityLabel = createLabel(100, height - 480);
 		explanationLabel = createLabel(90, height - 136);
 	}
 

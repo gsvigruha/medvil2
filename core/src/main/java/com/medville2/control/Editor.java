@@ -2,7 +2,6 @@ package com.medville2.control;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -66,20 +65,31 @@ public abstract class Editor {
 	}
 
 	protected abstract Artifacts getArtifacts();
-	
+
 	public Iterable<Actor> getArtifactActors(int height, TextureAtlas textureAtlas) {
 		List<Actor> elements = new ArrayList<>();
+
+		Image storageImage = new Image(textureAtlas.findRegion("storage"));
+		storageImage.setPosition(0, height - 955);
+		storageImage.setSize(320, 427);
+		elements.add(storageImage);
+
 		int i = 0;
-		for (Map.Entry<String, Integer> artifact : getArtifacts().iterable()) {
+		for (String artifact : Artifacts.ARTIFACTS) {
+			Integer quantity = getArtifacts().get(artifact);
 			int x = (i % 4) * ARTIFACT_PX;
 			int y = (i / 4) * ARTIFACT_PY;
-			Image artifactImage = new Image(textureAtlas.findRegion("artifact_" + artifact.getKey().toLowerCase()));
-			artifactImage.setPosition(x, height - 600 - y);
+			Image artifactImage = new Image(textureAtlas.findRegion("artifact_" + artifact.toLowerCase()));
+			artifactImage.setPosition(x + 10, height - 600 - y);
 			artifactImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
 			elements.add(artifactImage);
-			Label quantityLabel = new Label(String.valueOf(artifact.getValue()), new LabelStyle(font, Color.WHITE));
-			quantityLabel.setPosition(8 + x, height - 615 - y);
-			elements.add(quantityLabel);
+			if (quantity == null) {
+				artifactImage.getColor().a = 0.5f;
+			} else {
+				Label quantityLabel = new Label(String.valueOf(quantity), new LabelStyle(font, Color.WHITE));
+				quantityLabel.setPosition(8 + x, height - 615 - y);
+				elements.add(quantityLabel);
+			}
 			i++;
 		}
 		return elements;
