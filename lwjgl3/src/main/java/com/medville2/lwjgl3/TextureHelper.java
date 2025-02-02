@@ -66,6 +66,11 @@ public class TextureHelper {
 		images.put("artifact_stone", "artifact_stone.png");
 		images.put("artifact_iron", "artifact_iron.png");
 		images.put("artifact_gold", "artifact_gold.png");
+		images.put("artifact_food", "artifact_food.png");
+		images.put("artifact_planks", "artifact_planks.png");
+		images.put("artifact_bricks", "artifact_bricks.png");
+		images.put("artifact_wool", "artifact_wool.png");
+		images.put("artifact_textile", "artifact_textile.png");
 	}
 
 	private static Map<String, Rectangle> regions = new HashMap<>();
