@@ -94,7 +94,7 @@ public class ControlPanel {
 	}
 
 	private void addMenuButtons() {
-		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 80, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 90, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -110,7 +110,7 @@ public class ControlPanel {
 					}
 				});
 
-		addMenuButton(new TextureRegion(new Texture("bridge_icon.png")), 160, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("bridge_icon.png")), 170, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
@@ -126,7 +126,7 @@ public class ControlPanel {
 					}
 				});
 
-		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 0, (int) hudViewport.getWorldHeight() - 80,
+		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 10, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {

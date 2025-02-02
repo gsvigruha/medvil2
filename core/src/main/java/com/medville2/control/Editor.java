@@ -66,15 +66,21 @@ public abstract class Editor {
 	}
 
 	protected abstract Artifacts getArtifacts();
-	
+
 	public Iterable<Actor> getArtifactActors(int height, TextureAtlas textureAtlas) {
 		List<Actor> elements = new ArrayList<>();
+
+		Image storageImage = new Image(textureAtlas.findRegion("storage"));
+		storageImage.setPosition(0, height - 850);
+		storageImage.setSize(320, 320);
+		elements.add(storageImage);
+
 		int i = 0;
 		for (Map.Entry<String, Integer> artifact : getArtifacts().iterable()) {
 			int x = (i % 4) * ARTIFACT_PX;
 			int y = (i / 4) * ARTIFACT_PY;
 			Image artifactImage = new Image(textureAtlas.findRegion("artifact_" + artifact.getKey().toLowerCase()));
-			artifactImage.setPosition(x, height - 600 - y);
+			artifactImage.setPosition(x + 10, height - 600 - y);
 			artifactImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
 			elements.add(artifactImage);
 			Label quantityLabel = new Label(String.valueOf(artifact.getValue()), new LabelStyle(font, Color.WHITE));

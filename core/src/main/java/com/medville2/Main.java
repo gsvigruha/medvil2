@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -22,7 +23,7 @@ import com.medville2.view.Renderer;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter implements InputProcessor {
-	private static final int HUD_WIDTH = 300;
+	private static final int HUD_WIDTH = 320;
 
 	private SpriteBatch batch;
 
@@ -44,9 +45,13 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private int scrollVX;
     private int scrollVY;
 
-    @Override
+    private int monitorWidth;
+
+	@Override
     public void create() {
     	batch = new SpriteBatch();
+    	DisplayMode displayMode = Gdx.graphics.getDisplayMode();
+    	monitorWidth = displayMode.width;
 
 		camera = new OrthographicCamera();
 		viewport = new FitViewport(1920 - HUD_WIDTH, 1080, camera);
@@ -99,9 +104,9 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width - HUD_WIDTH, height, true); // true centers the camera
-		viewport.setScreenPosition(HUD_WIDTH, 0);
+		viewport.setScreenPosition(HUD_WIDTH * monitorWidth / 1920, 0);
         hudViewport.update(HUD_WIDTH, height, true); // Update HUD viewport as well
-        hudViewport.setScreenPosition(10, 0);
+        hudViewport.setScreenPosition(0, 0);
 	}
 
 	private void logic() {

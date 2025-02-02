@@ -57,6 +57,8 @@ public class TextureHelper {
 		images.put("arrow_small", "arrow_small.png");
 		images.put("cancel", "cancel.png");
 
+		images.put("storage", "storage.png");
+
 		images.put("artifact_sheep", "artifact_sheep.png");
 		images.put("artifact_logs", "artifact_logs.png");
 		images.put("artifact_fish", "artifact_fish.png");
