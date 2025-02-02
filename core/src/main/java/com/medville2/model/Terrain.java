@@ -28,6 +28,16 @@ public class Terrain {
 
     static final Logger LOGGER = new Logger(Terrain.class.getName(), Logger.INFO);
 
+    private static final long GOLD_RANDOM_SEED = 1l;
+    private static final double GOLD_THRESHOLD = 0.8;
+    private static final long IRON_RANDOM_SEED = 2l;
+    private static final double IRON_THRESHOLD = 0.7;
+    private static final long STONE_RANDOM_SEED = 3l;
+    private static final double STONE_THRESHOLD = 0.6;
+    private static final long CLAY_RANDOM_SEED = 4l;
+    private static final double CLAY_THRESHOLD = 0.8;
+    private static final int MINERAL_FREQ = 32;
+
 	public Terrain(int size, int res) {
 		this.size = size;
 		this.fields = new Field[size][size];
@@ -85,7 +95,7 @@ public class Terrain {
 				field.setCornerType(getCornerType(i, j));
 				if (field.getType() == Field.Type.GRASS) {
 					if (hasNeighbor(i, j, Type.RIVER)) {
-						if (OpenSimplex2.noise2(0l, i, j, size, 32) > 0.8) {
+						if (OpenSimplex2.noise2(CLAY_RANDOM_SEED, i, j, size, MINERAL_FREQ) > CLAY_THRESHOLD) {
 							field.setType(Type.ROCK);
 							field.setObject(new Hill(field, Artifacts.CLAY, 100));
 						}
@@ -127,15 +137,15 @@ public class Terrain {
 	}
 
 	private String getMiningArtifact(int i, int j) {
-		double gold = OpenSimplex2.noise2(0l, i, j, size, 32);
-		double iron = OpenSimplex2.noise2(1l, i, j, size, 32);
-		double stone = OpenSimplex2.noise2(2l, i, j, size, 32);
+		double gold = OpenSimplex2.noise2(GOLD_RANDOM_SEED, i, j, size, MINERAL_FREQ);
+		double iron = OpenSimplex2.noise2(IRON_RANDOM_SEED, i, j, size, MINERAL_FREQ);
+		double stone = OpenSimplex2.noise2(STONE_RANDOM_SEED, i, j, size, MINERAL_FREQ);
 
-		if (stone > 0.6) {
+		if (stone > STONE_THRESHOLD) {
 			return Artifacts.STONE;
-		} else if (iron > 0.7) {
+		} else if (iron > IRON_THRESHOLD) {
 			return Artifacts.IRON;
-		} else if (gold > 0.8) {
+		} else if (gold > GOLD_THRESHOLD) {
 			return Artifacts.GOLD;
 		}  
 		return null;
