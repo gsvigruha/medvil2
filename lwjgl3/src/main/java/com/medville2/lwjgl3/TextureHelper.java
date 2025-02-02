@@ -37,6 +37,7 @@ public class TextureHelper {
 		images.put("tower", "tower.png");
 		images.put("townsquare", "townsquare.png");
 		images.put("mill", "mill_2.png");
+		images.put("workshop", "workshop_2.png");
 		images.put("blacksmith", "blacksmith.png");
 		images.put("wall", "wall_4.png");
 		images.put("grain", "grain.png");
@@ -71,6 +72,10 @@ public class TextureHelper {
 		images.put("artifact_bricks", "artifact_bricks.png");
 		images.put("artifact_wool", "artifact_wool.png");
 		images.put("artifact_textile", "artifact_textile.png");
+		images.put("artifact_pottery", "artifact_pottery.png");
+		images.put("artifact_flour", "artifact_flour.png");
+		images.put("artifact_leather", "artifact_leather.png");
+		images.put("artifact_clay", "artifact_clay.png");
 	}
 
 	private static Map<String, Rectangle> regions = new HashMap<>();

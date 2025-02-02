@@ -22,6 +22,10 @@ public class Artifacts {
 	public static final String BRICKS = "BRICKS";
 	public static final String WOOL = "WOOL";
 	public static final String TEXTILE = "TEXTILE";
+	public static final String POTTERY = "POTTERY";
+	public static final String FLOUR = "FLOUR";
+	public static final String LEATHER = "LEATHER";
+	public static final String CLAY = "CLAY";
 
 	public static final ImmutableList<String> ARTIFACTS = ImmutableList.of(
 			SHEEP,
@@ -35,7 +39,11 @@ public class Artifacts {
 			PLANKS,
 			BRICKS,
 			WOOL,
-			TEXTILE);
+			TEXTILE,
+			POTTERY,
+			FLOUR,
+			LEATHER,
+			CLAY);
 
 	private final Map<String, Integer> artifacts;
 

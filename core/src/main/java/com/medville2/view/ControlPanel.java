@@ -33,6 +33,7 @@ import com.medville2.model.building.house.Farm;
 import com.medville2.model.building.house.Mill;
 import com.medville2.model.building.house.Mine;
 import com.medville2.model.building.house.Townsquare;
+import com.medville2.model.building.house.Workshop;
 import com.medville2.model.building.infra.Bridge;
 import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
@@ -61,7 +62,7 @@ public class ControlPanel {
 	private Group editorStack;
 
 	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
-			Townsquare.class, Mill.class);
+			Townsquare.class, Mill.class, Workshop.class);
 	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class,
 			Wall.class);
 
