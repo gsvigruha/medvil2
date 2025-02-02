@@ -89,7 +89,7 @@ public class FarmEditor extends Editor {
 		});
 		selectButtonGroup.add(deselectButton);
 
-		capacityLabel = createLabel(20, height - 900);
+		capacityLabel = createLabel(100, height - 480);
 		explanationLabel = createLabel(90, height - 136);
 	}
 

@@ -83,9 +83,13 @@ public abstract class Editor {
 			artifactImage.setPosition(x + 10, height - 600 - y);
 			artifactImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
 			elements.add(artifactImage);
-			Label quantityLabel = new Label(String.valueOf(quantity), new LabelStyle(font, Color.WHITE));
-			quantityLabel.setPosition(8 + x, height - 615 - y);
-			elements.add(quantityLabel);
+			if (quantity == null) {
+				artifactImage.getColor().a = 0.5f;
+			} else {
+				Label quantityLabel = new Label(String.valueOf(quantity), new LabelStyle(font, Color.WHITE));
+				quantityLabel.setPosition(8 + x, height - 615 - y);
+				elements.add(quantityLabel);
+			}
 			i++;
 		}
 		return elements;
