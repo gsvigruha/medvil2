@@ -1,15 +1,13 @@
 package com.medville2.model.building.infra;
 
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 
 public class Tower extends Wall {
 
-	public Tower(Field field) {
-		super(field);
-	}
+	public static final FieldObjectType Type = new FieldObjectType("tower", 1, Tower.class);
 
-	@Override
-	public String getName() {
-		return "tower";
+	public Tower(Field field) {
+		super(field, Type);
 	}
 }

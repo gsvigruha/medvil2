@@ -1,23 +1,16 @@
 package com.medville2.model.building.house;
 
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
 import com.medville2.model.time.Calendar;
 
 public class Mill extends BuildingObject {
 
+	public static final FieldObjectType Type = new FieldObjectType("mill", 1, Mill.class);
+
 	public Mill(Field field) {
-		super(field);
-	}
-
-	@Override
-	public String getName() {
-		return "mill";
-	}
-
-	@Override
-	public int getSize() {
-		return 1;
+		super(field, Type);
 	}
 
 	@Override

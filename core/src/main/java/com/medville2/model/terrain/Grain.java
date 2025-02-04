@@ -4,23 +4,16 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.time.Calendar;
 
 public class Grain extends TerrainObject {
 
+	private static final FieldObjectType GrainType = new FieldObjectType("grain", 1, Grain.class);
+
 	public Grain(Field field) {
-		super(field);
-	}
-
-	@Override
-	public String getName() {
-		return "grain";
-	}
-
-	@Override
-	public boolean isHill() {
-		return false;
+		super(field, GrainType);
 	}
 
 	@Override

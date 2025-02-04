@@ -29,6 +29,7 @@ import com.medville2.control.building.MineEditor;
 import com.medville2.control.building.TownsquareEditor;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
+import com.medville2.model.FieldObjectType;
 import com.medville2.model.Game;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.house.Blacksmith;
@@ -39,7 +40,6 @@ import com.medville2.model.building.house.Mine;
 import com.medville2.model.building.house.Townsquare;
 import com.medville2.model.building.house.Workshop;
 import com.medville2.model.building.infra.Bridge;
-import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
@@ -57,7 +57,7 @@ public class ControlPanel {
 	private ButtonHelper helper;
 
 	private ControlPanelState state;
-	private Class<?> buildingClass;
+	private FieldObjectType buildingType;
 	private boolean checkAllFields;
 	private boolean showAllMinerals;
 	private Editor editor;
@@ -68,10 +68,10 @@ public class ControlPanel {
 	private Group buildingButtonStack;
 	private Group editorStack;
 
-	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
-			Mill.class, Workshop.class);
-	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class,
-			Wall.class);
+	private List<FieldObjectType> houses = ImmutableList.of(Farm.Type, Mine.Type, Blacksmith.Type,
+			Mill.Type, Workshop.Type);
+	private List<FieldObjectType> infra = ImmutableList.of(Road.Type, Bridge.Type, Tower.Type,
+			Wall.Type);
 
 	public ControlPanel(Viewport hudViewport, TextureAtlas textureAtlas) {
 		this.hudViewport = hudViewport;
@@ -128,8 +128,7 @@ public class ControlPanel {
 						for (int i = 0; i < houses.size(); i++) {
 							int bi = i % 3;
 							int bj = i / 3;
-							BuildingObject building = BuildingRules.newHouse(houses.get(i), null);
-							addBuildingButton(textureAtlas.findRegion(building.getName()), bj * 140 + 10,
+							addBuildingButton(textureAtlas.findRegion(houses.get(i).getName()), bj * 140 + 10,
 									(int) hudViewport.getWorldHeight() - bi * 140 - 260, ControlPanelState.BUILD_HOUSE,
 									houses.get(i), i);
 						}
@@ -147,8 +146,7 @@ public class ControlPanel {
 						for (int i = 0; i < infra.size(); i++) {
 							int bi = i % 3;
 							int bj = i / 3;
-							InfraObject building = BuildingRules.newInfra(infra.get(i), null);
-							addBuildingButton(textureAtlas.findRegion(building.getName()), bj * 140 + 10,
+							addBuildingButton(textureAtlas.findRegion(infra.get(i).getName()), bj * 140 + 10,
 									(int) hudViewport.getWorldHeight() - bi * 140 - 260, ControlPanelState.BUILD_INFRA,
 									infra.get(i), i);
 						}
@@ -161,7 +159,7 @@ public class ControlPanel {
 		stage.addActor(label);
 	}
 
-	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, Class<?> buildingClass,
+	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, FieldObjectType buildingType,
 			int selectedButtonIdx) {
 		ImageButton button = new ImageButton(new TextureRegionDrawable(icon));
 		button.setSize(ButtonHelper.BUTTON_LARGE_SX, ButtonHelper.BUTTON_LARGE_SY);
@@ -170,7 +168,7 @@ public class ControlPanel {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				ControlPanel.this.state = state;
-				ControlPanel.this.buildingClass = buildingClass;
+				ControlPanel.this.buildingType = buildingType;
 			}
 		});
 
@@ -225,15 +223,14 @@ public class ControlPanel {
 
 	public int getActiveFieldSize() {
 		if (state == ControlPanelState.BUILD_HOUSE) {
-			BuildingObject building = BuildingRules.newHouse((Class<? extends BuildingObject>) buildingClass, null);
-			return building.getSize();
+			return buildingType.getSize();
 		}
 		return 1;
 	}
 
 	public void click(Field field, Game game) {
 		Terrain terrain = game.getTerrain();
-		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingClass,
+		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingType,
 				editor);
 		if (fcs.getStatus()) {
 			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
@@ -300,8 +297,8 @@ public class ControlPanel {
 		return null;
 	}
 
-	public Class<?> getBuildingClass() {
-		return buildingClass;
+	public FieldObjectType getBuildingType() {
+		return buildingType;
 	}
 
 	public ControlPanelState getState() {

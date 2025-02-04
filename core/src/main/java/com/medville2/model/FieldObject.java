@@ -8,9 +8,11 @@ import com.medville2.model.time.Calendar;
 public abstract class FieldObject {
 
 	protected final Field field;
+	protected final FieldObjectType type;
 
-	public FieldObject(Field field) {
+	public FieldObject(Field field, FieldObjectType type) {
 		this.field = field;
+		this.type = type;
 	}
 
 	public int getI() {
@@ -21,11 +23,17 @@ public abstract class FieldObject {
 		return field.getJ();
 	}
 
-	public abstract String getName();
+	public FieldObjectType getType() {
+		return type;
+	}
 
-	public abstract int getSize();
+	public String getName() {
+		return getType().getName();
+	}
 
-	public abstract boolean isHill();
+	public int getSize() {
+		return getType().getSize();
+	}
 
 	public boolean isFlip() {
 		return false;

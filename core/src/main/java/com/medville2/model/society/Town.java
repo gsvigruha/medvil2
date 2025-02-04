@@ -17,4 +17,12 @@ public class Town {
 	public String getName() {
 		return name;
 	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public Townsquare getTownsquare() {
+		return townsquare;
+	}
 }

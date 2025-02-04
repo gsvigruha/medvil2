@@ -4,10 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
 import com.medville2.model.time.Calendar;
 
 public class Farm extends BuildingObject {
+
+	public static final FieldObjectType Type = new FieldObjectType("farm", 1, Farm.class);
 
 	private static final int MAX_CAPACITY = 20;
 
@@ -19,7 +22,7 @@ public class Farm extends BuildingObject {
 	private int capacityUsed;
 
 	public Farm(Field field) {
-		super(field);
+		super(field, Type);
 		this.fields = new HashMap<>();
 	}
 

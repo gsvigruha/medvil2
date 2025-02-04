@@ -33,7 +33,7 @@ public class WallRenderer {
 			objectSprite.draw(batch);
 		}
 		int crop = 0;
-		if (fo.getClass().equals(Tower.class)) {
+		if (fo.getType() == Tower.Type) {
 			Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
 			objectSprite.translate(ox, oy);
 			objectSprite.draw(batch);
