@@ -15,6 +15,7 @@ import com.medville2.control.FontHelper;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.Terrain;
+import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
 import com.medville2.model.terrain.Fishnet;
 import com.medville2.model.terrain.Hill;
@@ -180,14 +181,14 @@ public class Renderer {
 			int y = fo.getI() * Terrain.DY / 2 + fo.getJ() * Terrain.DY / 2;
 			int ox = x;
 			int oy = y;
-			if (Wall.class.isAssignableFrom(fo.getClass())) {
+			if (fo.getType() == Wall.Type || fo.getType() == Tower.Type) {
 				wallRenderer.renderWall(fo, ox, oy, batch);
 			} else {
 				if (fo.getSize() == 2) {
 					ox = x - Terrain.DX / 2;
 					oy = y + Terrain.DY * (fo.getSize() - 2);
 				}
-				if (fo.getClass().equals(Fishnet.class)) {
+				if (fo.getType() == Fishnet.Type) {
 					oy += (Math.sin(((double) System.currentTimeMillis()) / 250.0 + fo.getI())) * 2.0;
 				}
 				final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
@@ -199,7 +200,7 @@ public class Renderer {
 			}
 
 			if (controlPanel.getShowAllMinerals()) {
-				if (fo.getClass().equals(Hill.class)) {
+				if (fo.getType() == Hill.Type) {
 					Hill hill = (Hill) fo;
 					if (hill.getMineral() != null) {
 						Sprite mineralSprite = new Sprite(

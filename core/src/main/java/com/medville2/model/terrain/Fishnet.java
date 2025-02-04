@@ -10,10 +10,10 @@ import com.medville2.model.time.Calendar;
 
 public class Fishnet extends TerrainObject {
 
-	private static final FieldObjectType FishnetType = new FieldObjectType("fishnet", 1, Fishnet.class);
+	public static final FieldObjectType Type = new FieldObjectType("fishnet", 1, Fishnet.class);
 
 	public Fishnet(Field field) {
-		super(field, FishnetType);
+		super(field, Type);
 	}
 
 	@Override

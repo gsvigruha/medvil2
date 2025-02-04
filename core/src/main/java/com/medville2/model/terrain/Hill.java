@@ -5,13 +5,13 @@ import com.medville2.model.FieldObjectType;
 
 public class Hill extends TerrainObject {
 
-	private static final FieldObjectType HillType = new FieldObjectType("hill", 1, Hill.class);
+	public static final FieldObjectType Type = new FieldObjectType("hill", 1, Hill.class);
 
 	private String mineral;
 	private int quantity;
 
 	public Hill(Field field, String mineral, int quanity) {
-		super(field, HillType);
+		super(field, Type);
 		this.mineral = mineral;
 		this.quantity = quanity;
 	}
