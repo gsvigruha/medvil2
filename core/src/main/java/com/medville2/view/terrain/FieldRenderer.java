@@ -13,20 +13,24 @@ public class FieldRenderer {
 	private TextureRegion grass;
 	private TextureRegion water;
 	private TextureRegion rock;
+	private TextureRegion river;
 
 	public FieldRenderer(TextureAtlas textureAtlas) {
 		this.textureAtlas = textureAtlas;
 		this.grass = textureAtlas.findRegion("grass");
 		this.water = textureAtlas.findRegion("water");
 		this.rock = textureAtlas.findRegion("rock");
+		this.river = textureAtlas.findRegion("river");
 	}
 
 	public void renderField(Field field, int x, int y, SpriteBatch batch) {
 		final Sprite sprite;
 		if (field.getType() == Field.Type.GRASS) {
 			sprite = new Sprite(grass);
-		} else if (field.getType() == Field.Type.WATER || field.getType() == Field.Type.RIVER) {
+		} else if (field.getType() == Field.Type.WATER) {
 			sprite = new Sprite(water);
+		} else if (field.getType() == Field.Type.RIVER) {
+			sprite = new Sprite(river);
 		} else if (field.getType() == Field.Type.ROCK) {
 			sprite = new Sprite(rock);
 		} else {

@@ -1,5 +1,7 @@
 package com.medville2;
 
+import java.nio.IntBuffer;
+
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -8,11 +10,13 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -64,6 +68,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	    hudViewport = new FitViewport(HUD_WIDTH, 1080, hudCamera); // HUD viewport size
 	    TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("medville_textures.atlas"));
 		controlPanel = new ControlPanel(hudViewport, textureAtlas);
+		controlPanel.foundTown();
         Terrain terrain = new Terrain(256, 32);
         Calendar calendar = new Calendar();
         this.game = new Game(calendar, terrain);
@@ -75,6 +80,10 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
 		Gdx.input.setInputProcessor(im);
         Gdx.app.setLogLevel(Application.LOG_INFO);
+
+        IntBuffer intBuffer = BufferUtils.newIntBuffer(16);
+    	Gdx.gl20.glGetIntegerv(GL20.GL_MAX_TEXTURE_SIZE, intBuffer);
+    	System.out.println("Mar buffer size: " + intBuffer.get());
     }
 
 

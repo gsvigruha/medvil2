@@ -12,6 +12,7 @@ public class MineEditor extends BuildingEditor {
 	private final Mine mine;
 
 	public MineEditor(Mine mine, int height, TextureAtlas textureAtlas) {
+		super(height, textureAtlas);
 		this.mine = mine;
 	}
 
