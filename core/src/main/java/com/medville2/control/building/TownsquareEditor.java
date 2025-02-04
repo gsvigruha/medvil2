@@ -5,19 +5,19 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.artifacts.Artifacts;
-import com.medville2.model.building.house.Mine;
+import com.medville2.model.building.house.Townsquare;
 
-public class MineEditor extends BuildingEditor {
+public class TownsquareEditor extends BuildingEditor {
 
-	private final Mine mine;
+	private final Townsquare townsquare;
 
-	public MineEditor(Mine mine, int height, TextureAtlas textureAtlas) {
-		this.mine = mine;
+	public TownsquareEditor(Townsquare townsquare, int height, TextureAtlas textureAtlas) {
+		this.townsquare = townsquare;
 	}
 
 	@Override
-	public Mine getFieldObject() {
-		return mine;
+	public Townsquare getFieldObject() {
+		return townsquare;
 	}
 
 	@Override
@@ -31,6 +31,6 @@ public class MineEditor extends BuildingEditor {
 
 	@Override
 	protected Artifacts getArtifacts() {
-		return mine.getArtifacts();
+		return townsquare.getArtifacts();
 	}
 }

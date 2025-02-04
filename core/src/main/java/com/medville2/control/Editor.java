@@ -34,7 +34,7 @@ public abstract class Editor {
 
 	public abstract FieldObject getFieldObject();
 
-	public abstract Actor[] getActors();
+	public abstract Iterable<Actor> getActors();
 
 	public Editor() {
 		this.font = FontHelper.getInstance().getFont();

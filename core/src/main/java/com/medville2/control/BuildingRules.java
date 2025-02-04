@@ -9,6 +9,7 @@ import com.medville2.model.Terrain;
 import com.medville2.model.building.house.BuildingObject;
 import com.medville2.model.building.house.Mill;
 import com.medville2.model.building.house.Mine;
+import com.medville2.model.building.house.Townsquare;
 import com.medville2.model.building.infra.Bridge;
 import com.medville2.model.building.infra.InfraObject;
 import com.medville2.model.building.infra.Road;
@@ -88,6 +89,13 @@ public class BuildingRules {
 				fcs.setBuildableObject(building);
 				return fcs;
 			}
+		}
+
+		if (state == ControlPanelState.FOUND_TOWN) {
+			BuildingObject building = newHouse(Townsquare.class, field);
+			FieldCheckStatus fcs = checkFields(field, building, terrain);
+			fcs.setBuildableObject(building);
+			return fcs;
 		}
 
 		if (state == ControlPanelState.SELECT) {

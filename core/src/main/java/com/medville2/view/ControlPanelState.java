@@ -6,5 +6,6 @@ public enum ControlPanelState {
 	SELECT,
 	BUILD_INFRA,
 	BUILD_HOUSE,
-	MODIFY
+	MODIFY,
+	FOUND_TOWN
 }
