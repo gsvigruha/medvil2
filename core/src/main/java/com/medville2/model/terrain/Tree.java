@@ -4,10 +4,13 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.time.Calendar;
 
 public class Tree extends TerrainObject {
+
+	private static final FieldObjectType TreeType = new FieldObjectType("tree", 1, Tree.class);
 
 	public enum Type {
 		GREEN, BLOOMING, SMALL,
@@ -16,7 +19,7 @@ public class Tree extends TerrainObject {
 	private final Type type;
 
 	public Tree(Type type, Field field) {
-		super(field);
+		super(field, TreeType);
 		this.type = type;
 	}
 
@@ -31,11 +34,6 @@ public class Tree extends TerrainObject {
 			return "tree_small";
 		}
 		return "tree";
-	}
-
-	@Override
-	public boolean isHill() {
-		return false;
 	}
 
 	@Override

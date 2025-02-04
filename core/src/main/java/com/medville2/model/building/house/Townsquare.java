@@ -1,23 +1,16 @@
 package com.medville2.model.building.house;
 
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
 import com.medville2.model.time.Calendar;
 
 public class Townsquare extends BuildingObject {
 
+	public static final FieldObjectType Type = new FieldObjectType("townsquare", 2, Townsquare.class);
+
 	public Townsquare(Field field) {
-		super(field);
-	}
-
-	@Override
-	public String getName() {
-		return "townsquare";
-	}
-
-	@Override
-	public int getSize() {
-		return 2;
+		super(field, Type);
 	}
 
 	@Override

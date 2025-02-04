@@ -1,32 +1,25 @@
 package com.medville2.model.building.house;
 
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.time.Calendar;
 
 public class Mine extends BuildingObject {
 
+	public static final FieldObjectType Type = new FieldObjectType("mine", 1, Mine.class);
+
 	private final Hill hill;
 
 	public Mine(Field field) {
-		super(field);
+		super(field, Type);
 		this.hill = null;
 	}
 
 	public Mine(Field field, Hill hill) {
-		super(field);
+		super(field, Type);
 		this.hill = hill;
-	}
-
-	@Override
-	public String getName() {
-		return "mine";
-	}
-
-	@Override
-	public int getSize() {
-		return 1;
 	}
 
 	@Override

@@ -1,26 +1,19 @@
 package com.medville2.model.terrain;
 
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 
 public class Hill extends TerrainObject {
+
+	private static final FieldObjectType HillType = new FieldObjectType("hill", 1, Hill.class);
 
 	private String mineral;
 	private int quantity;
 
 	public Hill(Field field, String mineral, int quanity) {
-		super(field);
+		super(field, HillType);
 		this.mineral = mineral;
 		this.quantity = quanity;
-	}
-
-	@Override
-	public String getName() {
-		return "hill";
-	}
-
-	@Override
-	public boolean isHill() {
-		return true;
 	}
 
 	public boolean isEmpty() {

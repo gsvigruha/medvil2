@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
-import com.medville2.model.FieldObject;
 import com.medville2.view.buttons.ButtonHelper;
 
 public abstract class Editor {

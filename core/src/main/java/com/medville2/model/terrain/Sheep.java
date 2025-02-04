@@ -4,23 +4,16 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
+import com.medville2.model.FieldObjectType;
 import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.time.Calendar;
 
 public class Sheep extends TerrainObject {
 
+	private static final FieldObjectType SheepType = new FieldObjectType("sheep", 1, Sheep.class);
+
 	public Sheep(Field field) {
-		super(field);
-	}
-
-	@Override
-	public String getName() {
-		return "sheep";
-	}
-
-	@Override
-	public boolean isHill() {
-		return false;
+		super(field, SheepType);
 	}
 
 	@Override
