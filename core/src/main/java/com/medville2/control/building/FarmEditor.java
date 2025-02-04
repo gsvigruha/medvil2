@@ -34,6 +34,7 @@ public class FarmEditor extends BuildingEditor {
 	private Farm.State state;
 
 	public FarmEditor(Farm farm, int height, TextureAtlas textureAtlas) {
+		super(height, textureAtlas);
 		this.farm = farm;
 		this.state = State.GRAIN;
 		this.selectButtonGroup = new ButtonGroup<>();

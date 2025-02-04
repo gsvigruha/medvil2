@@ -35,7 +35,6 @@ public class Renderer {
 	private TextureRegion rockCube;
 
 	private Rectangle projectedViewport;
-	private BitmapFont font;
 
 	private Field activeField;
 	private TextureAtlas textureAtlas;
@@ -59,7 +58,6 @@ public class Renderer {
 
 		this.worldPos = new Vector2();
 		this.projectedViewport = new Rectangle();
-		this.font = new BitmapFont();
 		this.objectsToRender = new ArrayList<>();
 	}
 

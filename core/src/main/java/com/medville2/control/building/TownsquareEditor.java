@@ -12,6 +12,7 @@ public class TownsquareEditor extends BuildingEditor {
 	private final Townsquare townsquare;
 
 	public TownsquareEditor(Townsquare townsquare, int height, TextureAtlas textureAtlas) {
+		super(height, textureAtlas);
 		this.townsquare = townsquare;
 	}
 

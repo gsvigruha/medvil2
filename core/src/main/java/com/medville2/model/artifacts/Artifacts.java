@@ -66,4 +66,10 @@ public class Artifacts {
 	public Integer get(String artifact) {
 		return artifacts.get(artifact);
 	}
+
+	public void addAll(Artifacts artifacts) {
+		for (Map.Entry<String, Integer> artifact : artifacts.iterable()) {
+			add(artifact.getKey(), artifact.getValue());
+		}
+	}
 }

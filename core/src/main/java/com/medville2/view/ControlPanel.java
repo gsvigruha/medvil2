@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -22,6 +23,7 @@ import com.google.common.collect.ImmutableList;
 import com.medville2.control.BuildingRules;
 import com.medville2.control.Editor;
 import com.medville2.control.FontHelper;
+import com.medville2.control.MenuEditor;
 import com.medville2.control.building.FarmEditor;
 import com.medville2.control.building.MineEditor;
 import com.medville2.control.building.TownsquareEditor;
@@ -74,7 +76,6 @@ public class ControlPanel {
 	public ControlPanel(Viewport hudViewport, TextureAtlas textureAtlas) {
 		this.hudViewport = hudViewport;
 		this.textureAtlas = textureAtlas;
-		this.state = ControlPanelState.FOUND_TOWN;
 		this.helper = ButtonHelper.getInstance();
 
 		this.menuButtons = new ButtonGroup<>();
@@ -99,7 +100,26 @@ public class ControlPanel {
 		editor = null;
 	}
 
+	public void foundTown() {
+		state = ControlPanelState.FOUND_TOWN;
+		for (ImageButton button : menuButtons.getButtons()) {
+			button.setDisabled(true);
+			button.setTouchable(Touchable.disabled);
+		}
+		setupEditor(new MenuEditor("Found a new town"));
+	}
+
 	private void addMenuButtons() {
+		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 10, (int) hudViewport.getWorldHeight() - 80,
+				new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						clearBuildingButtons();
+						ControlPanel.this.state = ControlPanelState.SELECT;
+						setupEditor(new MenuEditor("Select objects on the map"));
+					}
+				});
+
 		addMenuButton(new TextureRegion(new Texture("house_icon.png")), 90, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
@@ -110,9 +130,10 @@ public class ControlPanel {
 							int bj = i / 3;
 							BuildingObject building = BuildingRules.newHouse(houses.get(i), null);
 							addBuildingButton(textureAtlas.findRegion(building.getName()), bj * 140 + 10,
-									(int) hudViewport.getWorldHeight() - bi * 140 - 240, ControlPanelState.BUILD_HOUSE,
+									(int) hudViewport.getWorldHeight() - bi * 140 - 260, ControlPanelState.BUILD_HOUSE,
 									houses.get(i), i);
 						}
+						setupEditor(new MenuEditor("Select house to build"));
 						buildingButtons.getButtons().get(0).fire(helper.touchDownEvent);
 						buildingButtons.getButtons().get(0).fire(helper.touchUpEvent);
 					}
@@ -128,21 +149,12 @@ public class ControlPanel {
 							int bj = i / 3;
 							InfraObject building = BuildingRules.newInfra(infra.get(i), null);
 							addBuildingButton(textureAtlas.findRegion(building.getName()), bj * 140 + 10,
-									(int) hudViewport.getWorldHeight() - bi * 140 - 240, ControlPanelState.BUILD_INFRA,
+									(int) hudViewport.getWorldHeight() - bi * 140 - 260, ControlPanelState.BUILD_INFRA,
 									infra.get(i), i);
 						}
+						setupEditor(new MenuEditor("Select infra to build"));
 						buildingButtons.getButtons().get(0).fire(helper.touchDownEvent);
 						buildingButtons.getButtons().get(0).fire(helper.touchUpEvent);
-					}
-				});
-
-		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 10, (int) hudViewport.getWorldHeight() - 80,
-				new ClickListener() {
-					@Override
-					public void clicked(InputEvent event, float x, float y) {
-						clearBuildingButtons();
-						ControlPanel.this.state = ControlPanelState.SELECT;
-						ControlPanel.this.editor = null;
 					}
 				});
 
@@ -245,16 +257,7 @@ public class ControlPanel {
 						activeTown = ((BuildingObject) selectedFieldObject).getTown();
 					}
 					state = ControlPanelState.MODIFY;
-					editor = createEditor(selectedFieldObject);
-					editorStack.clear();
-					if (editor != null) {
-						for (Actor actor : editor.getActors()) {
-							editorStack.addActor(actor);
-						}
-						for (Actor actor : editor.getArtifactActors((int) hudViewport.getWorldHeight(), textureAtlas)) {
-							editorStack.addActor(actor);
-						}
-					}
+					setupEditor(createEditor(selectedFieldObject));
 				}
 			} else if (state == ControlPanelState.MODIFY) {
 				if (editor != null) {
@@ -266,8 +269,22 @@ public class ControlPanel {
 						fws.getField().setObject(fcs.getBuildableObject());
 					}
 				}
-				activeTown = game.getPlayer().foundTown((Townsquare) fcs.getBuildableObject(), game.nextTownName());
-				state = ControlPanelState.DO_NOTHING;
+				activeTown = game.getPlayer().foundTown((Townsquare) fcs.getBuildableObject(), game.nextTownName(), Game.FOUNDER_ARTIFACTS);
+				state = ControlPanelState.SELECT;
+				for (ImageButton button : menuButtons.getButtons()) {
+					button.setDisabled(false);
+					button.setTouchable(Touchable.enabled);
+				}
+			}
+		}
+	}
+
+	private void setupEditor(Editor editor) {
+		this.editor = editor;
+		editorStack.clear();
+		if (editor != null) {
+			for (Actor actor : editor.getActors()) {
+				editorStack.addActor(actor);
 			}
 		}
 	}
