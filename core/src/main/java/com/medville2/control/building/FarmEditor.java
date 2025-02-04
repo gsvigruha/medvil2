@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.medville2.control.Editor;
+import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.building.house.Farm;
@@ -17,7 +17,7 @@ import com.medville2.model.terrain.Grain;
 import com.medville2.model.terrain.Sheep;
 import com.medville2.model.terrain.Tree;
 
-public class FarmEditor extends Editor {
+public class FarmEditor extends BuildingEditor {
 
 	private final Farm farm;
 
@@ -127,9 +127,9 @@ public class FarmEditor extends Editor {
 	}
 
 	@Override
-	public Actor[] getActors() {
-		return new Actor[] { selectGrainButton, selectFishButton, selectCattleButton, selectTreeButton, deselectButton,
-				capacityLabel, explanationLabel };
+	public Iterable<Actor> getActorsImpl() {
+		return ImmutableList.of(selectGrainButton, selectFishButton, selectCattleButton, selectTreeButton, deselectButton,
+				capacityLabel, explanationLabel);
 	}
 
 	@Override

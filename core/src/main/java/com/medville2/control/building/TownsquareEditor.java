@@ -2,12 +2,12 @@ package com.medville2.control.building;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.medville2.control.Editor;
+import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.building.house.Townsquare;
 
-public class TownsquareEditor extends Editor {
+public class TownsquareEditor extends BuildingEditor {
 
 	private final Townsquare townsquare;
 
@@ -25,8 +25,8 @@ public class TownsquareEditor extends Editor {
 	}
 
 	@Override
-	public Actor[] getActors() {
-		return new Actor[0];
+	public Iterable<Actor> getActorsImpl() {
+		return ImmutableList.of();
 	}
 
 	@Override

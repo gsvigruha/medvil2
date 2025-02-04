@@ -8,9 +8,13 @@ public class Town {
 	private Country country;
 	private Townsquare townsquare;
 
-	public Town(Country country, Townsquare townsquare) {
+	public Town(Country country, Townsquare townsquare, String name) {
 		this.country = country;
 		this.townsquare = townsquare;
-		this.name = country.pickCityName();
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
 	}
 }

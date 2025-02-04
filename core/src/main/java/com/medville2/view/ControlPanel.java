@@ -67,14 +67,14 @@ public class ControlPanel {
 	private Group editorStack;
 
 	private List<Class<? extends BuildingObject>> houses = ImmutableList.of(Farm.class, Mine.class, Blacksmith.class,
-			Townsquare.class, Mill.class, Workshop.class);
+			Mill.class, Workshop.class);
 	private List<Class<? extends InfraObject>> infra = ImmutableList.of(Road.class, Bridge.class, Tower.class,
 			Wall.class);
 
 	public ControlPanel(Viewport hudViewport, TextureAtlas textureAtlas) {
 		this.hudViewport = hudViewport;
 		this.textureAtlas = textureAtlas;
-		this.state = ControlPanelState.DO_NOTHING;
+		this.state = ControlPanelState.FOUND_TOWN;
 		this.helper = ButtonHelper.getInstance();
 
 		this.menuButtons = new ButtonGroup<>();
@@ -260,6 +260,14 @@ public class ControlPanel {
 				if (editor != null) {
 					editor.handleClick(field);
 				}
+			} else if (state == ControlPanelState.FOUND_TOWN) {
+				if (fcs.getBuildableObject() != null) {
+					for (FieldWithStatus fws : fcs.getFields()) {
+						fws.getField().setObject(fcs.getBuildableObject());
+					}
+				}
+				activeTown = game.getPlayer().foundTown((Townsquare) fcs.getBuildableObject(), game.nextTownName());
+				state = ControlPanelState.DO_NOTHING;
 			}
 		}
 	}
