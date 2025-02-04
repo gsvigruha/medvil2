@@ -67,9 +67,9 @@ public class BuildingRules {
 
 		if (state == ControlPanelState.BUILD_HOUSE) {
 			if (buildingType == Mine.Type) {
-				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().getClass().equals(Hill.class)
+				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().getType() == Hill.Type
 						&& terrain.hasNeighbor(field.getI(), field.getJ(), f -> f.getObject() == null
-								|| !(f.getObject().getClass().equals(Hill.class) || f.getObject().getClass().equals(Mountain.class)))) {
+								|| !(f.getObject().getType() == Hill.Type || f.getObject().getType() == Mountain.Type))) {
 					Hill hill = ((Hill) field.getObject());
 					FieldCheckStatus fcs = FieldCheckStatus.success(field, new Mine(field, hill));
 					if (!hill.isEmpty()) {

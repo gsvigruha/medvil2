@@ -5,9 +5,9 @@ import com.medville2.model.FieldObjectType;
 
 public class Mountain extends TerrainObject {
 
-	private static final FieldObjectType MountainType = new FieldObjectType("mountain", 2, Mountain.class);
+	public static final FieldObjectType Type = new FieldObjectType("mountain", 2, Mountain.class);
 
 	public Mountain(Field field) {
-		super(field, MountainType);
+		super(field, Type);
 	}
 }
