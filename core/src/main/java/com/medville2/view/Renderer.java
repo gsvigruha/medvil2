@@ -31,6 +31,7 @@ public class Renderer {
 	private TextureRegion selectionGreen;
 	private TextureRegion grassCube;
 	private TextureRegion waterCube;
+	private TextureRegion riverCube;
 	private TextureRegion rockCube;
 
 	private Rectangle projectedViewport;
@@ -51,6 +52,7 @@ public class Renderer {
 		this.selectionGreen = textureAtlas.findRegion("selection_green");
 		this.grassCube = textureAtlas.findRegion("grass_cube");
 		this.waterCube = textureAtlas.findRegion("water_cube");
+		this.riverCube = textureAtlas.findRegion("river_cube");
 		this.rockCube = textureAtlas.findRegion("rock_cube");
 		this.fieldRenderer = new FieldRenderer(textureAtlas);
 		this.wallRenderer = new WallRenderer(textureAtlas);
@@ -121,7 +123,7 @@ public class Renderer {
 					} else if (field.getCornerType() == Field.Type.WATER) {
 						cornerSprite = new Sprite(waterCube);
 					} else if (field.getCornerType() == Field.Type.RIVER) {
-						cornerSprite = new Sprite(waterCube);
+						cornerSprite = new Sprite(riverCube);
 					} else if (field.getCornerType() == Field.Type.ROCK) {
 						cornerSprite = new Sprite(rockCube);
 					} else {

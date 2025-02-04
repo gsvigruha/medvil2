@@ -21,6 +21,8 @@ public class TextureHelper {
 	static {		
 		images.put("grass", "grass.png");
 		images.put("grass_cube", "grass_cube.png");
+		images.put("river", "river_2.png");
+		images.put("river_cube", "river_cube.png");
 		images.put("water", "water.png");
 		images.put("water_cube", "water_cube.png");
 		images.put("hill", "hill.png");
