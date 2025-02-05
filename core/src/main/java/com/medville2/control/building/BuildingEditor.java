@@ -2,6 +2,7 @@ package com.medville2.control.building;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -36,6 +37,10 @@ public abstract class BuildingEditor extends Editor {
 
 	protected abstract Artifacts getArtifacts();
 
+	protected Map<String, Integer> getPrices() {
+		return null;
+	}
+
 	public Iterable<Actor> getArtifactActors() {
 		List<Actor> elements = new ArrayList<>();
 
@@ -43,6 +48,8 @@ public abstract class BuildingEditor extends Editor {
 		storageImage.setPosition(0, height - 955);
 		storageImage.setSize(320, 427);
 		elements.add(storageImage);
+
+		Map<String, Integer> prices = getPrices();
 
 		int i = 0;
 		for (String artifact : Artifacts.ARTIFACTS) {
@@ -57,8 +64,14 @@ public abstract class BuildingEditor extends Editor {
 				artifactImage.getColor().a = 0.5f;
 			} else {
 				Label quantityLabel = new Label(String.valueOf(quantity), new LabelStyle(font, Color.WHITE));
-				quantityLabel.setPosition(8 + x, height - 615 - y);
+				quantityLabel.setPosition(12 + x, height - 615 - y);
 				elements.add(quantityLabel);
+			}
+
+			if (prices != null) {
+				Label priceLabel = new Label("$" + String.valueOf(prices.get(artifact)), new LabelStyle(font, Color.WHITE));
+				priceLabel.setPosition(50 + x, height - 615 - y);
+				elements.add(priceLabel);
 			}
 			i++;
 		}

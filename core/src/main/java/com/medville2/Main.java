@@ -114,7 +114,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public void resize(int width, int height) {
 		viewport.update(width - HUD_WIDTH, height, true); // true centers the camera
-		viewport.setScreenPosition(HUD_WIDTH * monitorWidth / 1920, 0);
+		viewport.setScreenPosition(HUD_WIDTH * monitorWidth / 1920 + 3, 0);
         hudViewport.update(HUD_WIDTH, height, true); // Update HUD viewport as well
         hudViewport.setScreenPosition(0, 0);
 	}
