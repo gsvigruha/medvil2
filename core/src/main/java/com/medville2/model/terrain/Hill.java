@@ -5,6 +5,8 @@ import com.medville2.model.FieldObjectType;
 
 public class Hill extends TerrainObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("hill", 1, Hill.class);
 
 	private String mineral;

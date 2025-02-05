@@ -10,6 +10,8 @@ import com.medville2.model.time.Calendar;
 
 public class Fishnet extends TerrainObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("fishnet", 1, Fishnet.class);
 
 	public Fishnet(Field field) {

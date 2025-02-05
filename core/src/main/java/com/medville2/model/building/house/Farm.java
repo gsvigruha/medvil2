@@ -10,6 +10,8 @@ import com.medville2.model.time.Calendar;
 
 public class Farm extends BuildingObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("farm", 1, Farm.class);
 
 	private static final int MAX_CAPACITY = 20;

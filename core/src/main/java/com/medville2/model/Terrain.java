@@ -1,5 +1,6 @@
 package com.medville2.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,9 @@ import com.medville2.model.terrain.OpenSimplex2;
 import com.medville2.model.terrain.Tree;
 import com.medville2.model.time.Calendar;
 
-public class Terrain {
+public class Terrain implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	public static final int DX = 256;
 	public static final int DY = 192;
 

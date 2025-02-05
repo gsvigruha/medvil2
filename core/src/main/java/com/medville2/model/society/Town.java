@@ -1,8 +1,12 @@
 package com.medville2.model.society;
 
+import java.io.Serializable;
+
 import com.medville2.model.building.house.Townsquare;
 
-public class Town {
+public class Town implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private final String name;
 	private Country country;

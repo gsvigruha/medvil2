@@ -100,6 +100,15 @@ public class ControlPanel {
 		editor = null;
 	}
 
+	public void select() {
+		clearBuildingButtons();
+		state = ControlPanelState.SELECT;
+		for (ImageButton button : menuButtons.getButtons()) {
+			button.setDisabled(false);
+			button.setTouchable(Touchable.enabled);
+		}
+	}
+
 	public void foundTown() {
 		state = ControlPanelState.FOUND_TOWN;
 		for (ImageButton button : menuButtons.getButtons()) {
@@ -267,11 +276,7 @@ public class ControlPanel {
 					}
 				}
 				activeTown = game.getPlayer().foundTown((Townsquare) fcs.getBuildableObject(), game.nextTownName(), Game.FOUNDER_ARTIFACTS);
-				state = ControlPanelState.SELECT;
-				for (ImageButton button : menuButtons.getButtons()) {
-					button.setDisabled(false);
-					button.setTouchable(Touchable.enabled);
-				}
+				select();
 			}
 		}
 	}
@@ -307,5 +312,9 @@ public class ControlPanel {
 
 	public Editor getEditor() {
 		return editor;
+	}
+
+	public void setActiveTown(Town activeTown) {
+		this.activeTown = activeTown;
 	}
 }
