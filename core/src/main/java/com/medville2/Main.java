@@ -136,6 +136,8 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
 		final int zoomLevel;
 		if (camera.zoom > 20) {
+			zoomLevel = Renderer.ZOOM_LEVEL_MAP;
+		} else if (camera.zoom > 10) {
 			zoomLevel = Renderer.ZOOM_LEVEL_BIRD_EYE;
 		} else {
 			zoomLevel = Renderer.ZOOM_LEVEL_CLOSE;

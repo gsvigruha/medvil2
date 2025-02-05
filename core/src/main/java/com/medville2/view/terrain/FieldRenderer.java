@@ -41,7 +41,7 @@ public class FieldRenderer {
 		sprite.translate(x, y);
 		sprite.draw(batch);
 
-		if (zoomLevel < Renderer.ZOOM_LEVEL_BIRD_EYE && (field.getType() == Field.Type.WATER || field.getType() == Field.Type.RIVER)) {
+		if (zoomLevel == Renderer.ZOOM_LEVEL_CLOSE && (field.getType() == Field.Type.WATER || field.getType() == Field.Type.RIVER)) {
 			long phase = ((System.currentTimeMillis() / 200) + field.getI() * 3 + field.getJ()) % 8;
 			Sprite sparkSprite = new Sprite(textureAtlas.findRegion("water_sparkle_" + phase));
 			sparkSprite.setSize(Terrain.DX, Terrain.DY);
