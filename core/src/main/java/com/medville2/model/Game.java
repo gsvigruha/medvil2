@@ -1,15 +1,25 @@
 package com.medville2.model;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.society.Country;
 import com.medville2.model.time.Calendar;
 
-public class Game {
+public class Game implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public static final Artifacts FOUNDER_ARTIFACTS = new Artifacts();
 	static {
@@ -62,5 +72,27 @@ public class Game {
 
 	public String nextTownName() {
 		return availableTownNames.remove(0);
+	}
+
+	public void save(String fileName) {
+		try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+			oos.writeObject(this);
+			FileHandle file = Gdx.files.local(fileName);
+			file.writeBytes(bos.toByteArray(), false);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Game load(String fileName) {
+		FileHandle file = Gdx.files.local(fileName);
+		try (ByteArrayInputStream bos = new ByteArrayInputStream(file.readBytes());
+				ObjectInputStream oos = new ObjectInputStream(bos)) {
+			return (Game) oos.readObject();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

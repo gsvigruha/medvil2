@@ -7,6 +7,8 @@ import com.medville2.model.time.Calendar;
 
 public class Mill extends BuildingObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("mill", 1, Mill.class);
 
 	public Mill(Field field) {

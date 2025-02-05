@@ -1,8 +1,11 @@
 package com.medville2.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Field {
+public class Field implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public enum Type {
 		WATER,

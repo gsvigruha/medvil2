@@ -10,6 +10,8 @@ import com.medville2.model.time.Calendar;
 
 public class Sheep extends TerrainObject {
 
+	private static final long serialVersionUID = 1L;
+
 	private static final FieldObjectType SheepType = new FieldObjectType("sheep", 1, Sheep.class);
 
 	public Sheep(Field field) {

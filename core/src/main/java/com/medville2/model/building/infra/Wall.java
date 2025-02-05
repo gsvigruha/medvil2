@@ -5,6 +5,8 @@ import com.medville2.model.FieldObjectType;
 
 public class Wall extends InfraObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("wall", 1, Wall.class);
 
 	private boolean[] segments;

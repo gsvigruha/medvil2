@@ -7,6 +7,8 @@ import com.medville2.model.time.Calendar;
 
 public class Blacksmith extends BuildingObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("blacksmith", 1, Blacksmith.class);
 
 	public Blacksmith(Field field) {

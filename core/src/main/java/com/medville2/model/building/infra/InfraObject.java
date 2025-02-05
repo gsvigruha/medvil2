@@ -8,6 +8,8 @@ import com.medville2.model.time.Calendar;
 
 public abstract class InfraObject extends FieldObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public InfraObject(Field field, FieldObjectType type) {
 		super(field, type);
 	}

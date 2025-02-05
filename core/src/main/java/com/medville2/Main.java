@@ -72,7 +72,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         Terrain terrain = new Terrain(256, 32);
         Calendar calendar = new Calendar();
         this.game = new Game(calendar, terrain);
-        renderer = new Renderer(terrain, controlPanel, textureAtlas);
+        renderer = new Renderer(game, controlPanel, textureAtlas);
 
 		InputMultiplexer im = new InputMultiplexer();
 		im.addProcessor(this);
@@ -206,6 +206,17 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
 			controlPanel.setShowAllMinerals(!controlPanel.getShowAllMinerals());
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+			game.save("game.save");
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+			game = Game.load("game.save");
+			renderer.setGame(game);
+			controlPanel.setActiveTown(game.getPlayer().firstTown());
+			controlPanel.select();
 		}
 	}
 

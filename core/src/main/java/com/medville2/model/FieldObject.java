@@ -1,11 +1,14 @@
 package com.medville2.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 import com.medville2.model.time.Calendar;
 
-public abstract class FieldObject {
+public abstract class FieldObject implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	protected final Field field;
 	protected final FieldObjectType type;

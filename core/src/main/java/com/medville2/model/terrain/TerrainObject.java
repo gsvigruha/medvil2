@@ -8,6 +8,8 @@ import com.medville2.model.time.Calendar;
 
 public abstract class TerrainObject extends FieldObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public TerrainObject(Field field, FieldObjectType type) {
 		super(field, type);
 	}

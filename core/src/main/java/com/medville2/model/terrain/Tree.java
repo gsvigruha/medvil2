@@ -10,6 +10,8 @@ import com.medville2.model.time.Calendar;
 
 public class Tree extends TerrainObject {
 
+	private static final long serialVersionUID = 1L;
+
 	private static final FieldObjectType TreeType = new FieldObjectType("tree", 1, Tree.class);
 
 	public enum Type {

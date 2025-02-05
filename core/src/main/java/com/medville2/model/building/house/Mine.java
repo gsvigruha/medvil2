@@ -8,6 +8,8 @@ import com.medville2.model.time.Calendar;
 
 public class Mine extends BuildingObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("mine", 1, Mine.class);
 
 	private final Hill hill;

@@ -1,6 +1,10 @@
 package com.medville2.model.time;
 
-public class Calendar {
+import java.io.Serializable;
+
+public class Calendar implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private int year;
 	private int day;

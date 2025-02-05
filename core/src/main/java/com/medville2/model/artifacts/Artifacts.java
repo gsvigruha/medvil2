@@ -1,12 +1,15 @@
 package com.medville2.model.artifacts;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.google.common.collect.ImmutableList;
 
-public class Artifacts {
+public class Artifacts implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public static final String SHEEP = "SHEEP";
 	public static final String LOGS = "LOGS";

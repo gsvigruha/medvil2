@@ -5,6 +5,8 @@ import com.medville2.model.FieldObjectType;
 
 public class Bridge extends InfraObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("bridge", 1, Bridge.class);
 
 	private final boolean flip;

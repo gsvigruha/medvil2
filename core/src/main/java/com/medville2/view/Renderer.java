@@ -14,6 +14,7 @@ import com.medville2.control.BuildingRules;
 import com.medville2.control.FontHelper;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
+import com.medville2.model.Game;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
@@ -25,7 +26,7 @@ import com.medville2.view.terrain.FieldRenderer;
 
 public class Renderer {
 
-	private Terrain terrain;
+	private Game game;
 	private ControlPanel controlPanel;
 	private Vector2 worldPos;
 	private TextureRegion selectionRed;
@@ -43,8 +44,8 @@ public class Renderer {
 	private FieldRenderer fieldRenderer;
 	private WallRenderer wallRenderer;
 
-	public Renderer(Terrain terrain, ControlPanel controlPanel, TextureAtlas textureAtlas) {
-		this.terrain = terrain;
+	public Renderer(Game game, ControlPanel controlPanel, TextureAtlas textureAtlas) {
+		this.game = game;
 		this.controlPanel = controlPanel;
 		this.textureAtlas = textureAtlas;
 
@@ -85,6 +86,7 @@ public class Renderer {
 		double maxD = Double.MAX_VALUE;
 		objectsToRender.clear();
 
+		Terrain terrain = game.getTerrain();
 		for (int i = 0; i < terrain.getSize(); i++) {
 			Field[] fields = terrain.getFields()[i];
 			for (int j = 0; j < terrain.getSize(); j++) {
@@ -261,5 +263,9 @@ public class Renderer {
 
 	public Field getActiveField() {
 		return activeField;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
 	}
 }

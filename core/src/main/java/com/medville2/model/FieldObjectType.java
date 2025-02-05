@@ -1,6 +1,10 @@
 package com.medville2.model;
 
-public class FieldObjectType {
+import java.io.Serializable;
+
+public class FieldObjectType implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private final String name;
 	private final int size;

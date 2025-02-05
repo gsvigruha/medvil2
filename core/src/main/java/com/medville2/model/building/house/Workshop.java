@@ -7,6 +7,8 @@ import com.medville2.model.time.Calendar;
 
 public class Workshop extends BuildingObject {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final FieldObjectType Type = new FieldObjectType("workshop", 1, Workshop.class);
 
 	public Workshop(Field field) {

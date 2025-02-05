@@ -8,6 +8,8 @@ import com.medville2.model.society.Town;
 
 public abstract class BuildingObject extends FieldObject {
 
+	private static final long serialVersionUID = 1L;
+
 	protected final Artifacts artifacts;
 	protected int money;
 	protected Town town;
