@@ -98,7 +98,7 @@ public class Renderer {
 					continue;
 				}
 				Field field = fields[j];
-				fieldRenderer.renderField(field, x, y, batch);
+				fieldRenderer.renderField(field, x, y, batch, zoomLevel);
 
 				double d = Math.sqrt((x0 - x - Terrain.DX / 2) * (x0 - x - Terrain.DX / 2)
 						+ (y0 - y - Terrain.DY / 2) * (y0 - y - Terrain.DY / 2));
