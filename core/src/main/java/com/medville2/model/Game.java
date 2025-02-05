@@ -64,6 +64,10 @@ public class Game implements Serializable {
 	public void tick() {
 		calendar.tick();
 		terrain.tick(calendar);
+		player.tick();
+		for (Country country : opponents) {
+			country.tick();
+		}
 	}
 
 	public Country getPlayer() {

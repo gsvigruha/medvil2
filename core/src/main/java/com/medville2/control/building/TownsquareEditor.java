@@ -1,5 +1,7 @@
 package com.medville2.control.building;
 
+import java.util.Map;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.google.common.collect.ImmutableList;
@@ -33,5 +35,10 @@ public class TownsquareEditor extends BuildingEditor {
 	@Override
 	protected Artifacts getArtifacts() {
 		return townsquare.getArtifacts();
+	}
+
+	@Override
+	protected Map<String, Integer> getPrices() {
+		return townsquare.getPrices();
 	}
 }
