@@ -40,7 +40,7 @@ public class Terrain implements Serializable {
     private static final double CLAY_THRESHOLD = 0.8;
     private static final int MINERAL_FREQ = 32;
 
-	public Terrain(int size, int res) {
+	public Terrain(int size, int res, double roughness, double waterThreshold) {
 		this.size = size;
 		this.fields = new Field[size][size];
 		for (int i = 0; i < size; i++) {
@@ -55,7 +55,6 @@ public class Terrain implements Serializable {
 		int nGrass = 0;
 		int nRock = 0;
 
-		double roughness = 0.5;
         double[][] heightmap = DiamondSquare.generateTerrain(size + 1, res, roughness);
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -67,7 +66,7 @@ public class Terrain implements Serializable {
         for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				Field field = getField(i, j);
-				if (field.getHeight() < -2.0) {
+				if (field.getHeight() < waterThreshold) {
 					field.setType(Type.WATER);
 					nWater++;
 				} else if (field.getHeight() > 10.0) {

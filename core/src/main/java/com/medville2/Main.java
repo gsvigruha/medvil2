@@ -29,6 +29,7 @@ import com.medville2.view.Renderer;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter implements InputProcessor {
 	private static final int HUD_WIDTH = 320;
+	private static final int MAP_SIZE = 256;
 
 	private SpriteBatch batch;
 
@@ -69,10 +70,8 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	    TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("medville_textures.atlas"));
 		controlPanel = new ControlPanel(hudViewport, textureAtlas);
 		controlPanel.foundTown();
-        Terrain terrain = new Terrain(256, 32);
-        Calendar calendar = new Calendar();
-        this.game = new Game(calendar, terrain);
-        renderer = new Renderer(game, controlPanel, textureAtlas);
+		renderer = new Renderer(controlPanel, textureAtlas, MAP_SIZE);
+		newGame(0.5, -2.0);
 
 		InputMultiplexer im = new InputMultiplexer();
 		im.addProcessor(this);
@@ -86,6 +85,12 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     	System.out.println("Mar buffer size: " + intBuffer.get());
     }
 
+	private void newGame(double roughness, double waterThreshold) {
+        Terrain terrain = new Terrain(MAP_SIZE, 32, roughness, waterThreshold);
+        Calendar calendar = new Calendar();
+        game = new Game(calendar, terrain);
+        renderer.setGame(game);
+	}
 
 	@Override
 	public void render() {
@@ -129,7 +134,13 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 		batch.setProjectionMatrix(viewport.getCamera().combined.scale(1f, 1f, 1f));
 		batch.begin();
 
-		renderer.render(batch);
+		final int zoomLevel;
+		if (camera.zoom > 20) {
+			zoomLevel = Renderer.ZOOM_LEVEL_BIRD_EYE;
+		} else {
+			zoomLevel = Renderer.ZOOM_LEVEL_CLOSE;
+		}
+		renderer.render(batch, zoomLevel);
 		//font.draw(batch, "Upper left, FPS=" + Gdx.graphics.getFramesPerSecond(), 0, viewport.getWorldHeight());
 
 		batch.end();
@@ -217,6 +228,16 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 			renderer.setGame(game);
 			controlPanel.setActiveTown(game.getPlayer().firstTown());
 			controlPanel.select();
+		}
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
+			newGame(0.5, -2.0);
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
+			newGame(1.0, 0.0);
+		}
+		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
+			newGame(0.8, 2.0);
 		}
 	}
 

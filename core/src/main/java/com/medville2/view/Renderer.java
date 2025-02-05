@@ -26,6 +26,9 @@ import com.medville2.view.terrain.FieldRenderer;
 
 public class Renderer {
 
+	public static final int ZOOM_LEVEL_CLOSE = 0;
+	public static final int ZOOM_LEVEL_BIRD_EYE = 1;
+
 	private Game game;
 	private ControlPanel controlPanel;
 	private Vector2 worldPos;
@@ -44,8 +47,7 @@ public class Renderer {
 	private FieldRenderer fieldRenderer;
 	private WallRenderer wallRenderer;
 
-	public Renderer(Game game, ControlPanel controlPanel, TextureAtlas textureAtlas) {
-		this.game = game;
+	public Renderer(ControlPanel controlPanel, TextureAtlas textureAtlas, int size) {
 		this.controlPanel = controlPanel;
 		this.textureAtlas = textureAtlas;
 
@@ -80,7 +82,7 @@ public class Renderer {
 				|| y > projectedViewport.y + projectedViewport.height + Terrain.DY);
 	}
 
-	public void render(SpriteBatch batch) {
+	public void render(SpriteBatch batch, int zoomLevel) {
 		double x0 = worldPos.x;
 		double y0 = worldPos.y;
 		double maxD = Double.MAX_VALUE;
@@ -117,7 +119,7 @@ public class Renderer {
 				}
 				Field field = fields[j];
 
-				if (!controlPanel.getCheckAllFields() && field.getCornerType() != null) {
+				if (!controlPanel.getCheckAllFields() && field.getCornerType() != null && zoomLevel < ZOOM_LEVEL_BIRD_EYE) {
 					Sprite cornerSprite;
 					if (field.getCornerType() == Field.Type.GRASS) {
 						cornerSprite = new Sprite(grassCube);
@@ -172,11 +174,13 @@ public class Renderer {
 			}
 		}
 
-		objectsToRender.sort((fo1, fo2) -> {
-			int y1 = fo1.getI() * 2 + fo1.getJ() * 2 + fo1.getSize();
-			int y2 = fo2.getI() * 2 + fo2.getJ() * 2 + fo2.getSize();
-			return -Integer.compare(y1, y2);
-		});
+		if (zoomLevel < ZOOM_LEVEL_BIRD_EYE) {
+			objectsToRender.sort((fo1, fo2) -> {
+				int y1 = fo1.getI() * 2 + fo1.getJ() * 2 + fo1.getSize();
+				int y2 = fo2.getI() * 2 + fo2.getJ() * 2 + fo2.getSize();
+				return -Integer.compare(y1, y2);
+			});
+		}
 
 		for (FieldObject fo : objectsToRender) {
 			int x = fo.getI() * Terrain.DX / 2 - fo.getJ() * Terrain.DX / 2;
