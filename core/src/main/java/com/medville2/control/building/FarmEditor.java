@@ -92,6 +92,7 @@ public class FarmEditor extends BuildingEditor {
 
 		capacityLabel = createLabel(100, height - 480);
 		explanationLabel = createLabel(90, height - 136);
+		updateCapacityLabel();
 	}
 
 	@Override
@@ -119,6 +120,10 @@ public class FarmEditor extends BuildingEditor {
 				}
 			}
 		}
+		updateCapacityLabel();
+	}
+
+	private void updateCapacityLabel() {
 		capacityLabel.setText(String.format("Used capacity: %.0f", farm.getUsedCapacity() * 100) + "%");
 	}
 

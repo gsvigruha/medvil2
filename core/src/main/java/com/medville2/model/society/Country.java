@@ -31,4 +31,8 @@ public class Country implements Serializable {
 		}
 		return null;
 	}
+
+	public void tick() {
+		
+	}
 }
