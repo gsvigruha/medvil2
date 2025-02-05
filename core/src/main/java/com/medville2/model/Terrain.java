@@ -112,11 +112,11 @@ public class Terrain implements Serializable {
 				} else if (field.getType() == Field.Type.ROCK) {
 					if (!isFlat(i, j)) {
 						if (isLargeMountain(i, j) && isLargeMountain(i + 1, j) && isLargeMountain(i, j + 1) && isLargeMountain(i + 1, j + 1)) {
-							Mountain hill = new Mountain(field);
-							getField(i, j).setObject(hill);
-							getField(i + 1, j).setObject(hill);
-							getField(i, j + 1).setObject(hill);
-							getField(i + 1, j + 1).setObject(hill);
+							Mountain mountain = new Mountain(field);
+							getField(i, j).setObject(mountain);
+							getField(i + 1, j).setObject(mountain);
+							getField(i, j + 1).setObject(mountain);
+							getField(i + 1, j + 1).setObject(mountain);
 						} else if (field.getObject() == null) {
 							field.setObject(new Hill(field, getMiningArtifact(i, j), getMiningQuantity(i, j)));
 						}
