@@ -16,6 +16,7 @@ import com.medville2.model.building.infra.Bridge;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
+import com.medville2.model.society.Town;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.terrain.Mountain;
 import com.medville2.view.ControlPanelState;
@@ -28,8 +29,10 @@ public class BuildingRules {
 	private static final Set<Field.Type> BuildingTypes = ImmutableSet.of(Field.Type.GRASS);
 	private static final Set<Field.Type> MineTypes = ImmutableSet.of(Field.Type.ROCK);
 
+	private static final int MAX_DISTANCE_FROM_TOWNSQUARE = 25;
+
 	public static FieldCheckStatus getFieldCheckStatus(Field field, Terrain terrain, ControlPanelState state,
-			FieldObjectType buildingType, Editor editor) {
+			FieldObjectType buildingType, Editor editor, Town activeTown) {
 		if (field == null) {
 			return FieldCheckStatus.fail(field);
 		}
@@ -66,6 +69,11 @@ public class BuildingRules {
 		}
 
 		if (state == ControlPanelState.BUILD_HOUSE) {
+			if (activeTown == null && buildingType != Townsquare.Type) {
+				return FieldCheckStatus.fail(field);
+			} else if (activeTown != null && distance(activeTown.getTownsquare(), field) > MAX_DISTANCE_FROM_TOWNSQUARE) {
+				return FieldCheckStatus.fail(field);
+			}
 			if (buildingType == Mine.Type) {
 				if (MineTypes.contains(field.getType()) && field.getObject() != null && field.getObject().getType() == Hill.Type
 						&& terrain.hasNeighbor(field.getI(), field.getJ(), f -> f.getObject() == null
@@ -116,6 +124,12 @@ public class BuildingRules {
 		}
 
 		return FieldCheckStatus.fail(field);
+	}
+
+	private static int distance(FieldObject fo, Field field) {
+		double dx = fo.getI() - field.getI();
+		double dy = fo.getJ() - field.getJ();
+		return (int) Math.sqrt(dx * dx + dy * dy);
 	}
 
 	private static FieldCheckStatus checkFields(Field field, BuildingObject building, Terrain terrain) {

@@ -90,6 +90,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         Calendar calendar = new Calendar();
         game = new Game(calendar, terrain);
         renderer.setGame(game);
+        controlPanel.foundTown();
 	}
 
 	@Override

@@ -240,7 +240,7 @@ public class ControlPanel {
 	public void click(Field field, Game game) {
 		Terrain terrain = game.getTerrain();
 		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingType,
-				editor);
+				editor, activeTown);
 		if (fcs.getStatus()) {
 			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
 				if (fcs.getBuildableObject() != null) {
@@ -316,5 +316,9 @@ public class ControlPanel {
 
 	public void setActiveTown(Town activeTown) {
 		this.activeTown = activeTown;
+	}
+
+	public Town getActiveTown() {
+		return activeTown;
 	}
 }

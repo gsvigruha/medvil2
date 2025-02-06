@@ -144,7 +144,7 @@ public class Renderer {
 
 				if (controlPanel.getCheckAllFields()) {
 					FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, controlPanel.getState(),
-							controlPanel.getBuildingType(), controlPanel.getEditor());
+							controlPanel.getBuildingType(), controlPanel.getEditor(), controlPanel.getActiveTown());
 					final Sprite objectSprite;
 					if (fcs.getStatus()) {
 						objectSprite = new Sprite(selectionGreen);
@@ -223,7 +223,7 @@ public class Renderer {
 
 		if (activeField != null) {
 			FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(activeField, terrain, controlPanel.getState(),
-					controlPanel.getBuildingType(), controlPanel.getEditor());
+					controlPanel.getBuildingType(), controlPanel.getEditor(), controlPanel.getActiveTown());
 			for (FieldWithStatus fws : fcs.getFields()) {
 				int i = fws.getField().getI();
 				int j = fws.getField().getJ();
