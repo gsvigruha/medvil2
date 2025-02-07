@@ -23,7 +23,7 @@ public class Townsquare extends BuildingObject {
 
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
-		
+		super.tick(terrain, calendar);
 	}
 
 	public Map<String, Integer> getPrices() {

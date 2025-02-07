@@ -1,11 +1,14 @@
 package com.medville2.model.society;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.medville2.model.artifacts.Artifacts;
 
-public class Market {
+public class Market implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private final Map<String, Integer> prices;
 

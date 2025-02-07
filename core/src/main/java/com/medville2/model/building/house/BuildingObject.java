@@ -6,9 +6,12 @@ import java.util.List;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.FieldObjectType;
+import com.medville2.model.Terrain;
 import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.society.Person;
 import com.medville2.model.society.Town;
+import com.medville2.model.task.GoHomeTask;
+import com.medville2.model.time.Calendar;
 
 public abstract class BuildingObject extends FieldObject {
 
@@ -45,8 +48,9 @@ public abstract class BuildingObject extends FieldObject {
 		return people.size();
 	}
 
-	public void addPerson(Person person) {
+	public void addPerson(Person person, Terrain terrain) {
 		person.setHome(this);
+		person.setTask(new GoHomeTask(terrain.getField(getI(), getJ())));
 		this.people.add(person);
 	}
 
@@ -54,12 +58,19 @@ public abstract class BuildingObject extends FieldObject {
 		this.money += money;
 	}
 
-	public void reassignPeople(BuildingObject bo, int numPeople) {
+	public void reassignPeople(BuildingObject bo, int numPeople, Terrain terrain) {
 		for (int i = 0; i < numPeople; i++) {
 			if (people.size() > 0) {
 				Person person = people.remove(0);
-				bo.addPerson(person);
+				bo.addPerson(person, terrain);
 			}
+		}
+	}
+
+	@Override
+	public void tick(Terrain terrain, Calendar calendar) {
+		for (Person person : people) {
+			person.tick(terrain, calendar);
 		}
 	}
 }

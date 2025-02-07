@@ -17,6 +17,6 @@ public class Blacksmith extends BuildingObject {
 
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
-		
+		super.tick(terrain, calendar);
 	}
 }

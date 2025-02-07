@@ -41,6 +41,7 @@ public class Game implements Serializable {
 	private final Country player;
 	private final List<Country> opponents;
 	private final List<String> availableTownNames;
+	private int personIdCtr;
 
 	public Game(Calendar calendar, Terrain terrain) {
 		this.calendar = calendar;
@@ -53,6 +54,7 @@ public class Game implements Serializable {
 						"Stormwatch", "Blackhollow", "Ironhaven", "Thornwick", "Frosthelm", "Dunharrow", "Goldmere",
 						"Shadowfen", "Wolfspire", "Westmere", "Stonebrook", "Gloomhaven", "Ebonford", "Harrowgate"));
 		Collections.shuffle(this.availableTownNames);
+		this.personIdCtr = 1;
 	}
 
 	public Calendar getCalendar() {
@@ -100,5 +102,9 @@ public class Game implements Serializable {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public int nextPersonID() {
+		return ++personIdCtr;
 	}
 }
