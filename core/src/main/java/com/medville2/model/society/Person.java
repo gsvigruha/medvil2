@@ -13,7 +13,7 @@ public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int D = 100;
+	public static final int D = 256;
 
 	private final int id;
 	private int x;

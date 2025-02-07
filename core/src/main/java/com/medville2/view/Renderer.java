@@ -164,9 +164,17 @@ public class Renderer {
 						float pj = (float) (person.getY() % Person.D) / (float) Person.D;
 						int px = x + (int) (pi * Terrain.DX / 2) - (int) (pj * Terrain.DX / 2);
 						int py = y + (int) (pj * Terrain.DY / 2) + (int) (pi * Terrain.DY / 2);
-						final Sprite personSprite = new Sprite(textureAtlas.findRegion("peasant"));
-						if (person.getDir() == 1 || person.getDir() == 3) {
-							personSprite.flip(true, false);
+						final Sprite personSprite;
+						if (person.getDir() == 0 || person.getDir() == 1) {
+							personSprite = new Sprite(textureAtlas.findRegion("peasant_front"));
+							if (person.getDir() == 0) {
+								personSprite.flip(true, false);
+							}
+						} else {
+							personSprite = new Sprite(textureAtlas.findRegion("peasant_back"));
+							if (person.getDir() == 3) {
+								personSprite.flip(true, false);
+							}
 						}
 						personSprite.translate(px, py);
 						personSprite.draw(batch);

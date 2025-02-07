@@ -14,11 +14,10 @@ import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
-
 public class TextureHelper {
 
 	public static HashMap<String, String> images = new HashMap<>();
-	static {		
+	static {
 		images.put("grass", "grass.png");
 		images.put("grass_cube", "grass_cube.png");
 		images.put("river", "river_2.png");
@@ -64,7 +63,8 @@ public class TextureHelper {
 
 		images.put("coin", "coin.png");
 		images.put("head", "head.png");
-		images.put("peasant", "peasant.png");
+		images.put("peasant_back", "peasant_back.png");
+		images.put("peasant_front", "peasant_front.png");
 
 		images.put("artifact_sheep", "artifact_sheep.png");
 		images.put("artifact_logs", "artifact_logs.png");
@@ -82,6 +82,15 @@ public class TextureHelper {
 		images.put("artifact_flour", "artifact_flour.png");
 		images.put("artifact_leather", "artifact_leather.png");
 		images.put("artifact_clay", "artifact_clay.png");
+
+		for (int i = 0; i < 4; i++) {
+			images.put("peasant_front#" + i, "peasant_front_" + i + ".png");
+		}
+	}
+
+	public static HashMap<String, Integer> animations = new HashMap<>();
+	static {
+		animations.put("peasant_front", 4);
 	}
 
 	private static Map<String, Rectangle> regions = new HashMap<>();
@@ -89,87 +98,95 @@ public class TextureHelper {
 	public static void combineTextures() throws IOException {
 		Map<String, BufferedImage> images = new HashMap<>();
 		for (Map.Entry<String, String> entry : TextureHelper.images.entrySet()) {
-			//FileHandle fileHandle = Gdx.files.internal(entry.getValue());
+			// FileHandle fileHandle = Gdx.files.internal(entry.getValue());
 			InputStream is = TextureHelper.class.getClassLoader().getResourceAsStream(entry.getValue());
 			BufferedImage image = ImageIO.read(is);
 			images.put(entry.getKey(), image);
 		}
 
 		int area = images.values().stream().mapToInt(t -> t.getWidth() * t.getHeight()).sum();
-        int width = (int) Math.sqrt(area) * 2;
-        int height = (int) Math.sqrt(area) * 2;
+		int width = (int) Math.sqrt(area) * 2;
+		int height = (int) Math.sqrt(area) * 2;
 
-        // Create a FrameBuffer
-        BufferedImage atlasImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics2D g2d = atlasImage.createGraphics();
-        System.out.println(atlasImage.getWidth() + " " + atlasImage.getHeight());
+		// Create a FrameBuffer
+		BufferedImage atlasImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D g2d = atlasImage.createGraphics();
+		System.out.println(atlasImage.getWidth() + " " + atlasImage.getHeight());
 
-        int x = 0;
-        int y = 0;
-        int maxH = 0;
-        for (Entry<String, BufferedImage> entry : images.entrySet().stream().sorted((e1, e2) -> {
-        	int w = Integer.compare(e1.getValue().getWidth(), e2.getValue().getWidth());
-        	if (w == 0) {
-        		return e1.getKey().compareTo(e2.getKey());
-        	} else {
-        		return w;
-        	}
-        }).toList()) {
-        	BufferedImage t = entry.getValue();
-        	// Render the textures
-        	if (x + t.getWidth() >= width) {
-        		x = 0;
-        		y = y + maxH;
-        		maxH = 0;
-        	}
-        	g2d.drawImage(t, x, y, null);
-        	regions.put(entry.getKey(), new Rectangle(x, y, t.getWidth(), t.getHeight()));
+		int x = 0;
+		int y = 0;
+		int maxH = 0;
+		for (Entry<String, BufferedImage> entry : images.entrySet().stream().sorted((e1, e2) -> {
+			int w = Integer.compare(e1.getValue().getWidth(), e2.getValue().getWidth());
+			if (w == 0) {
+				return e1.getKey().compareTo(e2.getKey());
+			} else {
+				return w;
+			}
+		}).toList()) {
+			BufferedImage t = entry.getValue();
+			// Render the textures
+			if (x + t.getWidth() >= width) {
+				x = 0;
+				y = y + maxH;
+				maxH = 0;
+			}
+			g2d.drawImage(t, x, y, null);
+			regions.put(entry.getKey(), new Rectangle(x, y, t.getWidth(), t.getHeight()));
 
-        	x = x + t.getWidth() + 1;
-        	maxH = Math.max(maxH, t.getHeight());
-        }
+			x = x + t.getWidth() + 1;
+			maxH = Math.max(maxH, t.getHeight());
+		}
 
-        File pngOutput = new File("../assets/medville_textures.png");
-        ImageIO.write(atlasImage, "png", pngOutput);
-        System.out.println("Atlas image saved to " + pngOutput.getAbsolutePath());
-        
-        File atlasOutput = new File("../assets/medville_textures.atlas");
-        atlasOutput.createNewFile();
-        BufferedWriter writer = new BufferedWriter(new FileWriter(atlasOutput));
-        
-        writer.write("medville_textures.png");
-        writer.newLine();
-        writer.write("size: " + width + ", " + height);
-        writer.newLine();
-        writer.write("format: RGBA8888");
-        writer.newLine();
-        writer.write("filter: Linear,Linear");
-        writer.newLine();
-        writer.write("repeat: none");
-        writer.newLine();
-        
-        for (String name : regions.keySet()) {
-        	Rectangle r = regions.get(name);
-        	writer.write(name);
-            writer.newLine();
-            writer.write("  rotate: false");
-            writer.newLine();
-            writer.write("  xy: " + r.x + ", " + r.y);
-            writer.newLine();
-            writer.write("  size: " + r.width + ", " + r.height);
-            writer.newLine();
-            writer.write("  orig: " + r.width + ", " + r.height);
-            writer.newLine();
-            writer.write("  offset: 0, 0");
-            writer.newLine();
-            writer.write("  index: -1");
-            writer.newLine();
-        }
-        
-        writer.close();
-        g2d.dispose();
-        
-    }
+		File pngOutput = new File("../assets/medville_textures.png");
+		ImageIO.write(atlasImage, "png", pngOutput);
+		System.out.println("Atlas image saved to " + pngOutput.getAbsolutePath());
+
+		File atlasOutput = new File("../assets/medville_textures.atlas");
+		atlasOutput.createNewFile();
+		BufferedWriter writer = new BufferedWriter(new FileWriter(atlasOutput));
+
+		writer.write("medville_textures.png");
+		writer.newLine();
+		writer.write("size: " + width + ", " + height);
+		writer.newLine();
+		writer.write("format: RGBA8888");
+		writer.newLine();
+		writer.write("filter: Linear,Linear");
+		writer.newLine();
+		writer.write("repeat: none");
+		writer.newLine();
+
+		for (String name : regions.keySet()) {
+			Rectangle r = regions.get(name);
+			if (name.contains("#")) {
+				writer.write(name.substring(0, name.indexOf("#")));
+			} else {
+				writer.write(name);
+			}
+			writer.newLine();
+			writer.write("  rotate: false");
+			writer.newLine();
+			writer.write("  xy: " + r.x + ", " + r.y);
+			writer.newLine();
+			writer.write("  size: " + r.width + ", " + r.height);
+			writer.newLine();
+			writer.write("  orig: " + r.width + ", " + r.height);
+			writer.newLine();
+			writer.write("  offset: 0, 0");
+			writer.newLine();
+			if (name.contains("#")) {
+				writer.write("  index: " + name.substring(name.indexOf("#") + 1));
+			} else {
+				writer.write("  index: -1");
+			}
+			writer.newLine();
+		}
+
+		writer.close();
+		g2d.dispose();
+
+	}
 
 	public static void main(String[] args) throws IOException {
 		TextureHelper.combineTextures();
