@@ -30,4 +30,12 @@ public abstract class BuildingObject extends FieldObject {
 	public void setTown(Town town) {
 		this.town = town;
 	}
+
+	public int getMoney() {
+		return money;
+	}
+
+	public int getNumPeople() {
+		return 0;
+	}
 }
