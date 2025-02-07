@@ -68,10 +68,9 @@ public class ControlPanel {
 	private Group buildingButtonStack;
 	private Group editorStack;
 
-	private List<FieldObjectType> houses = ImmutableList.of(Farm.Type, Mine.Type, Blacksmith.Type,
-			Mill.Type, Workshop.Type);
-	private List<FieldObjectType> infra = ImmutableList.of(Road.Type, Bridge.Type, Tower.Type,
-			Wall.Type);
+	private List<FieldObjectType> houses = ImmutableList.of(Farm.Type, Mine.Type, Blacksmith.Type, Mill.Type,
+			Workshop.Type);
+	private List<FieldObjectType> infra = ImmutableList.of(Road.Type, Bridge.Type, Tower.Type, Wall.Type);
 
 	public ControlPanel(Viewport hudViewport, TextureAtlas textureAtlas) {
 		this.hudViewport = hudViewport;
@@ -168,8 +167,8 @@ public class ControlPanel {
 		stage.addActor(label);
 	}
 
-	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state, FieldObjectType buildingType,
-			int selectedButtonIdx) {
+	private void addBuildingButton(TextureRegion icon, int x, int y, ControlPanelState state,
+			FieldObjectType buildingType, int selectedButtonIdx) {
 		ImageButton button = new ImageButton(new TextureRegionDrawable(icon));
 		button.setSize(ButtonHelper.BUTTON_LARGE_SX, ButtonHelper.BUTTON_LARGE_SY);
 		button.setPosition(x, y);
@@ -239,8 +238,8 @@ public class ControlPanel {
 
 	public void click(Field field, Game game) {
 		Terrain terrain = game.getTerrain();
-		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingType,
-				editor);
+		FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, state, buildingType, editor,
+				activeTown);
 		if (fcs.getStatus()) {
 			if (state == ControlPanelState.BUILD_HOUSE || state == ControlPanelState.BUILD_INFRA) {
 				if (fcs.getBuildableObject() != null) {
@@ -275,7 +274,8 @@ public class ControlPanel {
 						fws.getField().setObject(fcs.getBuildableObject());
 					}
 				}
-				activeTown = game.getPlayer().foundTown((Townsquare) fcs.getBuildableObject(), game.nextTownName(), Game.FOUNDER_ARTIFACTS);
+				activeTown = game.getPlayer().foundTown((Townsquare) fcs.getBuildableObject(), game.nextTownName(),
+						Game.FOUNDER_ARTIFACTS, Game.FOUNDER_MONEY);
 				select();
 			}
 		}
@@ -297,7 +297,8 @@ public class ControlPanel {
 		} else if (selectedFieldObject.getClass().equals(Mine.class)) {
 			return new MineEditor((Mine) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
 		} else if (selectedFieldObject.getClass().equals(Townsquare.class)) {
-			return new TownsquareEditor((Townsquare) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
+			return new TownsquareEditor((Townsquare) selectedFieldObject, (int) hudViewport.getWorldHeight(),
+					textureAtlas);
 		}
 		return null;
 	}
@@ -316,5 +317,9 @@ public class ControlPanel {
 
 	public void setActiveTown(Town activeTown) {
 		this.activeTown = activeTown;
+	}
+
+	public Town getActiveTown() {
+		return activeTown;
 	}
 }

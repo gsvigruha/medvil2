@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.ImmutableList;
 import com.medville2.control.Editor;
 import com.medville2.model.artifacts.Artifacts;
@@ -30,9 +31,26 @@ public abstract class BuildingEditor extends Editor {
 	}
 
 	public Iterable<Actor> getActors() {
+		Image moneyImage = new Image(textureAtlas.findRegion("coin"));
+		moneyImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
+		moneyImage.setPosition(10, 560);
+
+		Label moneyLabel = new Label(String.valueOf(getFieldObject().getMoney()), new LabelStyle(font, Color.WHITE));
+		moneyLabel.setPosition(80, 580);
+		moneyLabel.setAlignment(Align.left | Align.top);
+
+		Image peopleImage = new Image(textureAtlas.findRegion("head"));
+		peopleImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
+		peopleImage.setPosition(130, 560);
+
+		Label peopleLabel = new Label(String.valueOf(getFieldObject().getNumPeople()), new LabelStyle(font, Color.WHITE));
+		peopleLabel.setPosition(200, 580);
+		peopleLabel.setAlignment(Align.left | Align.top);
+
 		Label townLabel = headerLabel(
 				getFieldObject().getClass().getSimpleName() + " of " + getFieldObject().getTown().getName());
-		return ImmutableList.<Actor>builder().addAll(getActorsImpl()).addAll(getArtifactActors()).add(townLabel).build();
+		return ImmutableList.<Actor>builder().addAll(getActorsImpl()).addAll(getArtifactActors()).add(townLabel)
+				.add(moneyImage).add(moneyLabel).add(peopleImage).add(peopleLabel).build();
 	}
 
 	protected abstract Artifacts getArtifacts();
@@ -69,7 +87,8 @@ public abstract class BuildingEditor extends Editor {
 			}
 
 			if (prices != null) {
-				Label priceLabel = new Label("$" + String.valueOf(prices.get(artifact)), new LabelStyle(font, Color.WHITE));
+				Label priceLabel = new Label("$" + String.valueOf(prices.get(artifact)),
+						new LabelStyle(font, Color.WHITE));
 				priceLabel.setPosition(50 + x, height - 615 - y);
 				elements.add(priceLabel);
 			}

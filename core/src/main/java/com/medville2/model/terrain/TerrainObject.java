@@ -15,11 +15,6 @@ public abstract class TerrainObject extends FieldObject {
 	}
 
 	@Override
-	public int getSize() {
-		return 1;
-	}
-
-	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
 		
 	}

@@ -33,6 +33,7 @@ public class Game implements Serializable {
 		FOUNDER_ARTIFACTS.add(Artifacts.TEXTILE, 50);
 		FOUNDER_ARTIFACTS.add(Artifacts.LEATHER, 20);
 	}
+	public static final int FOUNDER_MONEY = 1000;
 
 	private final Calendar calendar;
 	private final Terrain terrain;

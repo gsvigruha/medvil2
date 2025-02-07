@@ -29,4 +29,8 @@ public class Townsquare extends BuildingObject {
 	public Map<String, Integer> getPrices() {
 		return market.getPrices();
 	}
+
+	public void addMoney(int money) {
+		this.money += money;
+	}
 }

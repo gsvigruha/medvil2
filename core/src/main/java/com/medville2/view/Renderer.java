@@ -28,6 +28,7 @@ public class Renderer {
 
 	public static final int ZOOM_LEVEL_CLOSE = 0;
 	public static final int ZOOM_LEVEL_BIRD_EYE = 1;
+	public static final int ZOOM_LEVEL_MAP = 2;
 
 	private Game game;
 	private ControlPanel controlPanel;
@@ -98,7 +99,7 @@ public class Renderer {
 					continue;
 				}
 				Field field = fields[j];
-				fieldRenderer.renderField(field, x, y, batch);
+				fieldRenderer.renderField(field, x, y, batch, zoomLevel);
 
 				double d = Math.sqrt((x0 - x - Terrain.DX / 2) * (x0 - x - Terrain.DX / 2)
 						+ (y0 - y - Terrain.DY / 2) * (y0 - y - Terrain.DY / 2));
@@ -119,7 +120,7 @@ public class Renderer {
 				}
 				Field field = fields[j];
 
-				if (!controlPanel.getCheckAllFields() && field.getCornerType() != null && zoomLevel < ZOOM_LEVEL_BIRD_EYE) {
+				if (!controlPanel.getCheckAllFields() && field.getCornerType() != null && zoomLevel <= ZOOM_LEVEL_BIRD_EYE) {
 					Sprite cornerSprite;
 					if (field.getCornerType() == Field.Type.GRASS) {
 						cornerSprite = new Sprite(grassCube);
@@ -143,7 +144,7 @@ public class Renderer {
 
 				if (controlPanel.getCheckAllFields()) {
 					FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(field, terrain, controlPanel.getState(),
-							controlPanel.getBuildingType(), controlPanel.getEditor());
+							controlPanel.getBuildingType(), controlPanel.getEditor(), controlPanel.getActiveTown());
 					final Sprite objectSprite;
 					if (fcs.getStatus()) {
 						objectSprite = new Sprite(selectionGreen);
@@ -174,7 +175,7 @@ public class Renderer {
 			}
 		}
 
-		if (zoomLevel < ZOOM_LEVEL_BIRD_EYE) {
+		if (zoomLevel <= ZOOM_LEVEL_BIRD_EYE) {
 			objectsToRender.sort((fo1, fo2) -> {
 				int y1 = fo1.getI() * 2 + fo1.getJ() * 2 + fo1.getSize();
 				int y2 = fo2.getI() * 2 + fo2.getJ() * 2 + fo2.getSize();
@@ -222,7 +223,7 @@ public class Renderer {
 
 		if (activeField != null) {
 			FieldCheckStatus fcs = BuildingRules.getFieldCheckStatus(activeField, terrain, controlPanel.getState(),
-					controlPanel.getBuildingType(), controlPanel.getEditor());
+					controlPanel.getBuildingType(), controlPanel.getEditor(), controlPanel.getActiveTown());
 			for (FieldWithStatus fws : fcs.getFields()) {
 				int i = fws.getField().getI();
 				int j = fws.getField().getJ();

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.medville2.model.Field;
 import com.medville2.model.Terrain;
+import com.medville2.view.Renderer;
 
 public class FieldRenderer {
 
@@ -23,7 +24,7 @@ public class FieldRenderer {
 		this.river = textureAtlas.findRegion("river");
 	}
 
-	public void renderField(Field field, int x, int y, SpriteBatch batch) {
+	public void renderField(Field field, int x, int y, SpriteBatch batch, int zoomLevel) {
 		final Sprite sprite;
 		if (field.getType() == Field.Type.GRASS) {
 			sprite = new Sprite(grass);
@@ -40,7 +41,7 @@ public class FieldRenderer {
 		sprite.translate(x, y);
 		sprite.draw(batch);
 
-		if (field.getType() == Field.Type.WATER || field.getType() == Field.Type.RIVER) {
+		if (zoomLevel == Renderer.ZOOM_LEVEL_CLOSE && (field.getType() == Field.Type.WATER || field.getType() == Field.Type.RIVER)) {
 			long phase = ((System.currentTimeMillis() / 200) + field.getI() * 3 + field.getJ()) % 8;
 			Sprite sparkSprite = new Sprite(textureAtlas.findRegion("water_sparkle_" + phase));
 			sparkSprite.setSize(Terrain.DX, Terrain.DY);
