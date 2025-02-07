@@ -17,11 +17,14 @@ public class Country implements Serializable {
 		this.towns = new ArrayList<>();
 	}
 
-	public Town foundTown(Townsquare townsquare, String name, Artifacts artifacts, int money) {
+	public Town foundTown(Townsquare townsquare, String name, Artifacts artifacts, int money, int people) {
 		Town town = new Town(this, townsquare, name);
 		townsquare.setTown(town);
 		townsquare.getArtifacts().addAll(artifacts);
 		townsquare.addMoney(money);
+		for (int i = 0; i < people; i++) {
+			townsquare.addPerson(new Person(townsquare));
+		}
 		this.towns.add(town);
 		return town;
 	}

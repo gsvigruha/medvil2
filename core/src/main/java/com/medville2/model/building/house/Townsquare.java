@@ -30,7 +30,4 @@ public class Townsquare extends BuildingObject {
 		return market.getPrices();
 	}
 
-	public void addMoney(int money) {
-		this.money += money;
-	}
 }

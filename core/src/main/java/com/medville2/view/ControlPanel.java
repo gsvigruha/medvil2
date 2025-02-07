@@ -252,7 +252,9 @@ public class ControlPanel {
 					BuildingRules.setupWalls(field.getI(), field.getJ() - 1, terrain);
 					BuildingRules.setupWalls(field.getI(), field.getJ() + 1, terrain);
 					if (fcs.getBuildableObject() instanceof BuildingObject) {
-						((BuildingObject) fcs.getBuildableObject()).setTown(activeTown);
+						BuildingObject bo = (BuildingObject) fcs.getBuildableObject();
+						bo.setTown(activeTown);
+						activeTown.getTownsquare().reassignPeople(bo, 1);
 					}
 				}
 			} else if (state == ControlPanelState.SELECT) {
@@ -275,7 +277,7 @@ public class ControlPanel {
 					}
 				}
 				activeTown = game.getPlayer().foundTown((Townsquare) fcs.getBuildableObject(), game.nextTownName(),
-						Game.FOUNDER_ARTIFACTS, Game.FOUNDER_MONEY);
+						Game.FOUNDER_ARTIFACTS, Game.FOUNDER_MONEY, Game.FOUNDER_PEOPLE);
 				select();
 			}
 		}

@@ -64,6 +64,7 @@ public class TextureHelper {
 
 		images.put("coin", "coin.png");
 		images.put("head", "head.png");
+		images.put("peasant", "peasant.png");
 
 		images.put("artifact_sheep", "artifact_sheep.png");
 		images.put("artifact_logs", "artifact_logs.png");
