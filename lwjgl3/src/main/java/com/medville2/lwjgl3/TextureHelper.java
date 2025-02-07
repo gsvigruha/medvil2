@@ -64,7 +64,7 @@ public class TextureHelper {
 		images.put("coin", "coin.png");
 		images.put("head", "head.png");
 		images.put("peasant_back", "peasant_back.png");
-		images.put("peasant_front", "peasant_front.png");
+		//images.put("peasant_front", "peasant_front.png");
 
 		images.put("artifact_sheep", "artifact_sheep.png");
 		images.put("artifact_logs", "artifact_logs.png");
@@ -83,7 +83,7 @@ public class TextureHelper {
 		images.put("artifact_leather", "artifact_leather.png");
 		images.put("artifact_clay", "artifact_clay.png");
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 8; i++) {
 			images.put("peasant_front#" + i, "peasant_front_" + i + ".png");
 		}
 	}
