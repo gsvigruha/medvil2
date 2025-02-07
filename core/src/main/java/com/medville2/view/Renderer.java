@@ -91,7 +91,7 @@ public class Renderer {
 				|| y > projectedViewport.y + projectedViewport.height + Terrain.DY);
 	}
 
-	public void render(SpriteBatch batch, int zoomLevel) {		
+	public void render(SpriteBatch batch, int zoomLevel) {
 		stateTime += Gdx.graphics.getDeltaTime();
 
 		double x0 = worldPos.x;
@@ -199,39 +199,42 @@ public class Renderer {
 			});
 		}
 
-		for (Renderable fo : objectsToRender) {
-			int x = fo.getScreenX();
-			int y = fo.getScreenY();
-			int ox = x;
-			int oy = y;
-			if (fo.getType() == Wall.Type || fo.getType() == Tower.Type) {
-				wallRenderer.renderWall((FieldObject) fo, ox, oy, batch);
-			} else {
-				if (fo.getSize() == 2) {
-					ox = x - Terrain.DX / 2;
-					oy = y + Terrain.DY * (fo.getSize() - 2);
+		for (Renderable r : objectsToRender) {
+			FieldObject fo = r.getFieldObject();
+			if (fo != null) {
+				int x = fo.getI() * Terrain.DX / 2 - fo.getJ() * Terrain.DX / 2;
+				int y = fo.getI() * Terrain.DY / 2 + fo.getJ() * Terrain.DY / 2;
+				int ox = x;
+				int oy = y;
+				if (fo.getType() == Wall.Type || fo.getType() == Tower.Type) {
+					wallRenderer.renderWall(fo, ox, oy, batch);
+				} else {
+					if (fo.getSize() == 2) {
+						ox = x - Terrain.DX / 2;
+						oy = y + Terrain.DY * (fo.getSize() - 2);
+					}
+					if (fo.getType() == Fishnet.Type) {
+						oy += (Math.sin(((double) System.currentTimeMillis()) / 250.0 + fo.getI())) * 2.0;
+					}
+					final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
+					if (fo.isFlip()) {
+						objectSprite.flip(true, false);
+					}
+					objectSprite.translate(ox, oy);
+					objectSprite.draw(batch);
 				}
-				if (fo.getType() == Fishnet.Type) {
-					oy += (Math.sin(((double) System.currentTimeMillis()) / 250.0 + fo.getScreenX())) * 2.0;
-				}
-				final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
-				if (fo.isFlip()) {
-					objectSprite.flip(true, false);
-				}
-				objectSprite.translate(ox, oy);
-				objectSprite.draw(batch);
-			}
 
-			if (controlPanel.getShowAllMinerals()) {
-				if (fo.getType() == Hill.Type) {
-					Hill hill = (Hill) fo;
-					if (hill.getMineral() != null) {
-						Sprite mineralSprite = new Sprite(
-								textureAtlas.findRegion("artifact_" + hill.getMineral().toLowerCase()));
-						mineralSprite.setSize(96, 96);
-						mineralSprite.translate(ox + Terrain.DX / 2 - mineralSprite.getWidth() / 2,
-								oy + Terrain.DY / 2 - mineralSprite.getHeight() / 2);
-						mineralSprite.draw(batch);
+				if (controlPanel.getShowAllMinerals()) {
+					if (fo.getType() == Hill.Type) {
+						Hill hill = (Hill) fo;
+						if (hill.getMineral() != null) {
+							Sprite mineralSprite = new Sprite(
+									textureAtlas.findRegion("artifact_" + hill.getMineral().toLowerCase()));
+							mineralSprite.setSize(96, 96);
+							mineralSprite.translate(ox + Terrain.DX / 2 - mineralSprite.getWidth() / 2,
+									oy + Terrain.DY / 2 - mineralSprite.getHeight() / 2);
+							mineralSprite.draw(batch);
+						}
 					}
 				}
 			}
