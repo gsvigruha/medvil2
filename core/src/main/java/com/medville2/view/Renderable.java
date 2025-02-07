@@ -1,8 +1,6 @@
 package com.medville2.view;
 
 import com.medville2.model.FieldObject;
-import com.medville2.model.FieldObjectType;
-import com.medville2.model.Terrain;
 import com.medville2.model.society.Person;
 
 public interface Renderable {
@@ -13,11 +11,19 @@ public interface Renderable {
 
 	Person getPerson();
 
+	int getX();
+
+	int getY();
+
 	public static class FieldObjectRenderable implements Renderable {
 		private final FieldObject fo;
+		private final int x;
+		private final int y;
 
-		public FieldObjectRenderable(FieldObject fo) {
+		public FieldObjectRenderable(FieldObject fo, int x, int y) {
 			this.fo = fo;
+			this.x = x;
+			this.y = y;
 		}
 
 		@Override
@@ -34,13 +40,27 @@ public interface Renderable {
 		public Person getPerson() {
 			return null;
 		}
+
+		@Override
+		public int getX() {
+			return x;
+		}
+
+		@Override
+		public int getY() {
+			return y;
+		}
 	}
 
 	public static class PersonRenderable implements Renderable {
 		private final Person p;
+		private final int x;
+		private final int y;
 
-		public PersonRenderable(Person p) {
+		public PersonRenderable(Person p, int x, int y) {
 			this.p = p;
+			this.x = x;
+			this.y = y;
 		}
 
 		@Override
@@ -57,6 +77,16 @@ public interface Renderable {
 		@Override
 		public Person getPerson() {
 			return p;
+		}
+
+		@Override
+		public int getX() {
+			return x;
+		}
+
+		@Override
+		public int getY() {
+			return y;
 		}
 	}
 }

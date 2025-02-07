@@ -24,6 +24,7 @@ import com.medville2.model.terrain.Fishnet;
 import com.medville2.model.terrain.Hill;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
 import com.medville2.view.Renderable.FieldObjectRenderable;
+import com.medville2.view.Renderable.PersonRenderable;
 import com.medville2.view.anim.PeasantRenderer;
 import com.medville2.view.building.WallRenderer;
 import com.medville2.view.terrain.FieldRenderer;
@@ -150,7 +151,7 @@ public class Renderer {
 				}
 
 				if (field.getObject() != null && field.getObject().getI() == i && field.getObject().getJ() == j) {
-					objectsToRender.add(new FieldObjectRenderable(field.getObject()));
+					objectsToRender.add(new FieldObjectRenderable(field.getObject(), x, y));
 				}
 
 				if (controlPanel.getCheckAllFields()) {
@@ -169,7 +170,7 @@ public class Renderer {
 
 				if (zoomLevel <= ZOOM_LEVEL_BIRD_EYE) {
 					for (Person person : field.getPeople()) {
-						peasantRenderer.renderPeasant(person, x, y, stateTime, batch);
+						objectsToRender.add(new PersonRenderable(person, x, y));
 					}
 				}
 				// font.draw(batch, String.valueOf(field.getDistanceFromWater()), x + 60, y +
@@ -202,16 +203,14 @@ public class Renderer {
 		for (Renderable r : objectsToRender) {
 			FieldObject fo = r.getFieldObject();
 			if (fo != null) {
-				int x = fo.getI() * Terrain.DX / 2 - fo.getJ() * Terrain.DX / 2;
-				int y = fo.getI() * Terrain.DY / 2 + fo.getJ() * Terrain.DY / 2;
-				int ox = x;
-				int oy = y;
+				int ox = r.getX();
+				int oy = r.getY();
 				if (fo.getType() == Wall.Type || fo.getType() == Tower.Type) {
 					wallRenderer.renderWall(fo, ox, oy, batch);
 				} else {
 					if (fo.getSize() == 2) {
-						ox = x - Terrain.DX / 2;
-						oy = y + Terrain.DY * (fo.getSize() - 2);
+						ox = r.getX() - Terrain.DX / 2;
+						oy = r.getY() + Terrain.DY * (fo.getSize() - 2);
 					}
 					if (fo.getType() == Fishnet.Type) {
 						oy += (Math.sin(((double) System.currentTimeMillis()) / 250.0 + fo.getI())) * 2.0;
@@ -237,6 +236,10 @@ public class Renderer {
 						}
 					}
 				}
+			}
+			Person person = r.getPerson();
+			if (person != null) {
+				peasantRenderer.renderPeasant(person, r.getX(), r.getY(), stateTime, batch);
 			}
 		}
 
