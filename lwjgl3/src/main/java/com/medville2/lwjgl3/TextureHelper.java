@@ -88,17 +88,11 @@ public class TextureHelper {
 		}
 	}
 
-	public static HashMap<String, Integer> animations = new HashMap<>();
-	static {
-		animations.put("peasant_front", 4);
-	}
-
 	private static Map<String, Rectangle> regions = new HashMap<>();
 
 	public static void combineTextures() throws IOException {
 		Map<String, BufferedImage> images = new HashMap<>();
 		for (Map.Entry<String, String> entry : TextureHelper.images.entrySet()) {
-			// FileHandle fileHandle = Gdx.files.internal(entry.getValue());
 			InputStream is = TextureHelper.class.getClassLoader().getResourceAsStream(entry.getValue());
 			BufferedImage image = ImageIO.read(is);
 			images.put(entry.getKey(), image);
