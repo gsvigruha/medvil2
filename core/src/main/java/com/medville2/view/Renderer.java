@@ -2,6 +2,7 @@ package com.medville2.view;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,6 +23,7 @@ import com.medville2.model.society.Person;
 import com.medville2.model.terrain.Fishnet;
 import com.medville2.model.terrain.Hill;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
+import com.medville2.view.anim.PeasantRenderer;
 import com.medville2.view.building.WallRenderer;
 import com.medville2.view.terrain.FieldRenderer;
 
@@ -48,6 +50,9 @@ public class Renderer {
 	private ArrayList<FieldObject> objectsToRender;
 	private FieldRenderer fieldRenderer;
 	private WallRenderer wallRenderer;
+	private PeasantRenderer peasantRenderer;
+
+	private float stateTime;
 
 	public Renderer(ControlPanel controlPanel, TextureAtlas textureAtlas, int size) {
 		this.controlPanel = controlPanel;
@@ -61,6 +66,7 @@ public class Renderer {
 		this.rockCube = textureAtlas.findRegion("rock_cube");
 		this.fieldRenderer = new FieldRenderer(textureAtlas);
 		this.wallRenderer = new WallRenderer(textureAtlas);
+		this.peasantRenderer = new PeasantRenderer(textureAtlas);
 
 		this.worldPos = new Vector2();
 		this.projectedViewport = new Rectangle();
@@ -84,7 +90,9 @@ public class Renderer {
 				|| y > projectedViewport.y + projectedViewport.height + Terrain.DY);
 	}
 
-	public void render(SpriteBatch batch, int zoomLevel) {
+	public void render(SpriteBatch batch, int zoomLevel) {		
+		stateTime += Gdx.graphics.getDeltaTime();
+
 		double x0 = worldPos.x;
 		double y0 = worldPos.y;
 		double maxD = Double.MAX_VALUE;
@@ -160,16 +168,7 @@ public class Renderer {
 
 				if (zoomLevel <= ZOOM_LEVEL_BIRD_EYE) {
 					for (Person person : field.getPeople()) {
-						float pi = (float) (person.getX() % Person.D) / (float) Person.D;
-						float pj = (float) (person.getY() % Person.D) / (float) Person.D;
-						int px = x + (int) (pi * Terrain.DX / 2) - (int) (pj * Terrain.DX / 2);
-						int py = y + (int) (pj * Terrain.DY / 2) + (int) (pi * Terrain.DY / 2);
-						final Sprite personSprite = new Sprite(textureAtlas.findRegion("peasant"));
-						if (person.getDir() == 1 || person.getDir() == 3) {
-							personSprite.flip(true, false);
-						}
-						personSprite.translate(px, py);
-						personSprite.draw(batch);
+						peasantRenderer.renderPeasant(person, x, y, stateTime, batch);
 					}
 				}
 				// font.draw(batch, String.valueOf(field.getDistanceFromWater()), x + 60, y +
