@@ -10,12 +10,12 @@ import com.medville2.model.society.Person;
 
 public class PeasantRenderer {
 
-	private TextureAtlas textureAtlas;
-	private Animation<TextureRegion> walkAnimation;
+	private Animation<TextureRegion> peasantFront;
+	private Animation<TextureRegion> peasantBack;
 
 	public PeasantRenderer(TextureAtlas textureAtlas) {
-		this.textureAtlas = textureAtlas;
-		walkAnimation = new Animation<>(0.125f, textureAtlas.findRegions("peasant_front"));
+		peasantFront = new Animation<>(0.125f, textureAtlas.findRegions("peasant_front"));
+		peasantBack = new Animation<>(0.125f, textureAtlas.findRegions("peasant_back"));
 	}
 
 	public void renderPeasant(Person person, int x, int y, float stateTime, SpriteBatch batch) {
@@ -26,12 +26,12 @@ public class PeasantRenderer {
 
 		final Sprite personSprite;
 		if (person.getDir() == 0 || person.getDir() == 1) {
-			personSprite = new Sprite(walkAnimation.getKeyFrame(stateTime, true));
+			personSprite = new Sprite(peasantFront.getKeyFrame(stateTime, true));
 			if (person.getDir() == 0) {
 				personSprite.flip(true, false);
 			}
 		} else {
-			personSprite = new Sprite(textureAtlas.findRegion("peasant_back"));
+			personSprite = new Sprite(peasantBack.getKeyFrame(stateTime, true));
 			if (person.getDir() == 3) {
 				personSprite.flip(true, false);
 			}
