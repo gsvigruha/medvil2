@@ -6,6 +6,7 @@ import java.util.Objects;
 import com.medville2.model.Field;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.house.BuildingObject;
+import com.medville2.model.building.infra.Road;
 import com.medville2.model.task.Task;
 import com.medville2.model.time.Calendar;
 
@@ -43,19 +44,25 @@ public class Person implements Serializable {
 	public void tick(Terrain terrain, Calendar calendar) {
 		Field field = getField(terrain);
 		if (task != null) {
+			int steps = 1;
+			if (field.getObject() != null && field.getObject().getType() == Road.Type) {
+				steps = 2;
+			}
 			Field dest = task.nextDestination();
-			if (dest.getI() < field.getI()) {
-				x--;
-				dir = 0;
-			} else if (dest.getI() > field.getI()) {
-				x++;
-				dir = 2;
-			} else if (dest.getJ() < field.getJ()) {
-				y--;
-				dir = 1;
-			} else if (dest.getJ() > field.getJ()) {
-				y++;
-				dir = 3;
+			for (int i = 0; i < steps; i++) {
+				if (dest.getI() < field.getI()) {
+					x--;
+					dir = 0;
+				} else if (dest.getI() > field.getI()) {
+					x++;
+					dir = 2;
+				} else if (dest.getJ() < field.getJ()) {
+					y--;
+					dir = 1;
+				} else if (dest.getJ() > field.getJ()) {
+					y++;
+					dir = 3;
+				}
 			}
 		}
 		Field field2 = getField(terrain);

@@ -23,6 +23,7 @@ import com.medville2.model.society.Person;
 import com.medville2.model.terrain.Fishnet;
 import com.medville2.model.terrain.Hill;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
+import com.medville2.view.Renderable.FieldObjectRenderable;
 import com.medville2.view.anim.PeasantRenderer;
 import com.medville2.view.building.WallRenderer;
 import com.medville2.view.terrain.FieldRenderer;
@@ -47,7 +48,7 @@ public class Renderer {
 
 	private Field activeField;
 	private TextureAtlas textureAtlas;
-	private ArrayList<FieldObject> objectsToRender;
+	private ArrayList<Renderable> objectsToRender;
 	private FieldRenderer fieldRenderer;
 	private WallRenderer wallRenderer;
 	private PeasantRenderer peasantRenderer;
@@ -149,7 +150,7 @@ public class Renderer {
 				}
 
 				if (field.getObject() != null && field.getObject().getI() == i && field.getObject().getJ() == j) {
-					objectsToRender.add(field.getObject());
+					objectsToRender.add(new FieldObjectRenderable(field.getObject()));
 				}
 
 				if (controlPanel.getCheckAllFields()) {
@@ -192,26 +193,26 @@ public class Renderer {
 
 		if (zoomLevel <= ZOOM_LEVEL_BIRD_EYE) {
 			objectsToRender.sort((fo1, fo2) -> {
-				int y1 = fo1.getI() * 2 + fo1.getJ() * 2 + fo1.getSize();
-				int y2 = fo2.getI() * 2 + fo2.getJ() * 2 + fo2.getSize();
+				int y1 = fo1.getRenderingOrder();
+				int y2 = fo2.getRenderingOrder();
 				return -Integer.compare(y1, y2);
 			});
 		}
 
-		for (FieldObject fo : objectsToRender) {
-			int x = fo.getI() * Terrain.DX / 2 - fo.getJ() * Terrain.DX / 2;
-			int y = fo.getI() * Terrain.DY / 2 + fo.getJ() * Terrain.DY / 2;
+		for (Renderable fo : objectsToRender) {
+			int x = fo.getScreenX();
+			int y = fo.getScreenY();
 			int ox = x;
 			int oy = y;
 			if (fo.getType() == Wall.Type || fo.getType() == Tower.Type) {
-				wallRenderer.renderWall(fo, ox, oy, batch);
+				wallRenderer.renderWall((FieldObject) fo, ox, oy, batch);
 			} else {
 				if (fo.getSize() == 2) {
 					ox = x - Terrain.DX / 2;
 					oy = y + Terrain.DY * (fo.getSize() - 2);
 				}
 				if (fo.getType() == Fishnet.Type) {
-					oy += (Math.sin(((double) System.currentTimeMillis()) / 250.0 + fo.getI())) * 2.0;
+					oy += (Math.sin(((double) System.currentTimeMillis()) / 250.0 + fo.getScreenX())) * 2.0;
 				}
 				final Sprite objectSprite = new Sprite(textureAtlas.findRegion(fo.getName()));
 				if (fo.isFlip()) {
