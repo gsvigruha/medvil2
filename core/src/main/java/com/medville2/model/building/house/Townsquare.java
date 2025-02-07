@@ -23,14 +23,11 @@ public class Townsquare extends BuildingObject {
 
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
-		
+		super.tick(terrain, calendar);
 	}
 
 	public Map<String, Integer> getPrices() {
 		return market.getPrices();
 	}
 
-	public void addMoney(int money) {
-		this.money += money;
-	}
 }

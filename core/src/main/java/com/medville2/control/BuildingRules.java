@@ -169,7 +169,7 @@ public class BuildingRules {
 		if (f.getObject() == null) {
 			return false;
 		}
-		if (Wall.class.isAssignableFrom(f.getObject().getClass())) {
+		if (f.getObject().getType() == Wall.Type || f.getObject().getType() == Tower.Type) {
 			return true;
 		}
 		return false;
@@ -180,7 +180,7 @@ public class BuildingRules {
 		if (f == null || f.getObject() == null) {
 			return;
 		}
-		if (Wall.class.isAssignableFrom(f.getObject().getClass())) {
+		if (f.getObject().getType() == Wall.Type || f.getObject().getType() == Tower.Type) {
 			Wall wall = (Wall) f.getObject();
 			wall.setSegment(0, connectWall(wall.getI() - 1, wall.getJ(), terrain));
 			wall.setSegment(1, connectWall(wall.getI() + 1, wall.getJ(), terrain));

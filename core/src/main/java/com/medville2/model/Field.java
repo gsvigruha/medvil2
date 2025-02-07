@@ -1,7 +1,11 @@
 package com.medville2.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import com.medville2.model.society.Person;
 
 public class Field implements Serializable {
 
@@ -22,11 +26,13 @@ public class Field implements Serializable {
 	private double height;
 	private FieldObject object;
 	private int distanceFromWater;
+	private Set<Person> people;
 
 	public Field(int i, int j) {
 		this.type = Type.GRASS;
 		this.i = i;
 		this.j = j;
+		this.people = new HashSet<>();
 	}
 
 	public void setType(Type type) {
@@ -100,4 +106,16 @@ public class Field implements Serializable {
 		Field other = (Field) obj;
 		return i == other.i && j == other.j;
 	}
-}
+
+	public void unregister(Person person) {
+		people.remove(person);
+	}
+
+	public void register(Person person) {
+		people.add(person);
+	}
+
+	public Iterable<Person> getPeople() {
+		return people;
+	}
+ }

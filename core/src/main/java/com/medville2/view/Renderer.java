@@ -18,6 +18,7 @@ import com.medville2.model.Game;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
+import com.medville2.model.society.Person;
 import com.medville2.model.terrain.Fishnet;
 import com.medville2.model.terrain.Hill;
 import com.medville2.view.FieldCheckStatus.FieldWithStatus;
@@ -120,7 +121,8 @@ public class Renderer {
 				}
 				Field field = fields[j];
 
-				if (!controlPanel.getCheckAllFields() && field.getCornerType() != null && zoomLevel <= ZOOM_LEVEL_BIRD_EYE) {
+				if (!controlPanel.getCheckAllFields() && field.getCornerType() != null
+						&& zoomLevel <= ZOOM_LEVEL_BIRD_EYE) {
 					Sprite cornerSprite;
 					if (field.getCornerType() == Field.Type.GRASS) {
 						cornerSprite = new Sprite(grassCube);
@@ -156,6 +158,20 @@ public class Renderer {
 					objectSprite.draw(batch);
 				}
 
+				if (zoomLevel <= ZOOM_LEVEL_BIRD_EYE) {
+					for (Person person : field.getPeople()) {
+						float pi = (float) (person.getX() % Person.D) / (float) Person.D;
+						float pj = (float) (person.getY() % Person.D) / (float) Person.D;
+						int px = x + (int) (pi * Terrain.DX / 2) - (int) (pj * Terrain.DX / 2);
+						int py = y + (int) (pj * Terrain.DY / 2) + (int) (pi * Terrain.DY / 2);
+						final Sprite personSprite = new Sprite(textureAtlas.findRegion("peasant"));
+						if (person.getDir() == 1 || person.getDir() == 3) {
+							personSprite.flip(true, false);
+						}
+						personSprite.translate(px, py);
+						personSprite.draw(batch);
+					}
+				}
 				// font.draw(batch, String.valueOf(field.getDistanceFromWater()), x + 60, y +
 				// 60);
 			}

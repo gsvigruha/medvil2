@@ -34,12 +34,14 @@ public class Game implements Serializable {
 		FOUNDER_ARTIFACTS.add(Artifacts.LEATHER, 20);
 	}
 	public static final int FOUNDER_MONEY = 1000;
+	public static final int FOUNDER_PEOPLE = 10;
 
 	private final Calendar calendar;
 	private final Terrain terrain;
 	private final Country player;
 	private final List<Country> opponents;
 	private final List<String> availableTownNames;
+	private int personIdCtr;
 
 	public Game(Calendar calendar, Terrain terrain) {
 		this.calendar = calendar;
@@ -52,6 +54,7 @@ public class Game implements Serializable {
 						"Stormwatch", "Blackhollow", "Ironhaven", "Thornwick", "Frosthelm", "Dunharrow", "Goldmere",
 						"Shadowfen", "Wolfspire", "Westmere", "Stonebrook", "Gloomhaven", "Ebonford", "Harrowgate"));
 		Collections.shuffle(this.availableTownNames);
+		this.personIdCtr = 1;
 	}
 
 	public Calendar getCalendar() {
@@ -99,5 +102,9 @@ public class Game implements Serializable {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public int nextPersonID() {
+		return ++personIdCtr;
 	}
 }

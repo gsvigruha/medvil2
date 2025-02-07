@@ -12,10 +12,10 @@ public class Sheep extends TerrainObject {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final FieldObjectType SheepType = new FieldObjectType("sheep", 1, Sheep.class);
+	public static final FieldObjectType Type = new FieldObjectType("sheep", 1, Sheep.class);
 
 	public Sheep(Field field) {
-		super(field, SheepType);
+		super(field, Type);
 	}
 
 	@Override
