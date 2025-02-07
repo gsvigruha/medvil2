@@ -81,14 +81,14 @@ public abstract class BuildingEditor extends Editor {
 			if (quantity == null) {
 				artifactImage.getColor().a = 0.5f;
 			} else {
-				Label quantityLabel = new Label(String.valueOf(quantity), new LabelStyle(font, Color.WHITE));
+				Label quantityLabel = new Label(String.valueOf(quantity), new LabelStyle(smallFont, Color.WHITE));
 				quantityLabel.setPosition(12 + x, height - 615 - y);
 				elements.add(quantityLabel);
 			}
 
 			if (prices != null) {
 				Label priceLabel = new Label("$" + String.valueOf(prices.get(artifact)),
-						new LabelStyle(font, Color.WHITE));
+						new LabelStyle(smallFont, Color.WHITE));
 				priceLabel.setPosition(50 + x, height - 615 - y);
 				elements.add(priceLabel);
 			}

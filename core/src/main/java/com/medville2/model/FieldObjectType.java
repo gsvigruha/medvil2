@@ -47,11 +47,7 @@ public class FieldObjectType implements Serializable {
 	}
 
 	private Object readResolve() throws ObjectStreamException {
-		if (clss.equals(Wall.class)) {
-			return Wall.Type;
-		} else if (clss.equals(Tower.class)) {
-			return Tower.Type;
-		} else if (clss.equals(Blacksmith.class)) {
+		if (clss.equals(Blacksmith.class)) {
 			return Blacksmith.Type;
 		} else if (clss.equals(Farm.class)) {
 			return Farm.Type;
@@ -63,6 +59,12 @@ public class FieldObjectType implements Serializable {
 			return Townsquare.Type;
 		} else if (clss.equals(Workshop.class)) {
 			return Workshop.Type;
+		}
+
+		if (clss.equals(Wall.class)) {
+			return Wall.Type;
+		} else if (clss.equals(Tower.class)) {
+			return Tower.Type;
 		} else if (clss.equals(Bridge.class)) {
 			return Bridge.Type;
 		} else if (clss.equals(Road.class)) {
@@ -81,7 +83,7 @@ public class FieldObjectType implements Serializable {
 			return Sheep.Type;
 		} else if (clss.equals(Tree.class)) {
 			return Tree.Type;
-		} 
+		}
 		return this;
 	}
 }

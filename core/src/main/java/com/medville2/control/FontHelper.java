@@ -11,6 +11,7 @@ public class FontHelper {
 
 	private final BitmapFont font;
 	private final BitmapFont mapFont;
+	private final BitmapFont smallFont;
 
 	private FontHelper() {
 		{
@@ -23,10 +24,19 @@ public class FontHelper {
 		}
 
 		{
+			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Arial.ttf"));
+			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+			parameter.size = 16;
+			parameter.color = Color.valueOf("D0D0D0");
+			smallFont = generator.generateFont(parameter);
+			generator.dispose();
+		}
+
+		{
 			FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Arial Bold.ttf"));
 			FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 			parameter.size = 24;
-			parameter.color = Color.valueOf("002080");
+			parameter.color = Color.valueOf("102060");
 			mapFont = generator.generateFont(parameter);
 			generator.dispose();
 		}
@@ -46,6 +56,10 @@ public class FontHelper {
 
 	public BitmapFont getMapFont() {
 		return mapFont;
+	}
+
+	public BitmapFont getSmallFont() {
+		return smallFont;
 	}
 
 	public int estimateHeight(String text) {

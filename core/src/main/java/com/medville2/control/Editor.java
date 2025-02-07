@@ -18,10 +18,11 @@ public abstract class Editor {
 
 	public static final int ARTIFACT_SX = 64;
 	public static final int ARTIFACT_SY = 64;
-	public static final int ARTIFACT_PX = 72;
+	public static final int ARTIFACT_PX = 78;
 	public static final int ARTIFACT_PY = 80;
 
 	protected BitmapFont font;
+	protected BitmapFont smallFont;
 
 	public abstract void handleClick(Field field);
 
@@ -29,6 +30,7 @@ public abstract class Editor {
 
 	public Editor() {
 		this.font = FontHelper.getInstance().getFont();
+		this.smallFont = FontHelper.getInstance().getSmallFont();
 	}
 
 	protected ImageButton createButton(TextureRegion icon, int x, int y, EventListener listener) {
