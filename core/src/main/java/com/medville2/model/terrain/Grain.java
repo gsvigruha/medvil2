@@ -12,10 +12,10 @@ public class Grain extends TerrainObject {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final FieldObjectType GrainType = new FieldObjectType("grain", 1, Grain.class);
+	public static final FieldObjectType Type = new FieldObjectType("grain", 1, Grain.class);
 
 	public Grain(Field field) {
-		super(field, GrainType);
+		super(field, Type);
 	}
 
 	@Override

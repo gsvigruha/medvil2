@@ -12,16 +12,16 @@ public class Tree extends TerrainObject {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final FieldObjectType TreeType = new FieldObjectType("tree", 1, Tree.class);
+	public static final FieldObjectType Type = new FieldObjectType("tree", 1, Tree.class);
 
-	public enum Type {
+	public enum TreeType {
 		GREEN, BLOOMING, SMALL,
 	}
 
-	private final Type type;
+	private final TreeType type;
 
-	public Tree(Type type, Field field) {
-		super(field, TreeType);
+	public Tree(TreeType type, Field field) {
+		super(field, Type);
 		this.type = type;
 	}
 

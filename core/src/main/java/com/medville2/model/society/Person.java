@@ -18,6 +18,7 @@ public class Person implements Serializable {
 	private final int id;
 	private int x;
 	private int y;
+	private int dir;
 
 	private BuildingObject home;
 	private Task task;
@@ -45,12 +46,16 @@ public class Person implements Serializable {
 			Field dest = task.nextDestination();
 			if (dest.getI() < field.getI()) {
 				x--;
+				dir = 0;
 			} else if (dest.getI() > field.getI()) {
 				x++;
+				dir = 2;
 			} else if (dest.getJ() < field.getJ()) {
 				y--;
+				dir = 1;
 			} else if (dest.getJ() > field.getJ()) {
 				y++;
+				dir = 3;
 			}
 		}
 		Field field2 = getField(terrain);
@@ -70,6 +75,10 @@ public class Person implements Serializable {
 
 	public int getY() {
 		return y;
+	}
+
+	public int getDir() {
+		return dir;
 	}
 
 	@Override

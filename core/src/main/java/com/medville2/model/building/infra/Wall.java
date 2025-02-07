@@ -1,9 +1,11 @@
 package com.medville2.model.building.infra;
 
+import java.io.Serializable;
+
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 
-public class Wall extends InfraObject {
+public class Wall extends InfraObject implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
