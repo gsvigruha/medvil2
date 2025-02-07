@@ -64,6 +64,14 @@ public class Person implements Serializable {
 		this.task = task;
 	}
 
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
