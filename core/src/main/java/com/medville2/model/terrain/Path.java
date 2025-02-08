@@ -47,7 +47,7 @@ public class Path {
 		if (start.getObject() != null && start.getObject().getType() == Road.Type) {
 			multiplier = 0.5f;
 		}
-		return multiplier * Math.max(Math.abs(start.getI() - dest.getI()), Math.abs(start.getJ() - dest.getJ()));
+		return multiplier * (Math.abs(start.getI() - dest.getI()) + Math.abs(start.getJ() - dest.getJ()));
 	}
 
 	public static Path findPath(Field start, Set<Field> dest, Terrain terrain, Function<Field, Boolean> fieldChecker) {
