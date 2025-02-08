@@ -75,15 +75,7 @@ public class Person implements Serializable {
 
 			}
 		} else if (task != null) {
-			path = Path.findPath(field, ImmutableSet.of(task.nextDestination()), terrain, (f) -> {
-				if (f.getType() == Field.Type.RIVER) {
-					return false;
-				}
-				if (f.getType() == Field.Type.WATER) {
-					return false;
-				}
-				return true;
-			});
+			path = Path.findPath(field, ImmutableSet.of(task.nextDestination()), terrain, Field::walkable);
 		}
 
 		Field field2 = getField(terrain);
