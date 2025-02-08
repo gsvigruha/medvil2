@@ -3,11 +3,13 @@ package com.medville2.model.society;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.google.common.collect.ImmutableSet;
 import com.medville2.model.Field;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.house.BuildingObject;
 import com.medville2.model.building.infra.Road;
 import com.medville2.model.task.Task;
+import com.medville2.model.terrain.Path;
 import com.medville2.model.time.Calendar;
 
 public class Person implements Serializable {
@@ -23,6 +25,7 @@ public class Person implements Serializable {
 
 	private BuildingObject home;
 	private Task task;
+	private Path path;
 
 	public Person(BuildingObject home, int id) {
 		this.home = home;
@@ -43,28 +46,46 @@ public class Person implements Serializable {
 
 	public void tick(Terrain terrain, Calendar calendar) {
 		Field field = getField(terrain);
-		if (task != null) {
+		if (path != null) {
 			int steps = 1;
 			if (field.getObject() != null && field.getObject().getType() == Road.Type) {
 				steps = 2;
 			}
-			Field dest = task.nextDestination();
-			for (int i = 0; i < steps; i++) {
-				if (dest.getI() < field.getI()) {
-					x--;
-					dir = 0;
-				} else if (dest.getI() > field.getI()) {
-					x++;
-					dir = 2;
-				} else if (dest.getJ() < field.getJ()) {
-					y--;
-					dir = 1;
-				} else if (dest.getJ() > field.getJ()) {
-					y++;
-					dir = 3;
+			Field dest = path.nextField();
+			if (dest != null) {
+				if (dest == field) {
+					path.consumeField();
 				}
+				for (int i = 0; i < steps; i++) {
+					if (dest.getI() < field.getI()) {
+						x--;
+						dir = 0;
+					} else if (dest.getI() > field.getI()) {
+						x++;
+						dir = 2;
+					} else if (dest.getJ() < field.getJ()) {
+						y--;
+						dir = 1;
+					} else if (dest.getJ() > field.getJ()) {
+						y++;
+						dir = 3;
+					}
+				}
+			} else {
+
 			}
+		} else if (task != null) {
+			path = Path.findPath(field, ImmutableSet.of(task.nextDestination()), terrain, (f) -> {
+				if (f.getType() == Field.Type.RIVER) {
+					return false;
+				}
+				if (f.getType() == Field.Type.WATER) {
+					return false;
+				}
+				return true;
+			});
 		}
+
 		Field field2 = getField(terrain);
 		if (field != field2) {
 			field.unregister(this);
@@ -74,6 +95,7 @@ public class Person implements Serializable {
 
 	public void setTask(Task task) {
 		this.task = task;
+		this.path = null;
 	}
 
 	public int getX() {
