@@ -1,6 +1,7 @@
 package com.medville2.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -323,5 +324,29 @@ public class Terrain implements Serializable {
 				}
 			}
 		}
+	}
+
+	public List<Field> getNeighbors(Field field) {
+		List<Field> result = new ArrayList<>(4);
+		int i = field.getI();
+		int j = field.getJ();
+
+		Field f1 = getField(i - 1, j);
+		if (f1 != null) {
+			result.add(f1);
+		}
+		Field f2 = getField(i + 1, j);
+		if (f2 != null) {
+			result.add(f2);
+		}
+		Field f3 = getField(i, j - 1);
+		if (f3 != null) {
+			result.add(f3);
+		}
+		Field f4 = getField(i, j + 1);
+		if (f4 != null) {
+			result.add(f4);
+		}
+		return result;
 	}
 }

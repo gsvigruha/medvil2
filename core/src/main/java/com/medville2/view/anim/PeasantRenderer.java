@@ -21,8 +21,8 @@ public class PeasantRenderer {
 	public void renderPeasant(Person person, int x, int y, float stateTime, SpriteBatch batch) {
 		float pi = (float) (person.getX() % Person.D) / (float) Person.D;
 		float pj = (float) (person.getY() % Person.D) / (float) Person.D;
-		int px = x + (int) (pi * Terrain.DX / 2) - (int) (pj * Terrain.DX / 2);
-		int py = y + (int) (pj * Terrain.DY / 2) + (int) (pi * Terrain.DY / 2);
+		int px = x + (int) (pi * Terrain.DX / 2) - (int) (pj * Terrain.DX / 2) + Terrain.DX / 2 - 24;
+		int py = y + (int) (pj * Terrain.DY / 2) + (int) (pi * Terrain.DY / 2) - 16;
 
 		final Sprite personSprite;
 		if (person.getDir() == 0 || person.getDir() == 1) {
