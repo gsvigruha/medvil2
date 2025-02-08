@@ -130,7 +130,7 @@ public class Field implements Serializable {
 		return people;
 	}
 
-	public static final ImmutableSet<FieldObjectType> BLOCKING_OBJECTS = ImmutableSet.of(
+	public static final ImmutableSet<FieldObjectType> PERSON_BLOCKING_OBJECTS = ImmutableSet.of(
 			Wall.Type, Tower.Type, Mountain.Type, Hill.Type,
 			Blacksmith.Type, Mill.Type, Farm.Type, Mine.Type, Workshop.Type);
 
@@ -142,7 +142,7 @@ public class Field implements Serializable {
 			return false;
 		}
 		if (getObject() != null) {
-			if (BLOCKING_OBJECTS.contains(getObject().getType())) {
+			if (PERSON_BLOCKING_OBJECTS.contains(getObject().getType())) {
 				return false;
 			}
 		}

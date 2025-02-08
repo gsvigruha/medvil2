@@ -168,7 +168,7 @@ public class Renderer {
 					objectSprite.draw(batch);
 				}
 
-				if (zoomLevel <= ZOOM_LEVEL_BIRD_EYE && (field.getObject() == null || !Field.BLOCKING_OBJECTS.contains(field.getObject().getType()))) {
+				if (zoomLevel <= ZOOM_LEVEL_BIRD_EYE && (field.getObject() == null || !Field.PERSON_BLOCKING_OBJECTS.contains(field.getObject().getType()))) {
 					for (Person person : field.getPeople()) {
 						objectsToRender.add(new PersonRenderable(person, x, y));
 					}
