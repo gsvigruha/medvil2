@@ -33,24 +33,25 @@ public class Path {
 		Set<Field> processed = new HashSet<>();
 
 		toProcess.add(new PathElement(start, null));
-		// processed.add(start);
+		processed.add(start);
 
 		while (!toProcess.isEmpty()) {
 			PathElement pe = toProcess.remove(0);
 			for (Field n : terrain.getNeighbors(pe.field)) {
+				if (dest.contains(n)) {
+					PathElement pe2 = new PathElement(n, pe);
+					List<Field> result = new ArrayList<>();
+					while (pe2 != null) {
+						result.add(pe2.field);
+						pe2 = pe2.prev;
+					}
+					Collections.reverse(result);
+					return new Path(result);
+				}
 				if (!processed.contains(n) && fieldChecker.apply(n)) {
 					PathElement pe2 = new PathElement(n, pe);
 					toProcess.add(pe2);
 					processed.add(n);
-					if (dest.contains(n)) {
-						List<Field> result = new ArrayList<>();
-						while (pe2 != null) {
-							result.add(pe2.field);
-							pe2 = pe2.prev;
-						}
-						Collections.reverse(result);
-						return new Path(result);
-					}
 				}
 			}
 		}

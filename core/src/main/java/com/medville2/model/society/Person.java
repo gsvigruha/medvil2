@@ -57,16 +57,16 @@ public class Person implements Serializable {
 					path.consumeField();
 				}
 				for (int i = 0; i < steps; i++) {
-					if (dest.getI() < field.getI()) {
+					if (dest.getI() * Person.D + Person.D / 2 < x) {
 						x--;
 						dir = 0;
-					} else if (dest.getI() > field.getI()) {
+					} else if (dest.getI() * Person.D + Person.D / 2 > x) {
 						x++;
 						dir = 2;
-					} else if (dest.getJ() < field.getJ()) {
+					} else if (dest.getJ() * Person.D + Person.D / 2 < y) {
 						y--;
 						dir = 1;
-					} else if (dest.getJ() > field.getJ()) {
+					} else if (dest.getJ() * Person.D + Person.D / 2 > y) {
 						y++;
 						dir = 3;
 					}

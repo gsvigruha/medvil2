@@ -6,6 +6,11 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
+import com.medville2.model.building.house.Blacksmith;
+import com.medville2.model.building.house.Farm;
+import com.medville2.model.building.house.Mill;
+import com.medville2.model.building.house.Mine;
+import com.medville2.model.building.house.Workshop;
 import com.medville2.model.building.infra.Bridge;
 import com.medville2.model.building.infra.Tower;
 import com.medville2.model.building.infra.Wall;
@@ -125,7 +130,9 @@ public class Field implements Serializable {
 		return people;
 	}
 
-	private static final ImmutableSet<FieldObjectType> blockingObjects = ImmutableSet.of(Wall.Type, Tower.Type, Mountain.Type, Hill.Type);
+	private static final ImmutableSet<FieldObjectType> blockingObjects = ImmutableSet.of(
+			Wall.Type, Tower.Type, Mountain.Type, Hill.Type,
+			Blacksmith.Type, Mill.Type, Farm.Type, Mine.Type, Workshop.Type);
 
 	public boolean walkable() {
 		if (getType() == Field.Type.RIVER || getType() == Field.Type.WATER) {
