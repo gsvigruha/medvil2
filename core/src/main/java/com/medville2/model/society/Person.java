@@ -40,8 +40,12 @@ public class Person implements Serializable {
 		return terrain.getField(i, j);
 	}
 
-	public void setHome(BuildingObject home) {
-		this.home = home;
+	public boolean setHome(BuildingObject home) {
+		if (this.home != home) {
+			this.home = home;
+			return true;
+		}
+		return false;
 	}
 
 	public void tick(Terrain terrain, Calendar calendar) {
@@ -57,16 +61,16 @@ public class Person implements Serializable {
 					path.consumeField();
 				}
 				for (int i = 0; i < steps; i++) {
-					if (dest.getI() < field.getI()) {
+					if (dest.getI() * Person.D + Person.D / 2 < x) {
 						x--;
 						dir = 0;
-					} else if (dest.getI() > field.getI()) {
+					} else if (dest.getI() * Person.D + Person.D / 2 > x) {
 						x++;
 						dir = 2;
-					} else if (dest.getJ() < field.getJ()) {
+					} else if (dest.getJ() * Person.D + Person.D / 2 < y) {
 						y--;
 						dir = 1;
-					} else if (dest.getJ() > field.getJ()) {
+					} else if (dest.getJ() * Person.D + Person.D / 2 > y) {
 						y++;
 						dir = 3;
 					}
@@ -75,15 +79,10 @@ public class Person implements Serializable {
 
 			}
 		} else if (task != null) {
-			path = Path.findPath(field, ImmutableSet.of(task.nextDestination()), terrain, (f) -> {
-				if (f.getType() == Field.Type.RIVER) {
-					return false;
-				}
-				if (f.getType() == Field.Type.WATER) {
-					return false;
-				}
-				return true;
-			});
+			path = Path.findPath(field, ImmutableSet.of(task.nextDestination()), terrain, Field::walkable);
+			if (path == null) {
+				task = null;
+			}
 		}
 
 		Field field2 = getField(terrain);

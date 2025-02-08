@@ -65,8 +65,9 @@ public interface Renderable {
 
 		@Override
 		public int getRenderingOrder() {
-			// TODO Auto-generated method stub
-			return 0;
+			int pi = (p.getX() / Person.D);
+			int pj = (p.getY() / Person.D);
+			return pi * 2 + pj * 2;
 		}
 
 		@Override

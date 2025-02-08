@@ -14,8 +14,8 @@ public class PeasantRenderer {
 	private Animation<TextureRegion> peasantBack;
 
 	public PeasantRenderer(TextureAtlas textureAtlas) {
-		peasantFront = new Animation<>(0.125f, textureAtlas.findRegions("peasant_front"));
-		peasantBack = new Animation<>(0.125f, textureAtlas.findRegions("peasant_back"));
+		peasantFront = new Animation<>(0.1f, textureAtlas.findRegions("peasant_front"));
+		peasantBack = new Animation<>(0.1f, textureAtlas.findRegions("peasant_back"));
 	}
 
 	public void renderPeasant(Person person, int x, int y, float stateTime, SpriteBatch batch) {

@@ -5,7 +5,18 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableSet;
+import com.medville2.model.building.house.Blacksmith;
+import com.medville2.model.building.house.Farm;
+import com.medville2.model.building.house.Mill;
+import com.medville2.model.building.house.Mine;
+import com.medville2.model.building.house.Workshop;
+import com.medville2.model.building.infra.Bridge;
+import com.medville2.model.building.infra.Tower;
+import com.medville2.model.building.infra.Wall;
 import com.medville2.model.society.Person;
+import com.medville2.model.terrain.Hill;
+import com.medville2.model.terrain.Mountain;
 
 public class Field implements Serializable {
 
@@ -117,5 +128,24 @@ public class Field implements Serializable {
 
 	public Iterable<Person> getPeople() {
 		return people;
+	}
+
+	public static final ImmutableSet<FieldObjectType> PERSON_BLOCKING_OBJECTS = ImmutableSet.of(
+			Wall.Type, Tower.Type, Mountain.Type, Hill.Type,
+			Blacksmith.Type, Mill.Type, Farm.Type, Mine.Type, Workshop.Type);
+
+	public boolean walkable() {
+		if (getType() == Field.Type.RIVER || getType() == Field.Type.WATER) {
+			if (getObject() != null && getObject().getType() == Bridge.Type) {
+				return true;
+			}
+			return false;
+		}
+		if (getObject() != null) {
+			if (PERSON_BLOCKING_OBJECTS.contains(getObject().getType())) {
+				return false;
+			}
+		}
+		return true;
 	}
  }
