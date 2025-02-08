@@ -49,8 +49,9 @@ public abstract class BuildingObject extends FieldObject {
 	}
 
 	public void addPerson(Person person, Terrain terrain) {
-		person.setHome(this);
-		person.setTask(new GoHomeTask(terrain.getField(getI(), getJ())));
+		if (person.setHome(this)) {
+			person.setTask(new GoHomeTask(terrain.getField(getI(), getJ())));
+		}
 		this.people.add(person);
 	}
 
@@ -59,6 +60,9 @@ public abstract class BuildingObject extends FieldObject {
 	}
 
 	public void reassignPeople(BuildingObject bo, int numPeople, Terrain terrain) {
+		if (bo == this) {
+			return;
+		}
 		for (int i = 0; i < numPeople; i++) {
 			if (people.size() > 0) {
 				Person person = people.remove(0);

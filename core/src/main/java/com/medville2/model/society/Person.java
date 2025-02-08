@@ -40,8 +40,12 @@ public class Person implements Serializable {
 		return terrain.getField(i, j);
 	}
 
-	public void setHome(BuildingObject home) {
-		this.home = home;
+	public boolean setHome(BuildingObject home) {
+		if (this.home != home) {
+			this.home = home;
+			return true;
+		}
+		return false;
 	}
 
 	public void tick(Terrain terrain, Calendar calendar) {
@@ -76,6 +80,9 @@ public class Person implements Serializable {
 			}
 		} else if (task != null) {
 			path = Path.findPath(field, ImmutableSet.of(task.nextDestination()), terrain, Field::walkable);
+			if (path == null) {
+				task = null;
+			}
 		}
 
 		Field field2 = getField(terrain);
