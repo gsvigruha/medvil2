@@ -43,7 +43,7 @@ public class Path {
 	}
 
 	private static float estimateD(Field start, Field dest) {
-		return Math.abs(start.getI() - dest.getI()) + Math.abs(start.getJ() - dest.getJ());
+		return Math.min(Math.abs(start.getI() - dest.getI()), Math.abs(start.getJ() - dest.getJ()));
 	}
 
 	public static Path findPath(Field start, Set<Field> dest, Terrain terrain, Function<Field, Boolean> fieldChecker) {

@@ -51,8 +51,8 @@ public abstract class BuildingObject extends FieldObject {
 	public void addPerson(Person person, Terrain terrain) {
 		if (person.setHome(this)) {
 			person.setTask(new GoHomeTask(terrain.getField(getI(), getJ())));
-			this.people.add(person);
 		}
+		this.people.add(person);
 	}
 
 	public void addMoney(int money) {
