@@ -18,4 +18,9 @@ public class GoHomeTask extends Task implements Serializable {
 	public Field nextDestination() {
 		return home;
 	}
+
+	@Override
+	public boolean arrivedAt(Field field) {
+		return true;
+	}
 }

@@ -38,7 +38,7 @@ public class TextureHelper {
 		images.put("tower", "tower.png");
 		images.put("townsquare", "townsquare.png");
 		images.put("mill", "mill_2.png");
-		images.put("workshop", "workshop_3.png");
+		images.put("workshop", "workshop_4.png");
 		images.put("blacksmith", "blacksmith.png");
 		images.put("wall", "wall_4.png");
 		images.put("grain", "grain.png");
@@ -58,6 +58,7 @@ public class TextureHelper {
 		images.put("selection_green", "selection_green.png");
 		images.put("arrow_small", "arrow_small.png");
 		images.put("cancel", "cancel.png");
+		images.put("wooden_plack", "wooden_plack.png");
 
 		images.put("storage", "storage.png");
 

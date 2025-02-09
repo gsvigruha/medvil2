@@ -76,7 +76,10 @@ public class Person implements Serializable {
 					}
 				}
 			} else {
-
+				if (task.arrivedAt(field)) {
+					task = null;
+				}
+				path = null;
 			}
 		} else if (task != null) {
 			path = Path.findPath(field, ImmutableSet.of(task.nextDestination()), terrain, Field::walkable);

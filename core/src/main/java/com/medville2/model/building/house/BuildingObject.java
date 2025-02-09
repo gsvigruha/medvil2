@@ -11,6 +11,7 @@ import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.society.Person;
 import com.medville2.model.society.Town;
 import com.medville2.model.task.GoHomeTask;
+import com.medville2.model.task.MarketTask;
 import com.medville2.model.time.Calendar;
 
 public abstract class BuildingObject extends FieldObject {
@@ -51,8 +52,8 @@ public abstract class BuildingObject extends FieldObject {
 	public void addPerson(Person person, Terrain terrain) {
 		if (person.setHome(this)) {
 			person.setTask(new GoHomeTask(terrain.getField(getI(), getJ())));
-			this.people.add(person);
 		}
+		this.people.add(person);
 	}
 
 	public void addMoney(int money) {
@@ -75,6 +76,9 @@ public abstract class BuildingObject extends FieldObject {
 	public void tick(Terrain terrain, Calendar calendar) {
 		for (Person person : people) {
 			person.tick(terrain, calendar);
+		}
+		if (calendar.getHour() == 1 && calendar.getDay() % 90 == 0 && people.size() > 0) {
+			people.get(0).setTask(new MarketTask(town.getTownsquare(), this, terrain, null, null));
 		}
 	}
 }
