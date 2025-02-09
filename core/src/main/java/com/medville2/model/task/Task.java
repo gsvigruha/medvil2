@@ -9,4 +9,6 @@ public abstract class Task implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public abstract Field nextDestination();
+
+	public abstract boolean arrivedAt(Field field);
 }
