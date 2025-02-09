@@ -1,11 +1,11 @@
 medville_textures.png
-size: 3288, 3288
+size: 3298, 3298
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 cancel
   rotate: false
-  xy: 1030, 160
+  xy: 1159, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -33,7 +33,7 @@ water_sparkle_3
   index: -1
 blacksmith
   rotate: false
-  xy: 516, 160
+  xy: 645, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -103,7 +103,7 @@ water_sparkle_6
   index: -1
 farm
   rotate: false
-  xy: 1287, 160
+  xy: 1416, 160
   size: 256, 315
   orig: 256, 315
   offset: 0, 0
@@ -117,7 +117,7 @@ artifact_leather
   index: -1
 grain
   rotate: false
-  xy: 1801, 160
+  xy: 1930, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -173,7 +173,7 @@ selection_red
   index: -1
 fishnet
   rotate: false
-  xy: 1544, 160
+  xy: 1673, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -195,6 +195,13 @@ peasant_back
 artifact_flour
   rotate: false
   xy: 1579, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+wooden_plack
+  rotate: false
+  xy: 516, 160
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -250,7 +257,7 @@ peasant_back
   index: 2
 mill
   rotate: false
-  xy: 2572, 160
+  xy: 2701, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -264,7 +271,7 @@ tree_small
   index: -1
 bridge
   rotate: false
-  xy: 773, 160
+  xy: 902, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -355,7 +362,7 @@ artifact_stone
   index: -1
 grass
   rotate: false
-  xy: 2058, 160
+  xy: 2187, 160
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
@@ -383,7 +390,7 @@ river_cube
   index: -1
 mine
   rotate: false
-  xy: 2829, 160
+  xy: 2958, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -425,7 +432,7 @@ arrow_small
   index: -1
 hill
   rotate: false
-  xy: 2315, 160
+  xy: 2444, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0

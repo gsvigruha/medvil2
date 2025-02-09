@@ -58,6 +58,7 @@ public class TextureHelper {
 		images.put("selection_green", "selection_green.png");
 		images.put("arrow_small", "arrow_small.png");
 		images.put("cancel", "cancel.png");
+		images.put("wooden_plack", "wooden_plack.png");
 
 		images.put("storage", "storage.png");
 

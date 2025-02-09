@@ -35,6 +35,9 @@ public class Renderer {
 	public static final int ZOOM_LEVEL_BIRD_EYE = 1;
 	public static final int ZOOM_LEVEL_MAP = 2;
 
+	private static final int MAP_ICON_SX = 96;
+	private static final int MAP_ICON_SY = 96;
+	
 	private Game game;
 	private ControlPanel controlPanel;
 	private Vector2 worldPos;
@@ -227,11 +230,18 @@ public class Renderer {
 					if (fo.getType() == Hill.Type) {
 						Hill hill = (Hill) fo;
 						if (hill.getMineral() != null) {
+							Sprite woodenPlackSprite = new Sprite(
+									textureAtlas.findRegion("wooden_plack"));
+							woodenPlackSprite.setSize(MAP_ICON_SX, MAP_ICON_SY);
+							woodenPlackSprite.translate(ox + Terrain.DX / 2 - MAP_ICON_SX / 2,
+									oy + Terrain.DY / 2 - MAP_ICON_SY / 2);
+							woodenPlackSprite.draw(batch);
+
 							Sprite mineralSprite = new Sprite(
 									textureAtlas.findRegion("artifact_" + hill.getMineral().toLowerCase()));
-							mineralSprite.setSize(96, 96);
-							mineralSprite.translate(ox + Terrain.DX / 2 - mineralSprite.getWidth() / 2,
-									oy + Terrain.DY / 2 - mineralSprite.getHeight() / 2);
+							mineralSprite.setSize(MAP_ICON_SX, MAP_ICON_SY);
+							mineralSprite.translate(ox + Terrain.DX / 2 - MAP_ICON_SX / 2,
+									oy + Terrain.DY / 2 - MAP_ICON_SY / 2);
 							mineralSprite.draw(batch);
 						}
 					}
