@@ -6,7 +6,6 @@ import java.util.Map;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
-import com.medville2.model.task.MarketTask;
 import com.medville2.model.time.Calendar;
 
 public class Farm extends BuildingObject {
@@ -88,9 +87,6 @@ public class Farm extends BuildingObject {
 				for (Map.Entry<String, Integer> yield : field.getKey().getObject().getYield(calendar).entrySet()) {
 					artifacts.add(yield.getKey(), yield.getValue());
 				}
-			}
-			if (calendar.getDay() % 90 == 0 && people.size() > 0) {
-				people.get(0).setTask(new MarketTask(town.getTownsquare(), this, terrain, null, null));
 			}
 		}
 	}
