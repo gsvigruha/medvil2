@@ -112,6 +112,10 @@ public class Person implements Serializable {
 		return dir;
 	}
 
+	public boolean isFree() {
+		return task == null;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
