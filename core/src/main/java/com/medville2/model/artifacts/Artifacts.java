@@ -59,17 +59,19 @@ public class Artifacts implements Serializable {
 	}
 
 	public void add(String artifact, int quantity) {
-		if (artifacts.containsKey(artifact)) {
-			artifacts.put(artifact, artifacts.get(artifact) + quantity);
+		Integer existing = artifacts.get(artifact);
+		if (existing != null) {
+			artifacts.put(artifact, existing + quantity);
 		} else {
 			artifacts.put(artifact, quantity);
 		}
 	}
 
 	public void remove(String artifact, int quantity) {
-		if (artifacts.containsKey(artifact)) {
-			if (artifacts.get(artifact) >= quantity) {
-				artifacts.put(artifact, artifacts.get(artifact) - quantity);
+		Integer existing = artifacts.get(artifact);
+		if (existing != null) {
+			if (existing >= quantity) {
+				artifacts.put(artifact, existing - quantity);
 			} else {
 				artifacts.put(artifact, 0);
 			}
