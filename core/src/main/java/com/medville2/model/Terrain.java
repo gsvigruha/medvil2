@@ -316,7 +316,7 @@ public class Terrain implements Serializable {
 			Field[] fields = getFields()[i];
 			for (int j = 0; j < getSize(); j++) {
 				Field field = fields[j];
-				if (field.getObject() != null) {
+				if (field.getObject() != null && field.getObject().getI() == i && field.getObject().getJ() == j) {
 					field.getObject().tick(this, calendar);
 				}
 			}

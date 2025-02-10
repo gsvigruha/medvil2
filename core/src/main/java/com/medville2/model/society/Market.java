@@ -2,9 +2,12 @@ package com.medville2.model.society;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.medville2.model.artifacts.Artifacts;
+import com.medville2.model.building.house.BuildingObject;
+import com.medville2.model.task.MarketTask.Batch;
 
 public class Market implements Serializable {
 
@@ -25,5 +28,9 @@ public class Market implements Serializable {
 
 	public Map<String, Integer> getPrices() {
 		return prices;
+	}
+
+	public void transact(List<Batch> batches, BuildingObject buyer, BuildingObject seller) {
+		
 	}
 }

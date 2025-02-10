@@ -2,8 +2,10 @@ package com.medville2.model.building.house;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
+import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.FieldObjectType;
@@ -13,6 +15,7 @@ import com.medville2.model.society.Person;
 import com.medville2.model.society.Town;
 import com.medville2.model.task.GoHomeTask;
 import com.medville2.model.task.MarketTask;
+import com.medville2.model.task.MarketTask.Batch;
 import com.medville2.model.time.Calendar;
 
 public abstract class BuildingObject extends FieldObject {
@@ -23,7 +26,7 @@ public abstract class BuildingObject extends FieldObject {
 	protected int money;
 	protected Town town;
 	protected List<Person> people;
-	
+
 	protected int ytdIncome;
 
 	public BuildingObject(Field field, FieldObjectType type) {
@@ -79,6 +82,12 @@ public abstract class BuildingObject extends FieldObject {
 		return people.stream().filter(p -> p.isFree()).findFirst();
 	}
 
+	protected abstract Map<String, Integer> artifactsToSell();
+
+	protected List<Batch> artifactsToBuy() {
+		return ImmutableList.of();
+	};
+
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
 		for (Person person : people) {
@@ -87,7 +96,8 @@ public abstract class BuildingObject extends FieldObject {
 		if (calendar.isMarketTime()) {
 			Optional<Person> person = pickFreePerson();
 			if (person.isPresent()) {
-				person.get().setTask(new MarketTask(town.getTownsquare(), this, terrain, null, null));
+				person.get().setTask(new MarketTask(town.getTownsquare(), this, terrain, artifactsToBuy(),
+						MarketTask.createBatch(artifactsToSell(), artifacts)));
 			}
 		}
 		if (calendar.isTaxTime()) {

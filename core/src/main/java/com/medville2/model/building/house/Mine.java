@@ -1,8 +1,12 @@
 package com.medville2.model.building.house;
 
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
+import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.society.Person;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.time.Calendar;
@@ -39,5 +43,10 @@ public class Mine extends BuildingObject {
 			people.clear();
 			terrain.getField(getI(), getJ()).setObject(null);
 		}
+	}
+
+	@Override
+	protected Map<String, Integer> artifactsToSell() {
+		return ImmutableMap.of(Artifacts.GOLD, 1, Artifacts.IRON, 1, Artifacts.STONE, 1, Artifacts.CLAY, 1);
 	}
 }

@@ -2,6 +2,7 @@ package com.medville2.model.building.house;
 
 import java.util.Map;
 
+import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
@@ -30,4 +31,8 @@ public class Townsquare extends BuildingObject {
 		return market.getPrices();
 	}
 
+	@Override
+	protected Map<String, Integer> artifactsToSell() {
+		return ImmutableMap.of();
+	}
 }
