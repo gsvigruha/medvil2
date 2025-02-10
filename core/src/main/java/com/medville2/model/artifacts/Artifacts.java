@@ -54,11 +54,25 @@ public class Artifacts implements Serializable {
 		this.artifacts = new HashMap<>();
 	}
 
+	public Artifacts(Map<String, Integer> artifacts) {
+		this.artifacts = new HashMap<>(artifacts);
+	}
+
 	public void add(String artifact, int quantity) {
 		if (artifacts.containsKey(artifact)) {
 			artifacts.put(artifact, artifacts.get(artifact) + quantity);
 		} else {
 			artifacts.put(artifact, quantity);
+		}
+	}
+
+	public void remove(String artifact, int quantity) {
+		if (artifacts.containsKey(artifact)) {
+			if (artifacts.get(artifact) >= quantity) {
+				artifacts.put(artifact, artifacts.get(artifact) - quantity);
+			} else {
+				artifacts.put(artifact, 0);
+			}
 		}
 	}
 

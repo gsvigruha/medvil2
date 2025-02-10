@@ -1,8 +1,8 @@
 package com.medville2.model.building.house;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
@@ -45,8 +45,20 @@ public class Mine extends BuildingObject {
 		}
 	}
 
+	private void pickArtifact(Map<String, Integer> target, String artifact, int maxQuantity) {
+		Integer q = artifacts.get(artifact);
+		if (q != null) {
+			target.put(artifact, q);
+		}
+	}
+
 	@Override
 	protected Map<String, Integer> artifactsToSell() {
-		return ImmutableMap.of(Artifacts.GOLD, 1, Artifacts.IRON, 1, Artifacts.STONE, 1, Artifacts.CLAY, 1);
+		Map<String, Integer> artifacts = new HashMap<>();
+		pickArtifact(artifacts, Artifacts.GOLD, 10);
+		pickArtifact(artifacts, Artifacts.IRON, 10);
+		pickArtifact(artifacts, Artifacts.STONE, 10);
+		pickArtifact(artifacts, Artifacts.CLAY, 10);
+		return artifacts;
 	}
 }

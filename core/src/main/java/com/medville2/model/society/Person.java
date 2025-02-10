@@ -48,6 +48,10 @@ public class Person implements Serializable {
 		return false;
 	}
 
+	public BuildingObject getHome() {
+		return home;
+	}
+
 	public void tick(Terrain terrain, Calendar calendar) {
 		Field field = getField(terrain);
 		if (path != null) {

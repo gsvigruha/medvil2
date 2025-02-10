@@ -19,7 +19,7 @@ public class Townsquare extends BuildingObject {
 
 	public Townsquare(Field field) {
 		super(field, Type);
-		this.market = new Market();
+		this.market = new Market(this);
 	}
 
 	@Override
@@ -34,5 +34,9 @@ public class Townsquare extends BuildingObject {
 	@Override
 	protected Map<String, Integer> artifactsToSell() {
 		return ImmutableMap.of();
+	}
+
+	public Market getMarket() {
+		return market;
 	}
 }
