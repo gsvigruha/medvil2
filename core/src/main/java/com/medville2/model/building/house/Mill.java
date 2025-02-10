@@ -1,5 +1,8 @@
 package com.medville2.model.building.house;
 
+import java.util.Map;
+
+import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
@@ -18,5 +21,10 @@ public class Mill extends BuildingObject {
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
 		super.tick(terrain, calendar);
+	}
+
+	@Override
+	protected Map<String, Integer> artifactsToSell() {
+		return ImmutableMap.of();
 	}
 }

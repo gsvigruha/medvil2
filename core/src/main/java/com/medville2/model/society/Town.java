@@ -12,10 +12,13 @@ public class Town implements Serializable {
 	private Country country;
 	private Townsquare townsquare;
 
+	private float taxRate;
+
 	public Town(Country country, Townsquare townsquare, String name) {
 		this.country = country;
 		this.townsquare = townsquare;
 		this.name = name;
+		this.taxRate = 0.2f;
 	}
 
 	public String getName() {
@@ -28,5 +31,9 @@ public class Town implements Serializable {
 
 	public Townsquare getTownsquare() {
 		return townsquare;
+	}
+
+	public float getTaxRate() {
+		return taxRate;
 	}
 }

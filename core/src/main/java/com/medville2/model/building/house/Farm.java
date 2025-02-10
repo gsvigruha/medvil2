@@ -3,6 +3,7 @@ package com.medville2.model.building.house;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
@@ -93,5 +94,10 @@ public class Farm extends BuildingObject {
 
 	public float getUsedCapacity() {
 		return (float) capacityUsed / (float) MAX_CAPACITY;
+	}
+
+	@Override
+	protected Map<String, Integer> artifactsToSell() {
+		return ImmutableMap.of();
 	}
 }

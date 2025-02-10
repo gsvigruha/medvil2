@@ -2,7 +2,10 @@ package com.medville2.model.building.house;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObject;
 import com.medville2.model.FieldObjectType;
@@ -22,6 +25,8 @@ public abstract class BuildingObject extends FieldObject {
 	protected int money;
 	protected Town town;
 	protected List<Person> people;
+
+	protected int ytdIncome;
 
 	public BuildingObject(Field field, FieldObjectType type) {
 		super(field, type);
@@ -72,13 +77,33 @@ public abstract class BuildingObject extends FieldObject {
 		}
 	}
 
+	private Optional<Person> pickFreePerson() {
+		return people.stream().filter(p -> p.isFree()).findFirst();
+	}
+
+	protected abstract Map<String, Integer> artifactsToSell();
+
+	protected Map<String, Integer> artifactsToBuy() {
+		return ImmutableMap.of();
+	};
+
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
 		for (Person person : people) {
 			person.tick(terrain, calendar);
 		}
-		if (calendar.getHour() == 1 && calendar.getDay() % 90 == 0 && people.size() > 0) {
-			people.get(0).setTask(new MarketTask(town.getTownsquare(), this, terrain, null, null));
+		if (calendar.isMarketTime()) {
+			Optional<Person> person = pickFreePerson();
+			if (person.isPresent()) {
+				person.get().setTask(new MarketTask(town.getTownsquare(), person.get(), terrain, artifactsToBuy(),
+						artifactsToSell()));
+			}
+		}
+		if (calendar.isTaxTime()) {
+			int tax = Math.min((int) (ytdIncome * town.getTaxRate()), money);
+			addMoney(-tax);
+			town.getTownsquare().addMoney(tax);
+			ytdIncome = 0;
 		}
 	}
 }

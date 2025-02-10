@@ -99,7 +99,7 @@ public class Terrain implements Serializable {
 					if (hasNeighbor(i, j, Type.RIVER)) {
 						if (OpenSimplex2.noise2(CLAY_RANDOM_SEED, i, j, size, MINERAL_FREQ) > CLAY_THRESHOLD) {
 							field.setType(Type.ROCK);
-							field.setObject(new Hill(field, Artifacts.CLAY, 100));
+							field.setObject(new Hill(field, Artifacts.CLAY, (int) (Math.random() * 100)));
 						}
 					} else if (Math.random() < 0.2) {
 						Tree.TreeType type = Tree.TreeType.GREEN;
@@ -119,7 +119,12 @@ public class Terrain implements Serializable {
 							getField(i, j + 1).setObject(mountain);
 							getField(i + 1, j + 1).setObject(mountain);
 						} else if (field.getObject() == null) {
-							field.setObject(new Hill(field, getMiningArtifact(i, j), getMiningQuantity(i, j)));
+							Map.Entry<String, Integer> e = getMiningArtifact(i, j);
+							if (e != null) {
+								field.setObject(new Hill(field, e.getKey(), e.getValue()));
+							} else {
+								field.setObject(new Hill(field, null, 0));
+							}
 						}
 					}
 				}
@@ -138,27 +143,19 @@ public class Terrain implements Serializable {
 		LOGGER.info("Grass: " + nGrass + ", water: " + nWater + ", rock: " + nRock);
 	}
 
-	private String getMiningArtifact(int i, int j) {
+	private Map.Entry<String, Integer> getMiningArtifact(int i, int j) {
 		double gold = OpenSimplex2.noise2(GOLD_RANDOM_SEED, i, j, size, MINERAL_FREQ);
 		double iron = OpenSimplex2.noise2(IRON_RANDOM_SEED, i, j, size, MINERAL_FREQ);
 		double stone = OpenSimplex2.noise2(STONE_RANDOM_SEED, i, j, size, MINERAL_FREQ);
 
 		if (stone > STONE_THRESHOLD) {
-			return Artifacts.STONE;
+			return Map.entry(Artifacts.STONE, (int)((stone - STONE_THRESHOLD) / (1 - STONE_THRESHOLD) * 100));
 		} else if (iron > IRON_THRESHOLD) {
-			return Artifacts.IRON;
+			return Map.entry(Artifacts.IRON, (int)((iron - IRON_THRESHOLD) / (1 - IRON_THRESHOLD) * 100));
 		} else if (gold > GOLD_THRESHOLD) {
-			return Artifacts.GOLD;
+			return Map.entry(Artifacts.GOLD, (int)((gold - GOLD_THRESHOLD) / (1 - GOLD_THRESHOLD) * 100));
 		}  
 		return null;
-	}
-
-	private int getMiningQuantity(int i, int j) {
-		String artifact = getMiningArtifact(i, j);
-		if (artifact == null) {
-			return 0;
-		}
-		return 100;
 	}
 
 	private boolean isLargeMountain(int i, int j) {
@@ -319,7 +316,7 @@ public class Terrain implements Serializable {
 			Field[] fields = getFields()[i];
 			for (int j = 0; j < getSize(); j++) {
 				Field field = fields[j];
-				if (field.getObject() != null) {
+				if (field.getObject() != null && field.getObject().getI() == i && field.getObject().getJ() == j) {
 					field.getObject().tick(this, calendar);
 				}
 			}

@@ -54,11 +54,27 @@ public class Artifacts implements Serializable {
 		this.artifacts = new HashMap<>();
 	}
 
+	public Artifacts(Map<String, Integer> artifacts) {
+		this.artifacts = new HashMap<>(artifacts);
+	}
+
 	public void add(String artifact, int quantity) {
-		if (artifacts.containsKey(artifact)) {
-			artifacts.put(artifact, artifacts.get(artifact) + quantity);
+		Integer existing = artifacts.get(artifact);
+		if (existing != null) {
+			artifacts.put(artifact, existing + quantity);
 		} else {
 			artifacts.put(artifact, quantity);
+		}
+	}
+
+	public void remove(String artifact, int quantity) {
+		Integer existing = artifacts.get(artifact);
+		if (existing != null) {
+			if (existing >= quantity) {
+				artifacts.put(artifact, existing - quantity);
+			} else {
+				artifacts.put(artifact, 0);
+			}
 		}
 	}
 
@@ -70,9 +86,24 @@ public class Artifacts implements Serializable {
 		return artifacts.get(artifact);
 	}
 
+	public Integer get(String artifact, int max) {
+		Integer existing = artifacts.get(artifact);
+		if (existing != null && existing >= max) {
+			artifacts.put(artifact, existing - max);
+			return max;
+		} else {
+			artifacts.put(artifact, 0);
+			return existing;
+		}
+	}
+
 	public void addAll(Artifacts artifacts) {
 		for (Map.Entry<String, Integer> artifact : artifacts.iterable()) {
 			add(artifact.getKey(), artifact.getValue());
 		}
+	}
+
+	public boolean has(String artifact) {
+		return artifacts.containsKey(artifact) && artifacts.get(artifact) > 0;
 	}
 }
