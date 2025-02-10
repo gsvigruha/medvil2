@@ -37,4 +37,12 @@ public class Calendar implements Serializable {
 	public String render() {
 		return String.format("year of %d, day %d", year, day);
 	}
+
+	public boolean isTaxTime() {
+		return hour ==1 && day == 1;
+	}
+
+	public boolean isMarketTime() {
+		return hour ==1 && day % 90 == 0;
+	}
 }

@@ -15,7 +15,7 @@ public class Market implements Serializable {
 	public Market() {
 		this.prices = new HashMap<>();
 		for (String artifact : Artifacts.ARTIFACTS) {
-			prices.put(artifact, 10);
+			prices.put(artifact, 1);
 		}
 	}
 

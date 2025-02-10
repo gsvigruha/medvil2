@@ -3,6 +3,7 @@ package com.medville2.model.building.house;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
+import com.medville2.model.society.Person;
 import com.medville2.model.terrain.Hill;
 import com.medville2.model.time.Calendar;
 
@@ -27,8 +28,16 @@ public class Mine extends BuildingObject {
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
 		super.tick(terrain, calendar);
-		if (hill.getMineral() != null && !hill.isEmpty() && calendar.getHour() == 1) {
+		if (hill.getMineral() != null && !hill.isEmpty() && calendar.getHour() == 1 && calendar.getDay() % 30 == 1) {
 			artifacts.add(hill.getMineral(), hill.mine());
+		}
+		if (hill.isEmpty()) {
+			for (Person person : people) {
+				town.getTownsquare().addPerson(person, terrain);
+			}
+			town.getTownsquare().addMoney(money);
+			people.clear();
+			terrain.getField(getI(), getJ()).setObject(null);
 		}
 	}
 }

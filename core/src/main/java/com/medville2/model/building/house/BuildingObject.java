@@ -23,6 +23,8 @@ public abstract class BuildingObject extends FieldObject {
 	protected int money;
 	protected Town town;
 	protected List<Person> people;
+	
+	protected int ytdIncome;
 
 	public BuildingObject(Field field, FieldObjectType type) {
 		super(field, type);
@@ -82,11 +84,17 @@ public abstract class BuildingObject extends FieldObject {
 		for (Person person : people) {
 			person.tick(terrain, calendar);
 		}
-		if (calendar.getHour() == 1 && calendar.getDay() % 90 == 0) {
+		if (calendar.isMarketTime()) {
 			Optional<Person> person = pickFreePerson();
 			if (person.isPresent()) {
 				person.get().setTask(new MarketTask(town.getTownsquare(), this, terrain, null, null));
 			}
+		}
+		if (calendar.isTaxTime()) {
+			int tax = Math.min((int) (ytdIncome * town.getTaxRate()), money);
+			addMoney(-tax);
+			town.getTownsquare().addMoney(tax);
+			ytdIncome = 0;
 		}
 	}
 }
