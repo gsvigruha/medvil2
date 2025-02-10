@@ -84,7 +84,7 @@ public abstract class BuildingObject extends FieldObject {
 	protected abstract Map<String, Integer> artifactsToSell();
 
 	protected Map<String, Integer> artifactsToBuy() {
-		return ImmutableMap.of();
+		return ImmutableMap.of(Artifacts.FOOD, 5);
 	};
 
 	@Override
@@ -92,7 +92,7 @@ public abstract class BuildingObject extends FieldObject {
 		for (Person person : people) {
 			person.tick(terrain, calendar);
 		}
-		if (calendar.isMarketTime()) {
+		if (calendar.isMarketTime() && this != town.getTownsquare()) {
 			Optional<Person> person = pickFreePerson();
 			if (person.isPresent()) {
 				person.get().setTask(new MarketTask(town.getTownsquare(), person.get(), terrain, artifactsToBuy(),

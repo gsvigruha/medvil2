@@ -19,7 +19,7 @@ public class MarketTask extends Task implements Serializable {
 	private final Person person;
 	private final Field marketField;
 	private final Field homeField;
-	private final Artifacts buyArtifacts;
+	private Artifacts buyArtifacts;
 	private final Artifacts sellArtifacts;
 	private boolean toMarket;
 
@@ -47,9 +47,11 @@ public class MarketTask extends Task implements Serializable {
 	public boolean arrivedAt(Field field) {
 		if (toMarket) {
 			townsquare.getMarket().sell(sellArtifacts, person.getHome());
+			buyArtifacts = townsquare.getMarket().buy(buyArtifacts, person.getHome());
 			toMarket = false;
 			return false;
 		} else {
+			person.getHome().getArtifacts().addAll(buyArtifacts);
 			return true;
 		}
 	}
