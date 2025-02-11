@@ -3,10 +3,10 @@ package com.medville2.model.building.house;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
+import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.time.Calendar;
 
 public class Farm extends BuildingObject {
@@ -98,6 +98,11 @@ public class Farm extends BuildingObject {
 
 	@Override
 	protected Map<String, Integer> artifactsToSell() {
-		return ImmutableMap.of();
+		Map<String, Integer> artifacts = new HashMap<>();
+		pickArtifact(artifacts, Artifacts.GRAIN, 10);
+		pickArtifact(artifacts, Artifacts.FISH, 10);
+		pickArtifact(artifacts, Artifacts.SHEEP, 10);
+		pickArtifact(artifacts, Artifacts.LOGS, 10);
+		return artifacts;
 	}
 }

@@ -97,6 +97,14 @@ public class Artifacts implements Serializable {
 		}
 	}
 
+	public Artifacts getAll(Map<String, Integer> artifactsToGet) {
+		Map<String, Integer> result = new HashMap<>();
+		for (Map.Entry<String, Integer> e : artifactsToGet.entrySet()) {
+			result.put(e.getKey(), get(e.getKey(), e.getValue()));
+		}
+		return new Artifacts(result);
+	}
+
 	public void addAll(Artifacts artifacts) {
 		for (Map.Entry<String, Integer> artifact : artifacts.iterable()) {
 			add(artifact.getKey(), artifact.getValue());

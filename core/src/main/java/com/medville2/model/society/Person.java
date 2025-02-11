@@ -101,6 +101,7 @@ public class Person implements Serializable {
 
 	public void setTask(Task task) {
 		this.task = task;
+		task.start();
 		this.path = null;
 	}
 

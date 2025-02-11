@@ -19,19 +19,26 @@ public class MarketTask extends Task implements Serializable {
 	private final Person person;
 	private final Field marketField;
 	private final Field homeField;
-	private final Artifacts buyArtifacts;
-	private final Artifacts sellArtifacts;
+	private final Map<String, Integer> maxBuyArtifacts;
+	private final Map<String, Integer> maxSellArtifacts;
+	private Artifacts buyArtifacts;
+	private Artifacts sellArtifacts;
 	private boolean toMarket;
 
-	public MarketTask(Townsquare townsquare, Person person, Terrain terrain, Map<String, Integer> buyArtifacts, Map<String, Integer> sellArtifacts) {
+	public MarketTask(Townsquare townsquare, Person person, Terrain terrain, Map<String, Integer> maxBuyArtifacts, Map<String, Integer> maxSellArtifacts) {
 		this.townsquare = townsquare;
 		this.person = person;
 		this.marketField = terrain.getField(townsquare.getI(), townsquare.getJ());
 		BuildingObject home = person.getHome();
 		this.homeField = terrain.getField(home.getI(), home.getJ());
-		this.buyArtifacts = new Artifacts(buyArtifacts);
-		this.sellArtifacts = new Artifacts(sellArtifacts);
+		this.maxBuyArtifacts = maxBuyArtifacts;
+		this.maxSellArtifacts = maxSellArtifacts;
 		toMarket = true;
+	}
+
+	@Override
+	public void start() {
+		sellArtifacts = person.getHome().getArtifacts().getAll(maxSellArtifacts);
 	}
 
 	@Override
@@ -47,9 +54,11 @@ public class MarketTask extends Task implements Serializable {
 	public boolean arrivedAt(Field field) {
 		if (toMarket) {
 			townsquare.getMarket().sell(sellArtifacts, person.getHome());
+			buyArtifacts = townsquare.getMarket().buy(maxBuyArtifacts, person.getHome());
 			toMarket = false;
 			return false;
 		} else {
+			person.getHome().getArtifacts().addAll(buyArtifacts);
 			return true;
 		}
 	}

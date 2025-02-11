@@ -11,4 +11,6 @@ public abstract class Task implements Serializable {
 	public abstract Field nextDestination();
 
 	public abstract boolean arrivedAt(Field field);
+
+	public abstract void start();
 }

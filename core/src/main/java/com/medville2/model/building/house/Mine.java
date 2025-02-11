@@ -45,13 +45,6 @@ public class Mine extends BuildingObject {
 		}
 	}
 
-	private void pickArtifact(Map<String, Integer> target, String artifact, int maxQuantity) {
-		Integer q = artifacts.get(artifact);
-		if (q != null) {
-			target.put(artifact, q);
-		}
-	}
-
 	@Override
 	protected Map<String, Integer> artifactsToSell() {
 		Map<String, Integer> artifacts = new HashMap<>();
