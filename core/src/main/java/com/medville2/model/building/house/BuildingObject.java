@@ -87,6 +87,13 @@ public abstract class BuildingObject extends FieldObject {
 		return ImmutableMap.of(Artifacts.FOOD, 5);
 	};
 
+	protected void pickArtifact(Map<String, Integer> target, String artifact, int maxQuantity) {
+		Integer q = artifacts.get(artifact, maxQuantity);
+		if (q != null) {
+			target.put(artifact, q);
+		}
+	}
+
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
 		for (Person person : people) {

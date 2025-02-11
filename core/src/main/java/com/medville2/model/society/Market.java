@@ -32,9 +32,9 @@ public class Market implements Serializable {
 		return prices;
 	}
 
-	public Artifacts buy(Artifacts buyerArtifacts, BuildingObject buyer) {
+	public Artifacts buy(Map<String, Integer> maxBuyArtifacts, BuildingObject buyer) {
 		Artifacts artifacts = new Artifacts();
-		for (Entry<String, Integer> a : buyerArtifacts.iterable()) {
+		for (Entry<String, Integer> a : maxBuyArtifacts.entrySet()) {
 			int fullBatchPrice = prices.get(a.getKey()) * a.getValue();
 			if (buyer.getMoney() >= fullBatchPrice) {
 				Integer quantity = townsquare.getArtifacts().get(a.getKey(), a.getValue());

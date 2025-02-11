@@ -23,4 +23,8 @@ public class GoHomeTask extends Task implements Serializable {
 	public boolean arrivedAt(Field field) {
 		return true;
 	}
+
+	@Override
+	public void start() {		
+	}
 }
