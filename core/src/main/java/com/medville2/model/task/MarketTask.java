@@ -38,7 +38,7 @@ public class MarketTask extends Task implements Serializable {
 
 	@Override
 	public void start() {
-		sellArtifacts = person.getHome().getArtifacts().getAll(maxSellArtifacts);
+		sellArtifacts = new Artifacts(maxSellArtifacts);
 	}
 
 	@Override

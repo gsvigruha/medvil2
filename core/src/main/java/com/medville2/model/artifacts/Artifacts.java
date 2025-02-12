@@ -114,4 +114,9 @@ public class Artifacts implements Serializable {
 	public boolean has(String artifact) {
 		return artifacts.containsKey(artifact) && artifacts.get(artifact) > 0;
 	}
+
+	@Override
+	public String toString() {
+		return "Artifacts [artifacts=" + artifacts + "]";
+	}
 }
