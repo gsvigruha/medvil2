@@ -20,8 +20,8 @@ public class Grain extends TerrainObject {
 
 	@Override
 	public Map<String, Integer> getYield(Calendar calendar) {
-		if (calendar.getDay() % 180 == 1) {
-			return ImmutableMap.of(Artifacts.GRAIN, (int) (field.getCropYield() * 10));
+		if (calendar.getDay() % 180 == 1 && Math.random() < field.getCropYield()) {
+			return ImmutableMap.of(Artifacts.GRAIN, 1);
 		} else {
 			return ImmutableMap.of();
 		}

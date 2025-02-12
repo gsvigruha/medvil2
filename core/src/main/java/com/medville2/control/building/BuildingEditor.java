@@ -43,7 +43,7 @@ public abstract class BuildingEditor extends Editor {
 		peopleImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
 		peopleImage.setPosition(130, 560);
 
-		Label peopleLabel = new Label(String.valueOf(getFieldObject().getNumPeople()), new LabelStyle(font, Color.WHITE));
+		Label peopleLabel = new Label(getFieldObject().getNumPeopleHome() + "/" + getFieldObject().getNumPeople(), new LabelStyle(font, Color.WHITE));
 		peopleLabel.setPosition(200, 580);
 		peopleLabel.setAlignment(Align.left | Align.top);
 

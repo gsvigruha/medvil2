@@ -26,6 +26,7 @@ public class Person implements Serializable {
 	private BuildingObject home;
 	private Task task;
 	private Path path;
+	private boolean isHome;
 
 	public Person(BuildingObject home, int id) {
 		this.home = home;
@@ -93,6 +94,7 @@ public class Person implements Serializable {
 		}
 
 		Field field2 = getField(terrain);
+		isHome = field2.getObject() == home;
 		if (field != field2) {
 			field.unregister(this);
 			field2.register(this);
@@ -119,6 +121,10 @@ public class Person implements Serializable {
 
 	public boolean isFree() {
 		return task == null;
+	}
+
+	public boolean isHome() {
+		return isHome;
 	}
 
 	@Override

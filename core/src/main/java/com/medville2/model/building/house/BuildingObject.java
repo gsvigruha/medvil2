@@ -54,6 +54,10 @@ public abstract class BuildingObject extends FieldObject {
 		return people.size();
 	}
 
+	public int getNumPeopleHome() {
+		return (int) people.stream().filter(p -> p.isHome()).count();
+	}
+
 	public void addPerson(Person person, Terrain terrain) {
 		if (person.setHome(this)) {
 			person.setTask(new GoHomeTask(terrain.getField(getI(), getJ())));
