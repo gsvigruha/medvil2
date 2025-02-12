@@ -88,12 +88,15 @@ public abstract class BuildingObject extends FieldObject {
 	protected abstract Map<String, Integer> artifactsToSell();
 
 	protected Map<String, Integer> artifactsToBuy() {
-		return ImmutableMap.of(Artifacts.FOOD, 5);
+		if (money > 0 && !artifacts.has(Artifacts.FOOD)) {
+			return ImmutableMap.of(Artifacts.FOOD, 5);
+		}
+		return ImmutableMap.of();
 	};
 
 	protected void pickArtifact(Map<String, Integer> target, String artifact, int maxQuantity) {
 		Integer q = artifacts.remove(artifact, maxQuantity);
-		if (q != null) {
+		if (q != null && q > 0) {
 			target.put(artifact, q);
 		}
 	}
@@ -106,8 +109,12 @@ public abstract class BuildingObject extends FieldObject {
 		if (calendar.isMarketTime() && this != town.getTownsquare()) {
 			Optional<Person> person = pickFreePerson();
 			if (person.isPresent()) {
-				person.get().setTask(new MarketTask(town.getTownsquare(), person.get(), terrain, artifactsToBuy(),
-						artifactsToSell()));
+				var artifactsToSell = artifactsToSell();
+				var artifactsToBuy = artifactsToBuy();
+				if (!artifactsToSell.isEmpty() || !artifactsToBuy.isEmpty()) {
+					person.get().setTask(new MarketTask(town.getTownsquare(), person.get(), terrain, artifactsToBuy,
+							artifactsToSell));
+				}
 			}
 		}
 		if (calendar.isTaxTime()) {

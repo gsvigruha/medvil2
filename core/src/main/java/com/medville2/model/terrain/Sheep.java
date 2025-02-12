@@ -12,6 +12,8 @@ public class Sheep extends TerrainObject {
 	public static final FieldObjectType Type = new FieldObjectType("sheep", 1, Sheep.class);
 
 	public Sheep(Field field) {
-		super(field, Type, ImmutableList.of(new Yield(1f / (365f * 3f), Artifacts.SHEEP, 1)));
+		super(field, Type, ImmutableList.of(
+				new Yield(1f / (365f * 3f), Artifacts.SHEEP, 1),
+				new Yield(1f / 180f, Artifacts.WOOL, 1)));
 	}
 }

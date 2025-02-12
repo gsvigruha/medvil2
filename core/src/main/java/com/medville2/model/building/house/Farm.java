@@ -100,7 +100,8 @@ public class Farm extends BuildingObject {
 		Map<String, Integer> artifacts = new HashMap<>();
 		pickArtifact(artifacts, Artifacts.GRAIN, 10);
 		pickArtifact(artifacts, Artifacts.FISH, 10);
-		pickArtifact(artifacts, Artifacts.SHEEP, 10);
+		pickArtifact(artifacts, Artifacts.SHEEP, 2);
+		pickArtifact(artifacts, Artifacts.WOOL, 10);
 		pickArtifact(artifacts, Artifacts.LOGS, 10);
 		return artifacts;
 	}

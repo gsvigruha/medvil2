@@ -42,7 +42,7 @@ public abstract class TerrainObject extends FieldObject {
 	public Map<String, Integer> getYield(Calendar calendar, int numPeople) {
 		Map<String, Integer> result = new HashMap<>();
 		for (Yield yield : yields) {
-			if (Math.random() < yield.probability) {
+			if (Math.random() < yield.probability * numPeople) {
 				result.put(yield.artifact, yield.quantity);
 			}
 		}
