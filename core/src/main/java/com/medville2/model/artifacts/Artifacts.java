@@ -2,6 +2,7 @@ package com.medville2.model.artifacts;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -67,40 +68,32 @@ public class Artifacts implements Serializable {
 		}
 	}
 
-	public void remove(String artifact, int quantity) {
+	public Integer remove(String artifact, int quantity) {
 		Integer existing = artifacts.get(artifact);
 		if (existing != null) {
 			if (existing >= quantity) {
 				artifacts.put(artifact, existing - quantity);
+				return quantity;
 			} else {
 				artifacts.put(artifact, 0);
+				return existing;
 			}
 		}
+		return null;
 	}
 
 	public Iterable<Entry<String, Integer>> iterable() {
 		return artifacts.entrySet();
 	}
 
-	public Integer get(String artifact) {
+	public Integer check(String artifact) {
 		return artifacts.get(artifact);
 	}
 
-	public Integer get(String artifact, int max) {
-		Integer existing = artifacts.get(artifact);
-		if (existing != null && existing >= max) {
-			artifacts.put(artifact, existing - max);
-			return max;
-		} else {
-			artifacts.put(artifact, 0);
-			return existing;
-		}
-	}
-
-	public Artifacts getAll(Map<String, Integer> artifactsToGet) {
+	public Artifacts removeAll(Map<String, Integer> artifactsToGet) {
 		Map<String, Integer> result = new HashMap<>();
 		for (Map.Entry<String, Integer> e : artifactsToGet.entrySet()) {
-			result.put(e.getKey(), get(e.getKey(), e.getValue()));
+			result.put(e.getKey(), remove(e.getKey(), e.getValue()));
 		}
 		return new Artifacts(result);
 	}
@@ -113,5 +106,29 @@ public class Artifacts implements Serializable {
 
 	public boolean has(String artifact) {
 		return artifacts.containsKey(artifact) && artifacts.get(artifact) > 0;
+	}
+
+	@Override
+	public String toString() {
+		return "Artifacts [artifacts=" + artifacts + "]";
+	}
+
+	public void addAll(Map<String, Integer> artifacts) {
+		for (Map.Entry<String, Integer> artifact : artifacts.entrySet()) {
+			add(artifact.getKey(), artifact.getValue());
+		}
+	}
+
+	public boolean isEmpty() {
+		for (Map.Entry<String, Integer> a : artifacts.entrySet()) {
+			if (a.getValue() > 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public List<String> types() {
+		return ImmutableList.copyOf(artifacts.keySet());
 	}
 }

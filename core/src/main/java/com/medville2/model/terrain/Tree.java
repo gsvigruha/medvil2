@@ -1,12 +1,9 @@
 package com.medville2.model.terrain;
 
-import java.util.Map;
-
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.artifacts.Artifacts;
-import com.medville2.model.time.Calendar;
 
 public class Tree extends TerrainObject {
 
@@ -21,7 +18,7 @@ public class Tree extends TerrainObject {
 	private final TreeType type;
 
 	public Tree(TreeType type, Field field) {
-		super(field, Type);
+		super(field, Type, ImmutableList.of(new Yield(1f / (365f * 5f), Artifacts.LOGS, 10)));
 		this.type = type;
 	}
 
@@ -36,14 +33,5 @@ public class Tree extends TerrainObject {
 			return "tree_small";
 		}
 		return "tree";
-	}
-
-	@Override
-	public Map<String, Integer> getYield(Calendar calendar) {
-		if (calendar.getDay() == 1 && calendar.getYear() % 5 == 1) {
-			return ImmutableMap.of(Artifacts.LOGS, 10);
-		} else {
-			return ImmutableMap.of();
-		}
 	}
 }

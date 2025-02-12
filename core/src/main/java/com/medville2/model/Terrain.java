@@ -131,6 +131,13 @@ public class Terrain implements Serializable {
         	}
         }
 
+        reComputeDistanceFromWater();
+
+		LOGGER.info("Map of size " + size + " created");
+		LOGGER.info("Grass: " + nGrass + ", water: " + nWater + ", rock: " + nRock);
+	}
+
+	public void reComputeDistanceFromWater() {
         int[][] distanceFromWater = DistanceFromWater.computeDistanceFromWater(this);
         for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
@@ -138,9 +145,6 @@ public class Terrain implements Serializable {
 				field.setDistanceFromWater(distanceFromWater[i][j]);
 			}
         }
-
-		LOGGER.info("Map of size " + size + " created");
-		LOGGER.info("Grass: " + nGrass + ", water: " + nWater + ", rock: " + nRock);
 	}
 
 	private Map.Entry<String, Integer> getMiningArtifact(int i, int j) {

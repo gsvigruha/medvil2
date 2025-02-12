@@ -173,7 +173,9 @@ public class Renderer {
 
 				if (zoomLevel <= ZOOM_LEVEL_BIRD_EYE && (field.getObject() == null || !Field.PERSON_BLOCKING_OBJECTS.contains(field.getObject().getType()))) {
 					for (Person person : field.getPeople()) {
-						objectsToRender.add(new PersonRenderable(person, x, y));
+						if (!person.isHome()) {
+							objectsToRender.add(new PersonRenderable(person, x, y));
+						}
 					}
 				}
 				// font.draw(batch, String.valueOf(field.getDistanceFromWater()), x + 60, y +

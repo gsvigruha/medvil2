@@ -32,8 +32,9 @@ public class Mine extends BuildingObject {
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
 		super.tick(terrain, calendar);
-		if (hill.getMineral() != null && !hill.isEmpty() && calendar.getHour() == 1 && calendar.getDay() % 30 == 1) {
-			artifacts.add(hill.getMineral(), hill.mine());
+		if (hill.getMineral() != null && !hill.isEmpty() && calendar.getHour() == 1) {
+			var minerals = hill.getYield(calendar, getNumPeopleHome());
+			artifacts.addAll(hill.mine(minerals));
 		}
 		if (hill.isEmpty()) {
 			for (Person person : people) {
