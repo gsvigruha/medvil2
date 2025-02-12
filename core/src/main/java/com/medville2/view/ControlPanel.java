@@ -35,6 +35,7 @@ import com.medville2.model.Terrain;
 import com.medville2.model.building.house.Blacksmith;
 import com.medville2.model.building.house.BuildingObject;
 import com.medville2.model.building.house.Farm;
+import com.medville2.model.building.house.Kiln;
 import com.medville2.model.building.house.Mill;
 import com.medville2.model.building.house.Mine;
 import com.medville2.model.building.house.Townsquare;
@@ -69,7 +70,7 @@ public class ControlPanel {
 	private Group editorStack;
 
 	private List<FieldObjectType> houses = ImmutableList.of(Farm.Type, Mine.Type, Blacksmith.Type, Mill.Type,
-			Workshop.Type);
+			Workshop.Type, Kiln.Type);
 	private List<FieldObjectType> infra = ImmutableList.of(Road.Type, Bridge.Type, Tower.Type, Wall.Type);
 
 	public ControlPanel(Viewport hudViewport, TextureAtlas textureAtlas) {
