@@ -92,7 +92,7 @@ public abstract class BuildingObject extends FieldObject {
 	};
 
 	protected void pickArtifact(Map<String, Integer> target, String artifact, int maxQuantity) {
-		Integer q = artifacts.get(artifact, maxQuantity);
+		Integer q = artifacts.remove(artifact, maxQuantity);
 		if (q != null) {
 			target.put(artifact, q);
 		}

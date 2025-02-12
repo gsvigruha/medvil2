@@ -71,7 +71,7 @@ public abstract class BuildingEditor extends Editor {
 
 		int i = 0;
 		for (String artifact : Artifacts.ARTIFACTS) {
-			Integer quantity = getArtifacts().get(artifact);
+			Integer quantity = getArtifacts().check(artifact);
 			int x = (i % 4) * ARTIFACT_PX;
 			int y = (i / 4) * ARTIFACT_PY;
 			Image artifactImage = new Image(textureAtlas.findRegion("artifact_" + artifact.toLowerCase()));

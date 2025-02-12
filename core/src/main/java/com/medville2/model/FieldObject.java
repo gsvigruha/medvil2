@@ -44,7 +44,7 @@ public abstract class FieldObject implements Serializable {
 
 	public abstract void tick(Terrain terrain, Calendar calendar);
 
-	public Map<String, Integer> getYield(Calendar calendar) {
+	public Map<String, Integer> getYield(Calendar calendar, int numPeople) {
 		return ImmutableMap.of();
 	}
 }

@@ -83,11 +83,10 @@ public class Farm extends BuildingObject {
 	@Override
 	public void tick(Terrain terrain, Calendar calendar) {
 		super.tick(terrain, calendar);
+		int numPeople = getNumPeopleHome();
 		if (calendar.getHour() == 1) {
-			for (Map.Entry<Field, State> field : fields.entrySet()) {
-				for (Map.Entry<String, Integer> yield : field.getKey().getObject().getYield(calendar).entrySet()) {
-					artifacts.add(yield.getKey(), yield.getValue());
-				}
+			for (Field field : fields.keySet()) {
+				artifacts.addAll(field.getObject().getYield(calendar, numPeople));
 			}
 		}
 	}
