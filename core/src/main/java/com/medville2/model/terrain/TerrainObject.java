@@ -1,5 +1,6 @@
 package com.medville2.model.terrain;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,9 @@ public abstract class TerrainObject extends FieldObject {
 
 	private static final long serialVersionUID = 1L;
 
-	protected static class Yield {
+	protected static class Yield implements Serializable {
+		private static final long serialVersionUID = 1L;
+
 		protected float probability;
 		protected String artifact;
 		protected int quantity;
