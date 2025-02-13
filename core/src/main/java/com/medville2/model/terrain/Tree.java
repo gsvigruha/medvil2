@@ -22,6 +22,15 @@ public class Tree extends TerrainObject {
 		this.type = type;
 	}
 
+	public static TreeType randomType() {
+		if (Math.random() < 0.2) {
+			return Tree.TreeType.BLOOMING;
+		} else if (Math.random() < 0.2) {
+			return Tree.TreeType.SMALL;
+		}
+		return Tree.TreeType.GREEN;
+	}
+
 	@Override
 	public String getName() {
 		switch (type) {

@@ -1,5 +1,6 @@
 package com.medville2.model.terrain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,11 +14,15 @@ import com.medville2.model.Field;
 import com.medville2.model.Terrain;
 import com.medville2.model.building.infra.Road;
 
-public class Path {
+public class Path implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	static final Logger LOGGER = new Logger(Path.class.getName(), Logger.INFO);
 
-	private static class PathElement implements Comparable<PathElement> {
+	private static class PathElement implements Comparable<PathElement>, Serializable {
+		private static final long serialVersionUID = 1L;
+
 		private final Field field;
 		private final PathElement prev;
 		private final float d;

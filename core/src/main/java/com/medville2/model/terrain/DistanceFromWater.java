@@ -10,6 +10,7 @@ public class DistanceFromWater {
 	public static int[][] computeDistanceFromWater(Terrain terrain) {
 		int size = terrain.getSize();
 		int[][] result = new int[size][size];
+		@SuppressWarnings("unchecked")
 		ArrayList<Field>[] distances = new ArrayList[size * 2];
 		for (int i = 0; i < size * 2; i++) {
 			distances[i] = new ArrayList<>();
