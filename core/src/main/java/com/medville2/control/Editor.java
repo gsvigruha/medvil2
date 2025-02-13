@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
+import com.medville2.model.Terrain;
 import com.medville2.view.buttons.ButtonHelper;
 
 public abstract class Editor {
@@ -26,7 +27,7 @@ public abstract class Editor {
 
 	public abstract void handleClick(Field field);
 
-	public abstract Iterable<Actor> getActors();
+	public abstract Iterable<Actor> getActors(Terrain terrain);
 
 	public Editor() {
 		this.font = FontHelper.getInstance().getFont();

@@ -7,14 +7,21 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.google.common.collect.ImmutableList;
 import com.medville2.control.Editor;
+import com.medville2.model.Terrain;
 import com.medville2.model.artifacts.Artifacts;
 import com.medville2.model.building.house.BuildingObject;
+import com.medville2.view.buttons.ButtonHelper;
 
 public abstract class BuildingEditor extends Editor {
 
@@ -30,7 +37,8 @@ public abstract class BuildingEditor extends Editor {
 		this.textureAtlas = textureAtlas;
 	}
 
-	public Iterable<Actor> getActors() {
+	@Override
+	public Iterable<Actor> getActors(Terrain terrain) {
 		Image moneyImage = new Image(textureAtlas.findRegion("coin"));
 		moneyImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
 		moneyImage.setPosition(10, 560);
@@ -39,9 +47,20 @@ public abstract class BuildingEditor extends Editor {
 		moneyLabel.setPosition(80, 580);
 		moneyLabel.setAlignment(Align.left | Align.top);
 
-		Image peopleImage = new Image(textureAtlas.findRegion("head"));
-		peopleImage.setSize(ARTIFACT_SX, ARTIFACT_SY);
-		peopleImage.setPosition(130, 560);
+		ImageButton peopleButton = new ImageButton(new TextureRegionDrawable(textureAtlas.findRegion("head")));
+		peopleButton.setSize(ARTIFACT_SX, ARTIFACT_SY);
+		peopleButton.setPosition(130, 560);
+		peopleButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				getFieldObject().getTown().getTownsquare().reassignPeople(getFieldObject(), 1, terrain);
+			}
+		});
+		if (getFieldObject().getTown().getTownsquare().getNumPeople() == 0) {
+			peopleButton.setDisabled(true);
+			peopleButton.setTouchable(Touchable.disabled);
+		}
+		peopleButton.getStyle().over = ButtonHelper.getInstance().buttonBGSelectedSmall;
 
 		Label peopleLabel = new Label(getFieldObject().getNumPeopleHome() + "/" + getFieldObject().getNumPeople(), new LabelStyle(font, Color.WHITE));
 		peopleLabel.setPosition(200, 580);
@@ -50,7 +69,7 @@ public abstract class BuildingEditor extends Editor {
 		Label townLabel = headerLabel(
 				getFieldObject().getClass().getSimpleName() + " of " + getFieldObject().getTown().getName());
 		return ImmutableList.<Actor>builder().addAll(getActorsImpl()).addAll(getArtifactActors()).add(townLabel)
-				.add(moneyImage).add(moneyLabel).add(peopleImage).add(peopleLabel).build();
+				.add(moneyImage).add(moneyLabel).add(peopleLabel).add(peopleButton).build();
 	}
 
 	protected abstract Artifacts getArtifacts();

@@ -69,13 +69,14 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 	    hudViewport = new FitViewport(HUD_WIDTH, 1080, hudCamera); // HUD viewport size
 	    TextureAtlas textureAtlas = new TextureAtlas(Gdx.files.internal("medville_textures.atlas"));
 		controlPanel = new ControlPanel(hudViewport, textureAtlas);
-		controlPanel.foundTown();
 		renderer = new Renderer(controlPanel, textureAtlas, MAP_SIZE);
 		newGame(0.5, -2.0);
+		controlPanel.foundTown(game);
+		controlPanel.addMenuButtons(game);
 
 		InputMultiplexer im = new InputMultiplexer();
-		im.addProcessor(this);
 		im.addProcessor(controlPanel.getStage());
+		im.addProcessor(this);
 
 		Gdx.input.setInputProcessor(im);
         Gdx.app.setLogLevel(Application.LOG_INFO);
@@ -90,7 +91,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         Calendar calendar = new Calendar();
         game = new Game(calendar, terrain);
         renderer.setGame(game);
-        controlPanel.foundTown();
+        controlPanel.foundTown(game);
 	}
 
 	@Override
