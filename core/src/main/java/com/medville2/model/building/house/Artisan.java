@@ -49,4 +49,8 @@ public abstract class Artisan extends BuildingObject {
 		super.tick(terrain, calendar);
 		
 	}
+
+	public List<Manufacturing> getManufacturing() {
+		return manufacturing;
+	}
 }
