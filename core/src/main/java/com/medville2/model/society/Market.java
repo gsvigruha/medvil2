@@ -28,6 +28,14 @@ public class Market implements Serializable {
 		return prices.get(artifact);
 	}
 
+	public Integer getPrice(Map<String, Integer> artifacts) {
+		int price = 0;
+		for (var artifact : artifacts.entrySet()) {
+			price += prices.get(artifact.getKey()) * artifact.getValue();
+		}
+		return price;
+	}
+
 	public Map<String, Integer> getPrices() {
 		return prices;
 	}

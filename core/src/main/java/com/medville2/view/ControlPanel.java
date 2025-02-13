@@ -24,6 +24,7 @@ import com.medville2.control.BuildingRules;
 import com.medville2.control.Editor;
 import com.medville2.control.FontHelper;
 import com.medville2.control.MenuEditor;
+import com.medville2.control.building.ArtisanEditor;
 import com.medville2.control.building.FarmEditor;
 import com.medville2.control.building.MineEditor;
 import com.medville2.control.building.TownsquareEditor;
@@ -32,6 +33,7 @@ import com.medville2.model.FieldObject;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Game;
 import com.medville2.model.Terrain;
+import com.medville2.model.building.house.Artisan;
 import com.medville2.model.building.house.Blacksmith;
 import com.medville2.model.building.house.BuildingObject;
 import com.medville2.model.building.house.Farm;
@@ -301,6 +303,9 @@ public class ControlPanel {
 			return new MineEditor((Mine) selectedFieldObject, (int) hudViewport.getWorldHeight(), textureAtlas);
 		} else if (selectedFieldObject.getClass().equals(Townsquare.class)) {
 			return new TownsquareEditor((Townsquare) selectedFieldObject, (int) hudViewport.getWorldHeight(),
+					textureAtlas);
+		} else if (selectedFieldObject instanceof Artisan) {
+			return new ArtisanEditor((Artisan) selectedFieldObject, (int) hudViewport.getWorldHeight(),
 					textureAtlas);
 		}
 		return null;
