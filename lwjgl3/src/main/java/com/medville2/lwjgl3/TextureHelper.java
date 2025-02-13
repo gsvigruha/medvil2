@@ -84,6 +84,10 @@ public class TextureHelper {
 		images.put("artifact_flour", "artifact_flour.png");
 		images.put("artifact_leather", "artifact_leather.png");
 		images.put("artifact_clay", "artifact_clay.png");
+		images.put("artifact_tools", "artifact_tools.png");
+		images.put("artifact_sword", "artifact_sword.png");
+		images.put("artifact_bow", "artifact_bow.png");
+		images.put("artifact_arrows", "artifact_arrows.png");
 
 		for (int i = 0; i < 8; i++) {
 			images.put("peasant_front#" + i, "peasant_front_" + i + ".png");

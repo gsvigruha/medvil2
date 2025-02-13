@@ -1,137 +1,144 @@
 medville_textures.png
-size: 3338, 3338
+size: 3376, 3376
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 cancel
   rotate: false
-  xy: 1159, 160
+  xy: 1675, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 artifact_wool
   rotate: false
-  xy: 3127, 0
+  xy: 387, 160
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 artifact_grain
   rotate: false
-  xy: 1966, 0
+  xy: 2224, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+artifact_arrows
+  rotate: false
+  xy: 1192, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 water_sparkle_3
   rotate: false
-  xy: 257, 763
+  xy: 514, 763
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 blacksmith
   rotate: false
-  xy: 645, 160
+  xy: 1161, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 water_sparkle_4
   rotate: false
-  xy: 514, 763
+  xy: 771, 763
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_1
   rotate: false
-  xy: 2827, 475
+  xy: 0, 763
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 mountain
   rotate: false
-  xy: 2120, 763
+  xy: 2377, 763
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water_sparkle_2
   rotate: false
-  xy: 0, 763
+  xy: 257, 763
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_7
   rotate: false
-  xy: 1285, 763
+  xy: 1542, 763
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 road
   rotate: false
-  xy: 514, 475
+  xy: 1028, 475
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_5
   rotate: false
-  xy: 771, 763
+  xy: 1028, 763
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 townsquare
   rotate: false
-  xy: 2633, 763
+  xy: 0, 1275
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 water_sparkle_6
   rotate: false
-  xy: 1028, 763
+  xy: 1285, 763
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 farm
   rotate: false
-  xy: 1416, 160
+  xy: 1932, 160
   size: 256, 315
   orig: 256, 315
   offset: 0, 0
   index: -1
 artifact_leather
   rotate: false
-  xy: 2224, 0
+  xy: 2482, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 grain
   rotate: false
-  xy: 1930, 160
+  xy: 2446, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 artifact_planks
   rotate: false
-  xy: 2482, 0
+  xy: 2740, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 tower
   rotate: false
-  xy: 1285, 475
+  xy: 1799, 475
   size: 256, 288
   orig: 256, 288
   offset: 0, 0
@@ -159,28 +166,28 @@ peasant_back
   index: 6
 workshop
   rotate: false
-  xy: 1542, 763
+  xy: 1799, 763
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 selection_red
   rotate: false
-  xy: 387, 160
+  xy: 903, 160
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 fishnet
   rotate: false
-  xy: 1673, 160
+  xy: 2189, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tree
   rotate: false
-  xy: 1542, 475
+  xy: 2056, 475
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -194,14 +201,14 @@ peasant_back
   index: 0
 artifact_flour
   rotate: false
-  xy: 1579, 0
+  xy: 1837, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 wooden_plack
   rotate: false
-  xy: 516, 160
+  xy: 1032, 160
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -222,14 +229,14 @@ peasant_back
   index: 4
 water
   rotate: false
-  xy: 2313, 475
+  xy: 2827, 475
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 water_sparkle_0
   rotate: false
-  xy: 2570, 475
+  xy: 3084, 475
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
@@ -241,9 +248,16 @@ peasant_back
   orig: 48, 64
   offset: 0, 0
   index: 1
+artifact_bow
+  rotate: false
+  xy: 1321, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 tree_cherry
   rotate: false
-  xy: 1799, 475
+  xy: 2313, 475
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -257,21 +271,21 @@ peasant_back
   index: 2
 mill
   rotate: false
-  xy: 2958, 160
+  xy: 257, 475
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tree_small
   rotate: false
-  xy: 2056, 475
+  xy: 2570, 475
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 bridge
   rotate: false
-  xy: 902, 160
+  xy: 1418, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -285,105 +299,119 @@ water_cube
   index: -1
 artifact_pottery
   rotate: false
-  xy: 2611, 0
+  xy: 2869, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-coin
+artifact_sword
   rotate: false
   xy: 0, 160
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+coin
+  rotate: false
+  xy: 516, 160
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 artifact_sheep
   rotate: false
-  xy: 2740, 0
+  xy: 2998, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 storage
   rotate: false
-  xy: 1799, 763
+  xy: 2056, 763
   size: 320, 427
   orig: 320, 427
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 129, 160
+  xy: 645, 160
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 rock
   rotate: false
-  xy: 771, 475
+  xy: 1285, 475
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 artifact_clay
   rotate: false
-  xy: 1321, 0
+  xy: 1579, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 kiln
   rotate: false
-  xy: 2701, 160
+  xy: 0, 475
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 artifact_gold
   rotate: false
-  xy: 1837, 0
+  xy: 2095, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+artifact_tools
+  rotate: false
+  xy: 258, 160
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 selection_green
   rotate: false
-  xy: 258, 160
+  xy: 774, 160
   size: 128, 96
   orig: 128, 96
   offset: 0, 0
   index: -1
 artifact_food
   rotate: false
-  xy: 1708, 0
+  xy: 1966, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 artifact_stone
   rotate: false
-  xy: 2869, 0
+  xy: 3127, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 grass
   rotate: false
-  xy: 2187, 160
+  xy: 2703, 160
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 artifact_fish
   rotate: false
-  xy: 1450, 0
+  xy: 1708, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 sheep
   rotate: false
-  xy: 1028, 475
+  xy: 1542, 475
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -397,14 +425,14 @@ river_cube
   index: -1
 mine
   rotate: false
-  xy: 0, 475
+  xy: 514, 475
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 artifact_bricks
   rotate: false
-  xy: 1192, 0
+  xy: 1450, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -418,7 +446,7 @@ rock_cube
   index: -1
 artifact_iron
   rotate: false
-  xy: 2095, 0
+  xy: 2353, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -439,7 +467,7 @@ arrow_small
   index: -1
 hill
   rotate: false
-  xy: 2444, 160
+  xy: 2960, 160
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -481,7 +509,7 @@ grass_cube
   index: -1
 artifact_textile
   rotate: false
-  xy: 2998, 0
+  xy: 129, 160
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -509,14 +537,14 @@ peasant_front
   index: 0
 river
   rotate: false
-  xy: 257, 475
+  xy: 771, 475
   size: 256, 192
   orig: 256, 192
   offset: 0, 0
   index: -1
 artifact_logs
   rotate: false
-  xy: 2353, 0
+  xy: 2611, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

@@ -31,6 +31,11 @@ public class Artifacts implements Serializable {
 	public static final String LEATHER = "LEATHER";
 	public static final String CLAY = "CLAY";
 
+	public static final String TOOLS = "TOOLS";
+	public static final String SWORD = "SWORD";
+	public static final String BOW = "BOW";
+	public static final String ARROWS = "ARROWS";
+
 	public static final ImmutableList<String> ARTIFACTS = ImmutableList.of(
 			SHEEP,
 			LOGS,
@@ -47,7 +52,11 @@ public class Artifacts implements Serializable {
 			POTTERY,
 			FLOUR,
 			LEATHER,
-			CLAY);
+			CLAY,
+			TOOLS,
+			SWORD,
+			BOW,
+			ARROWS);
 
 	private final Map<String, Integer> artifacts;
 
