@@ -40,21 +40,37 @@ public class Game implements Serializable {
 	private final Terrain terrain;
 	private final Country player;
 	private final List<Country> opponents;
-	private final List<String> availableTownNames;
-	private int personIdCtr;
+
+	public static class Globals {
+		private final List<String> availableTownNames;
+		private int personIdCtr;
+
+		private Globals() {
+			this.availableTownNames = new ArrayList<>();
+			this.availableTownNames.addAll(
+					ImmutableList.of("Ravenhold", "Drakenshire", "Eldermoor", "Highmere", "Grimthorne", "Vallenheim",
+							"Stormwatch", "Blackhollow", "Ironhaven", "Thornwick", "Frosthelm", "Dunharrow", "Goldmere",
+							"Shadowfen", "Wolfspire", "Westmere", "Stonebrook", "Gloomhaven", "Ebonford", "Harrowgate"));
+			Collections.shuffle(this.availableTownNames);
+			this.personIdCtr = 1;
+		}
+
+		public int nextPersonID() {
+			return ++personIdCtr;
+		}
+
+		public String nextTownName() {
+			return availableTownNames.remove(0);
+		}
+	}
+
+	private static Globals globals = new Globals();
 
 	public Game(Calendar calendar, Terrain terrain) {
 		this.calendar = calendar;
 		this.terrain = terrain;
 		this.player = new Country(true);
 		this.opponents = new ArrayList<>();
-		this.availableTownNames = new ArrayList<>();
-		this.availableTownNames.addAll(
-				ImmutableList.of("Ravenhold", "Drakenshire", "Eldermoor", "Highmere", "Grimthorne", "Vallenheim",
-						"Stormwatch", "Blackhollow", "Ironhaven", "Thornwick", "Frosthelm", "Dunharrow", "Goldmere",
-						"Shadowfen", "Wolfspire", "Westmere", "Stonebrook", "Gloomhaven", "Ebonford", "Harrowgate"));
-		Collections.shuffle(this.availableTownNames);
-		this.personIdCtr = 1;
 	}
 
 	public Calendar getCalendar() {
@@ -79,7 +95,7 @@ public class Game implements Serializable {
 	}
 
 	public String nextTownName() {
-		return availableTownNames.remove(0);
+		return globals.nextTownName();
 	}
 
 	public void save(String fileName) {
@@ -105,6 +121,10 @@ public class Game implements Serializable {
 	}
 
 	public int nextPersonID() {
-		return ++personIdCtr;
+		return globals.nextPersonID();
+	}
+
+	public static Globals globals() {
+		return globals;
 	}
 }

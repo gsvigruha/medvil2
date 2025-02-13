@@ -102,13 +102,7 @@ public class Terrain implements Serializable {
 							field.setObject(new Hill(field, Artifacts.CLAY, (int) (Math.random() * 100)));
 						}
 					} else if (Math.random() < 0.2) {
-						Tree.TreeType type = Tree.TreeType.GREEN;
-						if (Math.random() < 0.2) {
-							type = Tree.TreeType.BLOOMING;
-						} else if (Math.random() < 0.2) {
-							type = Tree.TreeType.SMALL;
-						}
-						field.setObject(new Tree(type, field));
+						field.setObject(new Tree(Tree.randomType(), field));
 					}
 				} else if (field.getType() == Field.Type.ROCK) {
 					if (!isFlat(i, j)) {

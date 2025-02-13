@@ -114,7 +114,7 @@ public class FarmEditor extends BuildingEditor {
 					field.setObject(new Sheep(field));
 					break;
 				case WOOD:
-					field.setObject(new Tree(Tree.TreeType.GREEN, field));
+					field.setObject(new Tree(farm.getTreeType(), field));
 					break;
 				default:
 				}

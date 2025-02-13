@@ -91,8 +91,6 @@ public class ControlPanel {
 
 		label = new Label("Hello, LibGDX!", new LabelStyle(FontHelper.getInstance().getFont(), Color.WHITE));
 		label.setPosition(10, 30);
-
-		addMenuButtons();
 	}
 
 	private void clearBuildingButtons() {
@@ -111,23 +109,23 @@ public class ControlPanel {
 		}
 	}
 
-	public void foundTown() {
+	public void foundTown(Game game) {
 		state = ControlPanelState.FOUND_TOWN;
 		for (ImageButton button : menuButtons.getButtons()) {
 			button.setDisabled(true);
 			button.setTouchable(Touchable.disabled);
 		}
-		setupEditor(new MenuEditor("Found a new town"));
+		setupEditor(new MenuEditor("Found a new town"), game.getTerrain());
 	}
 
-	private void addMenuButtons() {
+	public void addMenuButtons(Game game) {
 		addMenuButton(new TextureRegion(new Texture("arrow_small.png")), 10, (int) hudViewport.getWorldHeight() - 80,
 				new ClickListener() {
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
 						clearBuildingButtons();
 						ControlPanel.this.state = ControlPanelState.SELECT;
-						setupEditor(new MenuEditor("Select objects on the map"));
+						setupEditor(new MenuEditor("Select objects on the map"), game.getTerrain());
 					}
 				});
 
@@ -143,7 +141,7 @@ public class ControlPanel {
 									(int) hudViewport.getWorldHeight() - bi * 140 - 260, ControlPanelState.BUILD_HOUSE,
 									houses.get(i), i);
 						}
-						setupEditor(new MenuEditor("Select house to build"));
+						setupEditor(new MenuEditor("Select house to build"), game.getTerrain());
 						buildingButtons.getButtons().get(0).fire(helper.touchDownEvent);
 						buildingButtons.getButtons().get(0).fire(helper.touchUpEvent);
 					}
@@ -161,7 +159,7 @@ public class ControlPanel {
 									(int) hudViewport.getWorldHeight() - bi * 140 - 260, ControlPanelState.BUILD_INFRA,
 									infra.get(i), i);
 						}
-						setupEditor(new MenuEditor("Select infra to build"));
+						setupEditor(new MenuEditor("Select infra to build"), game.getTerrain());
 						buildingButtons.getButtons().get(0).fire(helper.touchDownEvent);
 						buildingButtons.getButtons().get(0).fire(helper.touchUpEvent);
 					}
@@ -208,7 +206,7 @@ public class ControlPanel {
 	public void render(Calendar calendar) {
 		int fps = Gdx.graphics.getFramesPerSecond();
 		label.setText("FPS: " + fps + ", " + calendar.render());
-		stage.act();
+		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 	}
 
@@ -259,6 +257,13 @@ public class ControlPanel {
 						bo.setTown(activeTown);
 						activeTown.getTownsquare().reassignPeople(bo, 1, terrain);
 					}
+					if (fcs.getBuildableObject() instanceof Artisan) {
+						Artisan a = (Artisan) fcs.getBuildableObject();
+						if (activeTown.getTownsquare().getMoney() >= 25) {
+							a.addMoney(25);
+							activeTown.getTownsquare().addMoney(-25);
+						}
+					}
 				}
 			} else if (state == ControlPanelState.SELECT) {
 				FieldObject selectedFieldObject = fcs.getBuildableObject();
@@ -267,7 +272,7 @@ public class ControlPanel {
 						activeTown = ((BuildingObject) selectedFieldObject).getTown();
 					}
 					state = ControlPanelState.MODIFY;
-					setupEditor(createEditor(selectedFieldObject));
+					setupEditor(createEditor(selectedFieldObject), game.getTerrain());
 				}
 			} else if (state == ControlPanelState.MODIFY) {
 				if (editor != null) {
@@ -286,11 +291,11 @@ public class ControlPanel {
 		}
 	}
 
-	private void setupEditor(Editor editor) {
+	private void setupEditor(Editor editor, Terrain terrain) {
 		this.editor = editor;
 		editorStack.clear();
 		if (editor != null) {
-			for (Actor actor : editor.getActors()) {
+			for (Actor actor : editor.getActors(terrain)) {
 				editorStack.addActor(actor);
 			}
 		}

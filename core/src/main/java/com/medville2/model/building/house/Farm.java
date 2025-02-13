@@ -7,6 +7,8 @@ import com.medville2.model.Field;
 import com.medville2.model.FieldObjectType;
 import com.medville2.model.Terrain;
 import com.medville2.model.artifacts.Artifacts;
+import com.medville2.model.terrain.Tree;
+import com.medville2.model.terrain.Tree.TreeType;
 import com.medville2.model.time.Calendar;
 
 public class Farm extends BuildingObject {
@@ -23,10 +25,12 @@ public class Farm extends BuildingObject {
 
 	private Map<Field, State> fields;
 	private int capacityUsed;
+	private final TreeType treeType;
 
 	public Farm(Field field) {
 		super(field, Type);
 		this.fields = new HashMap<>();
+		this.treeType = Tree.randomType();
 	}
 
 	public boolean hasCapacity(Field field) {
@@ -105,4 +109,8 @@ public class Farm extends BuildingObject {
 		pickArtifact(artifacts, Artifacts.LOGS, 10);
 		return artifacts;
 	}
+
+	public TreeType getTreeType() {
+		return treeType;
+	}	
 }
