@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.google.common.collect.ImmutableList;
 import com.medville2.model.Field;
@@ -16,18 +17,62 @@ import com.medville2.model.building.house.BuildingObject;
 public class ArtisanEditor extends BuildingEditor {
 
 	private final Artisan artisan;
-	private List<Label> manufactureLabels;
+	private List<Actor> manufactureActors;
 
 	public ArtisanEditor(Artisan artisan, int height, TextureAtlas textureAtlas) {
 		super(height, textureAtlas);
 		this.artisan = artisan;
-		this.manufactureLabels = new ArrayList<>();
+		this.manufactureActors = new ArrayList<>();
+		var H = 68;
+		var W = 64;
+		var S = 48;
 
 		int i = 0;
 		for (Manufacturing m : artisan.getManufacturing()) {
-			Label label = createLabel(10, height - 200 - i * 24);
+			boolean enabled = m.isProfitable(artisan.getTown().getTownsquare().getMarket());
+			Label label = createLabel(10, height - 200 + 4 - i * H);
 			label.setText(m.getName());
-			manufactureLabels.add(label);
+			if (!enabled) {
+				label.getColor().a = 0.5f;
+			}
+			manufactureActors.add(label);
+
+			int j = 0;
+			for (var e : m.getInputs().entrySet()) {
+				Label artifactLabel = createLabel(12 + j * W, height - 200 - i * H + 36);
+				artifactLabel.setText(e.getValue());
+				if (!enabled) {
+					artifactLabel.getColor().a = 0.5f;
+				}
+				manufactureActors.add(artifactLabel);
+
+				Image artifactImage = new Image(textureAtlas.findRegion("artifact_" + e.getKey().toLowerCase()));
+				artifactImage.setPosition(24 + j * W, height - 200 - i * H);
+				artifactImage.setSize(S, S);
+				if (!enabled) {
+					artifactImage.getColor().a = 0.5f;
+				}
+				manufactureActors.add(artifactImage);
+				j++;
+			}
+			j = 0;
+			for (var e : m.getOutputs().entrySet()) {
+				Label artifactLabel = createLabel(248 + j * W, height - 200 - i * H + 36);
+				artifactLabel.setText(e.getValue());
+				if (!enabled) {
+					artifactLabel.getColor().a = 0.5f;
+				}
+				manufactureActors.add(artifactLabel);
+
+				Image artifactImage = new Image(textureAtlas.findRegion("artifact_" + e.getKey().toLowerCase()));
+				artifactImage.setPosition(260 + j * W, height - 200 - i * H);
+				artifactImage.setSize(S, S);
+				if (!enabled) {
+					artifactImage.getColor().a = 0.5f;
+				}
+				manufactureActors.add(artifactImage);
+				j--;
+			}
 			i++;
 		}
 	}
@@ -39,7 +84,7 @@ public class ArtisanEditor extends BuildingEditor {
 
 	@Override
 	protected Iterable<Actor> getActorsImpl() {
-		return ImmutableList.copyOf(manufactureLabels);
+		return ImmutableList.copyOf(manufactureActors);
 	}
 
 	@Override
